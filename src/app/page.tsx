@@ -1,7 +1,9 @@
 "use client";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import ResumeForm from "@/components/ResumeForm";
 import ResumePreview from "@/components/ResumePreview";
+
+const SESSION_KEY = "resumevault-session";
 
 interface Analysis {
   role_title?: string;
@@ -32,6 +34,16 @@ export default function Home() {
   const [coverLetter, setCoverLetter] = useState<string | null>(null);
   const [interviewPrep, setInterviewPrep] = useState<InterviewPrep | null>(null);
   const [activePreviewTab, setActivePreviewTab] = useState<'resume' | 'cover' | 'prep'>('resume');
+  const [savedSession, setSavedSession] = useState<{
+    jobDesc: string; experience: string; skills: string; name: string; currentTitle: string;
+  } | undefined>(undefined);
+
+  useEffect(() => {
+    try {
+      const raw = localStorage.getItem(SESSION_KEY);
+      if (raw) setSavedSession(JSON.parse(raw));
+    } catch { /* ignore */ }
+  }, []);
 
   return (
     <main className="min-h-screen relative z-10">
@@ -116,6 +128,7 @@ export default function Home() {
             onAnalysis={setAnalysis}
             onCoverLetter={(cl) => { setCoverLetter(cl); setActivePreviewTab('cover'); }}
             onInterviewPrep={(p) => { setInterviewPrep(p); setActivePreviewTab('prep'); }}
+            initialValues={savedSession}
           />
         </div>
         <div className="[&_h2]:text-stone-900 [&_h2]:sans [&_p]:text-stone-500">
