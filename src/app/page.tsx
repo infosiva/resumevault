@@ -47,6 +47,11 @@ export default function Home() {
 
   return (
     <main className="min-h-screen relative z-10" style={{ background: '#0a0a0f', color: '#fff' }}>
+      {/* Noise + orbs */}
+      <div className="noise-overlay" aria-hidden="true" />
+      <div className="orb orb-1" style={{ background: 'radial-gradient(circle, rgba(245,158,11,0.15), transparent 70%)' }} aria-hidden="true" />
+      <div className="orb orb-2" style={{ background: 'radial-gradient(circle, rgba(245,158,11,0.10), transparent 70%)' }} aria-hidden="true" />
+
       {/* Nav — Premium Dark Recruitment */}
       <nav className="border-b border-white/5 sticky top-0 z-50 backdrop-blur-xl" style={{ background: 'rgba(10,10,15,0.92)' }}>
         <div className="max-w-7xl mx-auto px-6 py-0">
@@ -70,14 +75,15 @@ export default function Home() {
       </nav>
 
       {/* Hero — Premium Dark */}
-      <section className="border-b border-white/5" style={{ background: '#0a0a0f' }}>
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 py-12 md:py-24">
+      <section className="border-b border-white/5 relative overflow-hidden spotlight" style={{ background: '#0a0a0f' }}>
+        <div className="depth-grid absolute inset-0 -z-0" aria-hidden="true" />
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 py-12 md:py-24 relative z-10">
           <div className="max-w-4xl">
             {/* Badge */}
-            <div className="inline-flex items-center gap-2 text-xs font-semibold px-3 py-1.5 rounded-full border mb-7" style={{ borderColor: '#f59e0b', color: '#f59e0b', background: 'rgba(245,158,11,0.08)' }}>
+            <div className="badge-3d mb-7" style={{ '--theme-primary': '#f59e0b', '--theme-secondary': '#fbbf24' } as React.CSSProperties}>
               ✦ Powered by Claude AI · ATS-Optimised
             </div>
-            <h1 className="text-5xl md:text-7xl font-bold tracking-tight text-white leading-[0.95] mb-6">
+            <h1 className="text-5xl md:text-7xl font-bold tracking-tight text-white leading-[0.95] mb-6 reveal-3d">
               Land the job<br />
               <span style={{ textDecoration: 'underline', textDecorationColor: '#f59e0b', textDecorationThickness: '3px' }}>you deserve.</span>
             </h1>
