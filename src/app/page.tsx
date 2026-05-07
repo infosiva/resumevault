@@ -47,10 +47,10 @@ export default function Home() {
 
   return (
     <main className="min-h-screen relative z-10" style={{ background: '#0a0a0f', color: '#fff' }}>
-      {/* Noise + orbs */}
+      {/* Noise + liquid blobs */}
       <div className="noise-overlay" aria-hidden="true" />
-      <div className="orb orb-1" style={{ background: 'radial-gradient(circle, rgba(245,158,11,0.15), transparent 70%)' }} aria-hidden="true" />
-      <div className="orb orb-2" style={{ background: 'radial-gradient(circle, rgba(245,158,11,0.10), transparent 70%)' }} aria-hidden="true" />
+      <div className="liquid-blob liquid-blob-1" style={{ background: 'radial-gradient(circle, rgba(245,158,11,0.5), rgba(251,191,36,0.3) 60%, transparent)', top: '-120px', left: '-60px' }} aria-hidden="true" />
+      <div className="liquid-blob liquid-blob-2" style={{ background: 'radial-gradient(circle, rgba(217,119,6,0.4), transparent 60%)', top: '120px', right: '-80px' }} aria-hidden="true" />
 
       {/* Nav — Premium Dark Recruitment */}
       <nav className="border-b border-white/5 sticky top-0 z-50 backdrop-blur-xl" style={{ background: 'rgba(10,10,15,0.92)' }}>
