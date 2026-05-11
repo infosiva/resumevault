@@ -3,6 +3,7 @@ import './globals.css'
 import SharedNavbar from '@/components/SharedNavbar'
 import SharedFooter from '@/components/SharedFooter'
 import DesignEffects from '@/components/DesignEffects'
+import ChatBot from '@/components/ChatBot'
 import type { BrandConfig } from '@/components/SharedNavbar'
 
 const brand: BrandConfig = {
@@ -41,6 +42,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <SharedNavbar brand={brand} />
         <main className="flex-1 pt-16">{children}</main>
         <SharedFooter brand={brand} />
+        <ChatBot />
         <script src="http://31.97.56.148:3098/t.js" data-site="resumevault.app" defer></script>
       </body>
     </html>
