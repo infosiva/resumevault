@@ -1,5 +1,6 @@
 "use client";
 import { useState, useEffect, useRef } from "react";
+import { Panel, Group as PanelGroup, Separator as PanelResizeHandle } from "react-resizable-panels";
 import ResumeForm from "@/components/ResumeForm";
 import ResumePreview from "@/components/ResumePreview";
 import KeywordBar from "@/components/KeywordBar";
@@ -442,28 +443,29 @@ export default function Home() {
       </section>
 
       {/* Main Builder */}
-      <section id="how" className="max-w-7xl mx-auto px-4 sm:px-6 py-10 sm:py-14 grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8">
-        <div className="space-y-4">
-          <div className="rounded-2xl p-8 border" style={{ background: '#fff', borderColor: 'rgba(30,58,95,0.08)', boxShadow: '0 4px 20px rgba(30,58,95,0.06)' }}>
-            <ResumeForm
-              onGenerate={(r, s) => { setResume(r); setSuggestions(s ?? []); setActivePreviewTab('resume'); }}
-              setLoading={setLoading}
-              onAnalysis={setAnalysis}
-              onCoverLetter={(cl) => { setCoverLetter(cl); setActivePreviewTab('cover'); }}
-              onInterviewPrep={(p) => { setInterviewPrep(p); setActivePreviewTab('prep'); }}
-              onKeywords={(req, nice) => setJdKeywords({ required: req, niceToHave: nice })}
-              initialValues={savedSession}
-            />
+      <section id="how" className="max-w-7xl mx-auto px-4 sm:px-6 py-10 sm:py-14">
+        {/* Mobile: stacked */}
+        <div className="lg:hidden space-y-6">
+          <div className="space-y-4">
+            <div className="rounded-2xl p-8 border" style={{ background: '#fff', borderColor: 'rgba(30,58,95,0.08)', boxShadow: '0 4px 20px rgba(30,58,95,0.06)' }}>
+              <ResumeForm
+                onGenerate={(r, s) => { setResume(r); setSuggestions(s ?? []); setActivePreviewTab('resume'); }}
+                setLoading={setLoading}
+                onAnalysis={setAnalysis}
+                onCoverLetter={(cl) => { setCoverLetter(cl); setActivePreviewTab('cover'); }}
+                onInterviewPrep={(p) => { setInterviewPrep(p); setActivePreviewTab('prep'); }}
+                onKeywords={(req, nice) => setJdKeywords({ required: req, niceToHave: nice })}
+                initialValues={savedSession}
+              />
+            </div>
+            {(jdKeywords.required.length > 0 || jdKeywords.niceToHave.length > 0) && (
+              <KeywordBar
+                required={jdKeywords.required}
+                niceToHave={jdKeywords.niceToHave}
+                resumeText={resume ?? ''}
+              />
+            )}
           </div>
-          {(jdKeywords.required.length > 0 || jdKeywords.niceToHave.length > 0) && (
-            <KeywordBar
-              required={jdKeywords.required}
-              niceToHave={jdKeywords.niceToHave}
-              resumeText={resume ?? ''}
-            />
-          )}
-        </div>
-        <div>
           <ResumePreview
             resume={resume}
             loading={loading}
@@ -479,6 +481,61 @@ export default function Home() {
             }}
             onSkipSuggestion={(id) => setSuggestions(prev => prev.filter(x => x.id !== id))}
           />
+        </div>
+
+        {/* Desktop: resizable split pane */}
+        <div className="hidden lg:block" style={{ height: 'calc(100vh - 80px)' }}>
+          <PanelGroup orientation="horizontal" className="h-full">
+            <Panel defaultSize={45} minSize={30} maxSize={65}>
+              <div className="h-full overflow-y-auto pr-2 space-y-4">
+                <div className="rounded-2xl p-8 border" style={{ background: '#fff', borderColor: 'rgba(30,58,95,0.08)', boxShadow: '0 4px 20px rgba(30,58,95,0.06)' }}>
+                  <ResumeForm
+                    onGenerate={(r, s) => { setResume(r); setSuggestions(s ?? []); setActivePreviewTab('resume'); }}
+                    setLoading={setLoading}
+                    onAnalysis={setAnalysis}
+                    onCoverLetter={(cl) => { setCoverLetter(cl); setActivePreviewTab('cover'); }}
+                    onInterviewPrep={(p) => { setInterviewPrep(p); setActivePreviewTab('prep'); }}
+                    onKeywords={(req, nice) => setJdKeywords({ required: req, niceToHave: nice })}
+                    initialValues={savedSession}
+                  />
+                </div>
+                {(jdKeywords.required.length > 0 || jdKeywords.niceToHave.length > 0) && (
+                  <KeywordBar
+                    required={jdKeywords.required}
+                    niceToHave={jdKeywords.niceToHave}
+                    resumeText={resume ?? ''}
+                  />
+                )}
+              </div>
+            </Panel>
+
+            <PanelResizeHandle className="w-2 mx-1 flex items-center justify-center group cursor-col-resize">
+              <div className="w-1 h-16 rounded-full transition-colors" style={{ background: 'rgba(30,58,95,0.12)' }}
+                onMouseEnter={e => (e.currentTarget.style.background = 'rgba(245,158,11,0.5)')}
+                onMouseLeave={e => (e.currentTarget.style.background = 'rgba(30,58,95,0.12)')}
+              />
+            </PanelResizeHandle>
+
+            <Panel defaultSize={55} minSize={35}>
+              <div className="h-full overflow-y-auto pl-2">
+                <ResumePreview
+                  resume={resume}
+                  loading={loading}
+                  analysis={analysis}
+                  coverLetter={coverLetter}
+                  interviewPrep={interviewPrep}
+                  activeTab={activePreviewTab}
+                  onTabChange={setActivePreviewTab}
+                  suggestions={suggestions}
+                  onApproveSuggestion={(s) => {
+                    setResume(prev => prev ? `${prev}\n\n• ${s.text}` : `• ${s.text}`)
+                    setSuggestions(prev => prev.filter(x => x.id !== s.id))
+                  }}
+                  onSkipSuggestion={(id) => setSuggestions(prev => prev.filter(x => x.id !== id))}
+                />
+              </div>
+            </Panel>
+          </PanelGroup>
         </div>
       </section>
 

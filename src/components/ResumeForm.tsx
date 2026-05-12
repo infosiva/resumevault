@@ -411,7 +411,14 @@ export default function ResumeForm({
           lockedFeature="unlimited resume generations"
           accentColor="#f97316"
           site="resumevault"
-          onSuccess={onRegistered}
+          onSuccess={(user) => {
+            onRegistered()
+            fetch('/api/drip-subscribe', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({ email: user.email, firstName: user.username }),
+            }).catch(e => console.error('[drip] subscribe failed:', e.message))
+          }}
           onDismiss={dismissGate}
         />
       )}
