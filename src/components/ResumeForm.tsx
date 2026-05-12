@@ -34,11 +34,12 @@ interface InterviewPrep {
 }
 
 interface Props {
-  onGenerate: (resume: string) => void;
+  onGenerate: (resume: string, suggestions?: { id: string; text: string }[]) => void;
   setLoading: (v: boolean) => void;
   onAnalysis: (a: Analysis) => void;
   onCoverLetter: (cl: string) => void;
   onInterviewPrep: (prep: InterviewPrep) => void;
+  onKeywords?: (required: string[], niceToHave: string[]) => void;
   // receive initial values from saved session
   initialValues?: {
     jobDesc: string;
@@ -55,6 +56,7 @@ export default function ResumeForm({
   onAnalysis,
   onCoverLetter,
   onInterviewPrep,
+  onKeywords,
   initialValues,
 }: Props) {
   const { count: gateCount, showGate, increment: gateIncrement, onRegistered, dismissGate, isRegistered } = useGate("resumevault", 3);
@@ -65,6 +67,7 @@ export default function ResumeForm({
   const [skills, setSkills] = useState(initialValues?.skills ?? "");
   const [name, setName] = useState(initialValues?.name ?? "");
   const [currentTitle, setCurrentTitle] = useState(initialValues?.currentTitle ?? "");
+  const [parsedJd, setParsedJd] = useState(false);
   const [analyzing, setAnalyzing] = useState(false);
   const [generatingCL, setGeneratingCL] = useState(false);
   const [generatingPrep, setGeneratingPrep] = useState(false);
@@ -79,6 +82,22 @@ export default function ResumeForm({
     localStorage.setItem(SESSION_KEY, JSON.stringify(session));
     setSavedAt(new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }));
   }, [jobDesc, experience, skills, name, currentTitle]);
+
+  async function handleJdBlur() {
+    if (!jobDesc.trim() || parsedJd || !onKeywords) return
+    setParsedJd(true)
+    try {
+      const res = await fetch('/api/parse-jd', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ jobDesc }),
+      })
+      if (res.ok) {
+        const data = await res.json()
+        onKeywords(data.required ?? [], data.nice_to_have ?? [])
+      }
+    } catch {}
+  }
 
   async function handleAnalyze() {
     if (!jobDesc || !experience) return;
@@ -147,7 +166,7 @@ export default function ResumeForm({
         body: JSON.stringify({ jobDesc, experience, skills, name, currentTitle, mode: "generate" }),
       });
       const data = await res.json();
-      onGenerate(data.resume);
+      onGenerate(data.resume, data.suggestions ?? []);
     } finally {
       setLoading(false);
     }
@@ -178,7 +197,7 @@ export default function ResumeForm({
         body: JSON.stringify({ jobDesc, experience, skills, name, currentTitle, mode: "generate" }),
       });
       const rData = await rRes.json();
-      if (rData.resume) onGenerate(rData.resume);
+      if (rData.resume) onGenerate(rData.resume, rData.suggestions ?? []);
       setLoading(false);
 
       // 3. Cover letter
@@ -262,7 +281,8 @@ export default function ResumeForm({
           </label>
           <textarea
             value={jobDesc}
-            onChange={(e) => setJobDesc(e.target.value)}
+            onChange={(e) => { setJobDesc(e.target.value); setParsedJd(false) }}
+            onBlur={handleJdBlur}
             placeholder="Paste the full job description here — AI will extract keywords, required skills, and score your match..."
             rows={4}
             className={fieldClass}

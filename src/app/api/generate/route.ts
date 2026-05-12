@@ -127,9 +127,10 @@ Generate 8 questions covering: 2 technical, 3 behavioural, 2 situational, 1 cult
     }
   }
 
-  // Generate tailored resume
-  const { text } = await callAI(
-    `You are an expert resume writer and career coach. Create a professional, ATS-optimized resume.
+  // Generate tailored resume + AI bullet suggestions
+  const [resumeResult, suggestionsResult] = await Promise.all([
+    callAI(
+      `You are an expert resume writer and career coach. Create a professional, ATS-optimized resume.
 Rules:
 - Use the EXACT keywords from the job description (ATS requires this)
 - Start bullet points with strong action verbs (Led, Built, Drove, Increased, Reduced)
@@ -138,9 +139,9 @@ Rules:
 - Format in clean markdown with clear sections
 - Highlight skills that directly match job requirements
 - Keep it concise: 1 page ideally, 2 pages max`,
-    [{
-      role: "user",
-      content: `Create a tailored resume for this specific role.
+      [{
+        role: "user",
+        content: `Create a tailored resume for this specific role.
 
 CANDIDATE NAME: ${name || "Your Name"}
 CURRENT TITLE: ${currentTitle || "Professional"}
@@ -160,9 +161,42 @@ Generate a complete, tailored resume that:
 3. Quantifies achievements
 4. Includes a strong summary tailored to this specific job
 5. Lists skills in order of relevance to the job description`,
-    }],
-    3000,
-    'best',
-  )
-  return NextResponse.json({ resume: text })
+      }],
+      3000,
+      'best',
+    ),
+    callAI(
+      'You are a resume coach. Return ONLY valid JSON, no markdown.',
+      [{
+        role: 'user',
+        content: `Generate 4 strong bullet point suggestions to add to this resume for the role below.
+
+JOB DESCRIPTION:
+${(jobDesc ?? '').slice(0, 2000)}
+
+CANDIDATE EXPERIENCE:
+${(experience ?? '').slice(0, 1000)}
+
+Return JSON:
+{
+  "suggestions": [
+    { "id": "s1", "text": "Led migration of monolith to microservices, reducing deploy time by 60%" },
+    { "id": "s2", "text": "Built CI/CD pipeline with GitHub Actions, cutting release cycle from 2 weeks to 2 days" }
+  ]
+}
+
+Each suggestion: strong action verb, quantified result, directly addresses a JD requirement. Max 20 words each.`,
+      }],
+      600,
+      'balanced',
+    ),
+  ])
+
+  let suggestions: { id: string; text: string }[] = []
+  try {
+    const match = suggestionsResult.text.match(/\{[\s\S]*\}/)
+    suggestions = match ? (JSON.parse(match[0]).suggestions ?? []) : []
+  } catch {}
+
+  return NextResponse.json({ resume: resumeResult.text, suggestions })
 }

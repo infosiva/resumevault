@@ -2,6 +2,7 @@
 import { useState, useEffect, useRef } from "react";
 import ResumeForm from "@/components/ResumeForm";
 import ResumePreview from "@/components/ResumePreview";
+import KeywordBar from "@/components/KeywordBar";
 import GuidedTour, { type TourStep } from "@/components/GuidedTour";
 
 const RESUME_TOUR: TourStep[] = [
@@ -140,6 +141,8 @@ export default function Home() {
   } | undefined>(undefined);
   const [isPro, setIsPro] = useState(false);
   const [checkoutLoading, setCheckoutLoading] = useState(false);
+  const [suggestions, setSuggestions] = useState<{ id: string; text: string }[]>([]);
+  const [jdKeywords, setJdKeywords] = useState<{ required: string[]; niceToHave: string[] }>({ required: [], niceToHave: [] });
 
   useEffect(() => {
     try {
@@ -440,15 +443,25 @@ export default function Home() {
 
       {/* Main Builder */}
       <section id="how" className="max-w-7xl mx-auto px-4 sm:px-6 py-10 sm:py-14 grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8">
-        <div className="rounded-2xl p-8 border" style={{ background: '#fff', borderColor: 'rgba(30,58,95,0.08)', boxShadow: '0 4px 20px rgba(30,58,95,0.06)' }}>
-          <ResumeForm
-            onGenerate={(r) => { setResume(r); setActivePreviewTab('resume'); }}
-            setLoading={setLoading}
-            onAnalysis={setAnalysis}
-            onCoverLetter={(cl) => { setCoverLetter(cl); setActivePreviewTab('cover'); }}
-            onInterviewPrep={(p) => { setInterviewPrep(p); setActivePreviewTab('prep'); }}
-            initialValues={savedSession}
-          />
+        <div className="space-y-4">
+          <div className="rounded-2xl p-8 border" style={{ background: '#fff', borderColor: 'rgba(30,58,95,0.08)', boxShadow: '0 4px 20px rgba(30,58,95,0.06)' }}>
+            <ResumeForm
+              onGenerate={(r, s) => { setResume(r); setSuggestions(s ?? []); setActivePreviewTab('resume'); }}
+              setLoading={setLoading}
+              onAnalysis={setAnalysis}
+              onCoverLetter={(cl) => { setCoverLetter(cl); setActivePreviewTab('cover'); }}
+              onInterviewPrep={(p) => { setInterviewPrep(p); setActivePreviewTab('prep'); }}
+              onKeywords={(req, nice) => setJdKeywords({ required: req, niceToHave: nice })}
+              initialValues={savedSession}
+            />
+          </div>
+          {(jdKeywords.required.length > 0 || jdKeywords.niceToHave.length > 0) && (
+            <KeywordBar
+              required={jdKeywords.required}
+              niceToHave={jdKeywords.niceToHave}
+              resumeText={resume ?? ''}
+            />
+          )}
         </div>
         <div>
           <ResumePreview
@@ -459,6 +472,12 @@ export default function Home() {
             interviewPrep={interviewPrep}
             activeTab={activePreviewTab}
             onTabChange={setActivePreviewTab}
+            suggestions={suggestions}
+            onApproveSuggestion={(s) => {
+              setResume(prev => prev ? `${prev}\n\n• ${s.text}` : `• ${s.text}`)
+              setSuggestions(prev => prev.filter(x => x.id !== s.id))
+            }}
+            onSkipSuggestion={(id) => setSuggestions(prev => prev.filter(x => x.id !== id))}
           />
         </div>
       </section>

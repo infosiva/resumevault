@@ -39,6 +39,9 @@ interface Props {
   interviewPrep: InterviewPrep | null;
   activeTab: "resume" | "cover" | "prep";
   onTabChange: (tab: "resume" | "cover" | "prep") => void;
+  suggestions?: { id: string; text: string }[];
+  onApproveSuggestion?: (s: { id: string; text: string }) => void;
+  onSkipSuggestion?: (id: string) => void;
 }
 
 function MatchGauge({ score }: { score: number }) {
@@ -349,6 +352,9 @@ export default function ResumePreview({
   interviewPrep,
   activeTab,
   onTabChange,
+  suggestions = [],
+  onApproveSuggestion,
+  onSkipSuggestion,
 }: Props) {
   const [downloadOpen, setDownloadOpen] = useState(false);
 
@@ -602,6 +608,34 @@ h1{color:#111}h2{color:#333;border-bottom:1px solid #ddd}li{margin:0.2rem 0}
                   </div>
                 )}
               </div>
+              {/* AI Bullet Suggestions */}
+              {suggestions.length > 0 && (
+                <div className="mb-4 rounded-xl border border-cyan-500/20 bg-cyan-500/[0.04] p-4 space-y-2">
+                  <div className="text-[10px] text-cyan-400 uppercase tracking-wide font-semibold mb-3">
+                    ✦ AI-suggested bullet points — approve to add to resume
+                  </div>
+                  {suggestions.map(s => (
+                    <div key={s.id} className="flex items-start gap-3">
+                      <p className="flex-1 text-xs text-white/70 leading-relaxed">{s.text}</p>
+                      <div className="flex gap-1.5 flex-shrink-0">
+                        <button
+                          onClick={() => onApproveSuggestion?.(s)}
+                          className="text-[10px] px-2.5 py-1 rounded-lg bg-emerald-500/15 border border-emerald-500/30 text-emerald-300 hover:bg-emerald-500/25 transition-colors font-medium"
+                        >
+                          ✓ Use
+                        </button>
+                        <button
+                          onClick={() => onSkipSuggestion?.(s.id)}
+                          className="text-[10px] px-2.5 py-1 rounded-lg bg-white/[0.04] border border-white/[0.08] text-white/30 hover:text-white/50 transition-colors"
+                        >
+                          ✕
+                        </button>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              )}
+
               <div className="rounded-xl border border-white/5 bg-black/30 p-6 min-h-[350px] overflow-y-auto flex-1">
                 {loading ? (
                   <div className="flex flex-col items-center justify-center h-full gap-4">
@@ -612,10 +646,31 @@ h1{color:#111}h2{color:#333;border-bottom:1px solid #ddd}li{margin:0.2rem 0}
                     </p>
                   </div>
                 ) : resume ? (
-                  <div
-                    className="text-sm text-white/80 leading-relaxed prose prose-invert max-w-none"
-                    dangerouslySetInnerHTML={{ __html: mdToHtml(resume) }}
-                  />
+                  <div className="relative">
+                    {analysis?.match_score !== undefined && (
+                      <div className="absolute top-0 right-0 z-10">
+                        <svg viewBox="0 0 56 56" className="w-14 h-14 drop-shadow-lg">
+                          <circle cx="28" cy="28" r="22" fill="none" stroke="rgba(255,255,255,0.06)" strokeWidth="5" />
+                          <circle
+                            cx="28" cy="28" r="22"
+                            fill="none"
+                            stroke={analysis.match_score >= 75 ? '#10b981' : analysis.match_score >= 50 ? '#f59e0b' : '#ef4444'}
+                            strokeWidth="5"
+                            strokeLinecap="round"
+                            strokeDasharray={`${(analysis.match_score / 100) * 138.2} 138.2`}
+                            strokeDashoffset="34.5"
+                            transform="rotate(-90 28 28)"
+                          />
+                          <text x="28" y="30" textAnchor="middle" fill="white" fontSize="10" fontWeight="700">{analysis.match_score}</text>
+                          <text x="28" y="38" textAnchor="middle" fill="rgba(255,255,255,0.4)" fontSize="6">ATS</text>
+                        </svg>
+                      </div>
+                    )}
+                    <div
+                      className="text-sm text-white/80 leading-relaxed prose prose-invert max-w-none"
+                      dangerouslySetInnerHTML={{ __html: mdToHtml(resume) }}
+                    />
+                  </div>
                 ) : (
                   <div className="flex flex-col items-center justify-center h-full gap-3 text-center">
                     <div className="w-16 h-16 rounded-2xl bg-white/5 flex items-center justify-center text-3xl">
