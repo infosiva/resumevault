@@ -205,11 +205,11 @@ export default function Home() {
 
       {/* Subtle paper depth layers */}
       <div className="fixed inset-0 pointer-events-none" aria-hidden="true" style={{
-        background: 'radial-gradient(ellipse 80% 60% at 50% 0%, rgba(30,58,95,0.04) 0%, transparent 70%)',
+        background: 'radial-gradient(ellipse 80% 60% at 50% 0%, rgba(30,58,95,0.14) 0%, transparent 70%)',
         zIndex: 0,
       }} />
       <div className="fixed inset-0 pointer-events-none" aria-hidden="true" style={{
-        backgroundImage: 'radial-gradient(circle at 20% 80%, rgba(245,158,11,0.05) 0%, transparent 50%), radial-gradient(circle at 80% 20%, rgba(30,58,95,0.05) 0%, transparent 50%)',
+        backgroundImage: 'radial-gradient(circle at 20% 80%, rgba(245,158,11,0.18) 0%, transparent 50%), radial-gradient(circle at 80% 20%, rgba(30,58,95,0.12) 0%, transparent 50%)',
         zIndex: 0,
       }} />
 
