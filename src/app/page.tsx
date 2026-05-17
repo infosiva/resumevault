@@ -201,6 +201,7 @@ export default function Home() {
   ];
 
   return (
+    <>
     <main className="min-h-screen relative z-10" style={{ background: '#fafafa', color: '#111827' }}>
 
       {/* Subtle paper depth layers */}
@@ -663,14 +664,97 @@ export default function Home() {
         </div>
       </section>
 
+      {/* Competitor comparison */}
+      <section style={{ borderTop:'1px solid rgba(30,58,95,0.08)', padding:'48px 24px', background:'#f9fafb' }}>
+        <div style={{ maxWidth:800, margin:'0 auto' }}>
+          <div style={{ textAlign:'center', marginBottom:32 }}>
+            <p style={{ fontSize:10, color:'rgba(30,58,95,0.4)', letterSpacing:'0.15em', textTransform:'uppercase', marginBottom:8 }}>How we compare</p>
+            <h2 style={{ fontSize:20, fontWeight:800, color:'#1e3a5f' }}>ResumeVault vs alternatives</h2>
+          </div>
+          <div style={{ overflowX:'auto' }}>
+            <table style={{ width:'100%', borderCollapse:'collapse', fontSize:12, background:'#fff', borderRadius:12, overflow:'hidden', boxShadow:'0 1px 4px rgba(0,0,0,0.06)' }}>
+              <thead>
+                <tr style={{ borderBottom:'1px solid rgba(30,58,95,0.1)', background:'rgba(30,58,95,0.03)' }}>
+                  {['Feature','ResumeVault','Resume.io','Zety','Canva'].map((h,i) => (
+                    <th key={h} style={{ padding:'12px 14px', textAlign:i===0?'left':'center',
+                      color: i===1 ? '#1e3a5f' : '#9ca3af', fontWeight:700, fontSize:11, letterSpacing:'0.05em' }}>{h}</th>
+                  ))}
+                </tr>
+              </thead>
+              <tbody>
+                {[
+                  ['AI resume writer','✅ Claude AI','⚠️ Templates','⚠️ Templates','❌'],
+                  ['ATS optimization','✅ Built-in','✅','✅','❌'],
+                  ['No login required','✅','❌','❌','❌'],
+                  ['LinkedIn import','✅','❌','❌','❌'],
+                  ['Cover letter AI','✅','✅ Pro','✅ Pro','❌'],
+                  ['PDF download free','✅','❌ Paid','❌ Paid','✅'],
+                  ['Cost','Free / $9 mo','$9.95/mo','$8.25/mo','Free / $15 mo'],
+                ].map(row => (
+                  <tr key={row[0]} style={{ borderBottom:'1px solid rgba(30,58,95,0.06)' }}>
+                    {row.map((cell,i) => (
+                      <td key={i} style={{ padding:'10px 14px', textAlign:i===0?'left':'center',
+                        color: i===1 ? '#1e3a5f' : i===0 ? '#374151' : '#9ca3af',
+                        background: i===1 ? 'rgba(30,58,95,0.03)' : 'transparent', fontSize:11, fontWeight: i===1 ? 600 : 400 }}>{cell}</td>
+                    ))}
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
       {/* Footer */}
-      <footer className="border-t py-8" style={{ borderColor: 'rgba(30,58,95,0.06)', background: '#fff' }}>
-        <div className="max-w-7xl mx-auto px-6 flex items-center justify-between text-xs" style={{ color: '#9ca3af' }}>
-          <span className="font-bold" style={{ color: '#1e3a5f' }}>ResumeVault</span>
-          <span>© 2025 · AI-powered career toolkit · resumevault.app</span>
+      <footer style={{ borderTop:'1px solid rgba(30,58,95,0.08)', padding:'24px', background:'#fff' }}>
+        <div style={{ maxWidth:900, margin:'0 auto', display:'flex', flexWrap:'wrap', justifyContent:'space-between', alignItems:'center', gap:16 }}>
+          <div>
+            <span style={{ fontWeight:900, fontSize:15, color:'#1e3a5f' }}>ResumeVault</span>
+            <p style={{ fontSize:11, color:'#9ca3af', marginTop:4 }}>AI-powered resume builder — no login, no hidden fees.</p>
+          </div>
+          <div style={{ display:'flex', gap:20, flexWrap:'wrap' }}>
+            {[['About','/about'],['Privacy','/privacy'],['Terms','/terms'],['Cookie Policy','/cookies']].map(([label,href]) => (
+              <a key={label} href={href} style={{ fontSize:11, color:'#9ca3af', textDecoration:'none' }}
+                onMouseOver={e=>(e.currentTarget.style.color='#1e3a5f')} onMouseOut={e=>(e.currentTarget.style.color='#9ca3af')}>{label}</a>
+            ))}
+          </div>
+          <p style={{ fontSize:10, color:'#d1d5db' }}>© 2026 ResumeVault</p>
         </div>
       </footer>
       <GuidedTour steps={RESUME_TOUR} storageKey="resumevault_tour_v1" accentColor="#1e3a5f" />
     </main>
+    <ResumeVaultCookieBanner />
+    </>
   );
+}
+
+function ResumeVaultCookieBanner() {
+  const [visible, setVisible] = useState(false)
+  useEffect(() => {
+    if (!localStorage.getItem('rv_cookies_ok')) setVisible(true)
+  }, [])
+  if (!visible) return null
+  return (
+    <div style={{ position:'fixed', bottom:0, left:0, right:0, zIndex:200, padding:'12px 24px',
+      background:'rgba(255,255,255,0.97)', borderTop:'1px solid rgba(30,58,95,0.15)',
+      backdropFilter:'blur(16px)', boxShadow:'0 -4px 24px rgba(0,0,0,0.06)',
+      display:'flex', alignItems:'center', justifyContent:'space-between', gap:16, flexWrap:'wrap' }}>
+      <p style={{ fontSize:12, color:'#6b7280', maxWidth:600, lineHeight:1.5 }}>
+        ResumeVault uses essential cookies to save your resume drafts locally. No tracking, no ads.{' '}
+        <a href="/privacy" style={{ color:'#1e3a5f', textDecoration:'underline', cursor:'pointer' }}>Privacy policy</a>
+      </p>
+      <div style={{ display:'flex', gap:10 }}>
+        <button onClick={() => { localStorage.setItem('rv_cookies_ok','1'); setVisible(false) }}
+          style={{ fontSize:12, fontWeight:700, padding:'7px 20px', borderRadius:8,
+            background:'#1e3a5f', color:'#fff', border:'none', cursor:'pointer' }}>
+          Accept
+        </button>
+        <button onClick={() => setVisible(false)}
+          style={{ fontSize:12, fontWeight:500, padding:'7px 14px', borderRadius:8,
+            background:'transparent', color:'#9ca3af', border:'1px solid #e5e7eb', cursor:'pointer' }}>
+          Decline
+        </button>
+      </div>
+    </div>
+  )
 }
