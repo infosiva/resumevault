@@ -4,6 +4,7 @@ import { Panel, Group as PanelGroup, Separator as PanelResizeHandle } from "reac
 import ResumeForm from "@/components/ResumeForm";
 import ResumePreview from "@/components/ResumePreview";
 import KeywordBar from "@/components/KeywordBar";
+import ResumeVaultAffiliates from "@/components/ResumeVaultAffiliates";
 import GuidedTour, { type TourStep } from "@/components/GuidedTour";
 
 const RESUME_TOUR: TourStep[] = [
@@ -663,6 +664,10 @@ export default function Home() {
           </div>
         </div>
       </section>
+
+      <div className="max-w-4xl mx-auto px-6">
+        <ResumeVaultAffiliates />
+      </div>
 
       {/* Competitor comparison */}
       <section style={{ borderTop:'1px solid rgba(30,58,95,0.08)', padding:'48px 24px', background:'#f9fafb' }}>
