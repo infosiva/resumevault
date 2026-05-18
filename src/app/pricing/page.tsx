@@ -128,12 +128,6 @@ export default function PricingPage() {
 
         {/* Trust bar */}
         <div className="flex flex-wrap items-center justify-center gap-6 text-sm text-gray-400 mb-20">
-          <span className="flex items-center gap-1.5">
-            <span className="text-yellow-400">★★★★★</span> 4.8/5 rating
-          </span>
-          <span>·</span>
-          <span>3,100+ resumes built</span>
-          <span>·</span>
           <span>ATS optimised</span>
           <span>·</span>
           <span>No credit card for free plan</span>

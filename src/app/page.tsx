@@ -9,7 +9,7 @@ import GuidedTour, { type TourStep } from "@/components/GuidedTour";
 
 const RESUME_TOUR: TourStep[] = [
   { target: '#hero-cta', title: 'Build your resume free', icon: '📄', body: 'Fill in your details — AI writes polished bullet points, action verbs, and summaries for you.', placement: 'bottom' },
-  { target: '#proof', title: 'Real results', icon: '📈', body: 'Join 50,000+ job seekers who landed interviews with AI-written resumes.', placement: 'top' },
+  { target: '#proof', title: 'Real results', icon: '📈', body: 'AI writes polished bullet points and summaries that pass ATS filters — so your resume stands out.', placement: 'top' },
   { target: '#how', title: 'How it works', icon: '🔧', body: '3 simple steps: paste your info, AI rewrites it professionally, download as PDF.', placement: 'top' },
   { target: '#pricing', title: 'Unlock all templates', icon: '✨', body: 'Pro unlocks 20+ ATS-optimised templates and unlimited downloads.', placement: 'top' },
 ]
@@ -285,27 +285,15 @@ export default function Home() {
               ))}
             </ul>
 
-            {/* Social proof */}
-            <div className="flex items-center gap-3 pt-1">
-              <div className="flex -space-x-2">
-                {['JL','MK','SR','AP','NK'].map((initials) => (
-                  <div key={initials} className="w-7 h-7 rounded-full border-2 border-white flex items-center justify-center text-[9px] font-bold text-white" style={{ background: '#1e3a5f' }}>{initials}</div>
-                ))}
-              </div>
-              <div>
-                <div className="flex gap-0.5" style={{ color: '#f59e0b' }}>{'★★★★★'}</div>
-                <div className="text-xs" style={{ color: '#6b7280' }}>
-                  <span className="font-bold" style={{ color: '#1e3a5f' }}>8,000+</span> job seekers landed interviews
-                </div>
-              </div>
+            {/* Trust badge */}
+            <div className="flex items-center gap-2 pt-1 text-xs" style={{ color: '#6b7280' }}>
+              <span className="flex items-center gap-1">✓ ATS optimised</span>
+              <span>·</span>
+              <span>Free forever plan</span>
             </div>
 
             {/* Trust bar */}
             <div className="flex flex-wrap items-center gap-3 text-xs mb-1" style={{ color: '#9ca3af' }}>
-              <span className="flex items-center gap-1"><span className="text-yellow-400">★★★★★</span> 4.8/5</span>
-              <span>·</span>
-              <span>3,100+ resumes built</span>
-              <span>·</span>
               <span>ATS optimised</span>
               <span>·</span>
               <a href="/pricing" className="underline underline-offset-2 transition hover:opacity-80" style={{ color: '#1e3a5f' }}>See pricing</a>
@@ -660,7 +648,7 @@ export default function Home() {
             <span className="flex items-center gap-1.5">🔒 Secure Stripe checkout</span>
             <span className="flex items-center gap-1.5">↩ Cancel anytime</span>
             <span className="flex items-center gap-1.5">✓ No hidden fees</span>
-            <span className="flex items-center gap-1.5">★ 4.9/5 rating</span>
+            <span className="flex items-center gap-1.5">✓ ATS optimised templates</span>
           </div>
         </div>
       </section>

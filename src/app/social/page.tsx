@@ -54,10 +54,10 @@ const POSTS = [
 ]
 
 const STATS = [
-  { label: 'Resumes built', value: '3,100+' },
   { label: 'ATS pass rate', value: '3× higher' },
   { label: 'Templates', value: '12+' },
-  { label: 'Avg rating', value: '4.8★' },
+  { label: 'Time to build', value: '< 5 min' },
+  { label: 'Free plan', value: 'Forever' },
 ]
 
 export default function SocialPage() {
@@ -86,8 +86,7 @@ export default function SocialPage() {
             AI-powered ATS optimisation, bullet rewrites, and cover letter generation. Built for real job seekers.
           </p>
           <div className="flex flex-wrap items-center justify-center gap-3 mb-8 text-xs text-gray-400">
-            <span className="text-yellow-400">★★★★★</span>
-            <span>4.8/5 · 3,100+ resumes built · Free forever plan</span>
+            <span>ATS optimised · Free forever plan</span>
           </div>
           <div className="flex flex-wrap justify-center gap-3">
             <Link href="/" className="px-8 py-3.5 rounded-xl font-bold text-white text-sm hover:opacity-90 transition"
