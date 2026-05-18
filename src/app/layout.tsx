@@ -1,3 +1,4 @@
+import Script from 'next/script'
 import type { Metadata } from 'next'
 import './globals.css'
 import SharedNavbar from '@/components/SharedNavbar'
@@ -30,6 +31,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en">
       <head>
+        <meta name="Impact-Site-Verification" content="de64bc17-b024-4bad-9e34-51e479420004" />
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
           "@context": "https://schema.org",
           "@graph": [
@@ -67,6 +69,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <ChatBot />
         <script src="http://31.97.56.148:3098/t.js" data-site="resumevault.app" defer></script>
       <CookieConsent />
+            <Script async src="http://31.97.56.148:3100/script.js" data-website-id="0ffb8fac-4921-4827-a610-61f3b3c0c420" strategy="afterInteractive" />
       </body>
     </html>
   )
