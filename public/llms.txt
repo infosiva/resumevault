@@ -1,0 +1,22 @@
+# ResumeVault
+> AI resume builder for job seekers. Paste a job description and get a polished, tailored resume in seconds.
+
+## What this site does
+ResumeVault uses AI to generate a perfectly tailored resume from a job description. Paste the job posting, provide your experience, and the AI writes a professional resume optimised for that specific role — including the right keywords for applicant tracking systems (ATS). Also includes AI interview prep.
+
+## Who it's for
+Job seekers at all career stages — graduates, mid-career professionals, and senior executives. Works across all industries and job types.
+
+## Key features
+- AI resume generation from job descriptions
+- ATS keyword optimisation built in
+- Interview prep mode — AI practice questions per role
+- Multiple professional templates
+- Download as PDF or Word
+- Cover letter generator
+
+## Pricing
+Free tier available — generate up to 3 resumes per month. Pro plan from $7.99/month for unlimited resumes.
+
+## Contact
+https://resumevault.app

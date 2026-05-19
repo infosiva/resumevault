@@ -1,11 +1,13 @@
 'use client'
 
 import { useState, useRef, useEffect, useCallback } from 'react'
+import siteConfig from '../../site.config'
 
 const ACCENT = '#1e3a5f'
 const ACCENT2 = '#f59e0b'
 const BOT_NAME = 'ResumeBot'
-const WELCOME = '📄 Hi! I\'m ResumeBot — your AI career coach. Ask me to improve your resume bullets, decode ATS scoring, prep interview answers, or review your job description match!'
+const WELCOME = siteConfig.chatbot.openingMessage
+const API_ENDPOINT = siteConfig.chatbot.apiEndpoint
 const SYSTEM_PROMPT = `You are ResumeBot, the AI career assistant for ResumeVault — an AI-powered ATS resume builder.
 Help users write better resumes, understand ATS scoring, improve bullet points, prep for interviews, and navigate job searches.
 Be specific, encouraging, and give actionable advice. Focus on helping them land their next role.`
@@ -23,6 +25,14 @@ export default function ChatBot() {
   useEffect(() => { bottomRef.current?.scrollIntoView({ behavior: 'smooth' }) }, [messages, loading])
   useEffect(() => { if (open) setTimeout(() => inputRef.current?.focus(), 100) }, [open])
 
+  // Auto-show after 30 seconds
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setOpen(o => o ? o : true)
+    }, 30000)
+    return () => clearTimeout(timer)
+  }, [])
+
   const send = useCallback(async () => {
     const text = input.trim()
     if (!text || loading) return
@@ -32,7 +42,7 @@ export default function ChatBot() {
     setInput('')
     setLoading(true)
     try {
-      const res = await fetch('/api/chat', {
+      const res = await fetch(API_ENDPOINT, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ messages: next, systemPrompt: SYSTEM_PROMPT }),
