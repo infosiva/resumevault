@@ -116,9 +116,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       </head>
       <body className="flex flex-col min-h-screen">
         <DesignEffects />
-        <SharedNavbar brand={brand} />
-        <div style={{ position:"fixed", top:"10px", right:"16px", zIndex:60 }}><AuthButton /></div>
-        <main className="flex-1 pt-16">{children}</main>
+        <main className="flex-1">{children}</main>
         <AffiliateStrip />
         <Footer siteName="ResumeVault" />
         <ChatBot />
