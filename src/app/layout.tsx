@@ -9,6 +9,8 @@ import type { BrandConfig } from '@/components/SharedNavbar'
 import CookieConsent from "../../components/CookieConsent";
 import StickyFooterCTA from "../../components/StickyFooterCTA";
 import siteConfig from '../../site.config'
+import AuthButton from '@/components/AuthButton'
+import AffiliateStrip from '@/components/AffiliateStrip'
 
 const brand: BrandConfig = {
   name: 'ResumeVault',
@@ -115,7 +117,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <body className="flex flex-col min-h-screen">
         <DesignEffects />
         <SharedNavbar brand={brand} />
+        <div style={{ position:"fixed", top:"10px", right:"16px", zIndex:60 }}><AuthButton /></div>
         <main className="flex-1 pt-16">{children}</main>
+        <AffiliateStrip />
         <Footer siteName="ResumeVault" />
         <ChatBot />
         <script src="http://31.97.56.148:3098/t.js" data-site="resumevault.app" defer></script>
