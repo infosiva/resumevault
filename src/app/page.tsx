@@ -1,5 +1,6 @@
 "use client";
 import { useState, useEffect, useRef } from "react";
+import { motion } from "framer-motion";
 import { Panel, Group as PanelGroup, Separator as PanelResizeHandle } from "react-resizable-panels";
 import ResumeForm from "@/components/ResumeForm";
 import ResumePreview from "@/components/ResumePreview";
@@ -257,15 +258,30 @@ export default function Home() {
     <>
     <main className="min-h-screen relative z-10" style={{ background: '#080f1a', color: '#e5e7eb' }}>
 
-      {/* Ambient glow layers */}
-      <div className="fixed inset-0 pointer-events-none" aria-hidden="true" style={{
-        background: 'radial-gradient(ellipse 70% 50% at 50% 0%, rgba(245,158,11,0.07) 0%, transparent 60%)',
-        zIndex: 0,
-      }} />
-      <div className="fixed inset-0 pointer-events-none" aria-hidden="true" style={{
-        backgroundImage: 'radial-gradient(circle at 80% 80%, rgba(30,58,95,0.18) 0%, transparent 50%)',
-        zIndex: 0,
-      }} />
+      {/* Animated blob bg */}
+      <div className="fixed inset-0 overflow-hidden pointer-events-none" aria-hidden="true" style={{ zIndex: 0 }}>
+        <motion.div
+          style={{ position: 'absolute', top: '-15%', left: '-5%', width: 600, height: 600, borderRadius: '50%',
+            background: 'radial-gradient(circle, rgba(245,158,11,0.18) 0%, rgba(245,158,11,0.04) 50%, transparent 70%)',
+            filter: 'blur(80px)' }}
+          animate={{ x: [0, 35, 0], y: [0, -20, 0], scale: [1, 1.08, 1] }}
+          transition={{ duration: 10, ease: 'easeInOut', repeat: Infinity }}
+        />
+        <motion.div
+          style={{ position: 'absolute', bottom: '-10%', right: '-8%', width: 500, height: 500, borderRadius: '50%',
+            background: 'radial-gradient(circle, rgba(30,58,95,0.28) 0%, rgba(14,165,233,0.08) 50%, transparent 70%)',
+            filter: 'blur(90px)' }}
+          animate={{ x: [0, -25, 0], y: [0, 20, 0], scale: [1, 1.06, 1] }}
+          transition={{ duration: 13, ease: 'easeInOut', repeat: Infinity, delay: 2 }}
+        />
+        <motion.div
+          style={{ position: 'absolute', top: '40%', left: '50%', width: 350, height: 350, borderRadius: '50%',
+            background: 'radial-gradient(circle, rgba(245,158,11,0.07) 0%, transparent 65%)',
+            filter: 'blur(70px)' }}
+          animate={{ x: [0, 18, 0], y: [0, -15, 0] }}
+          transition={{ duration: 9, ease: 'easeInOut', repeat: Infinity, delay: 1 }}
+        />
+      </div>
 
       {/* Sticky Nav */}
       <nav className="sticky top-0 z-50 border-b" style={{ background: 'rgba(8,15,26,0.90)', backdropFilter: 'blur(20px)', borderColor: 'rgba(255,255,255,0.06)' }}>
