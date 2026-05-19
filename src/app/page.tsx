@@ -74,7 +74,7 @@ function ATSMeter() {
     <div ref={ref} className="flex flex-col items-center gap-3">
       <div className="relative w-24 h-24">
         <svg className="w-24 h-24 -rotate-90" viewBox="0 0 96 96">
-          <circle cx="48" cy="48" r="40" fill="none" stroke="rgba(30,58,95,0.15)" strokeWidth="8" />
+          <circle cx="48" cy="48" r="40" fill="none" stroke="rgba(255,255,255,0.06)" strokeWidth="8" />
           <circle
             cx="48" cy="48" r="40" fill="none"
             stroke="#f59e0b" strokeWidth="8"
@@ -85,12 +85,12 @@ function ATSMeter() {
           />
         </svg>
         <div className="absolute inset-0 flex flex-col items-center justify-center">
-          <span className="text-2xl font-black" style={{ color: '#1e3a5f' }}>{score}%</span>
+          <span className="text-2xl font-black" style={{ color: '#f59e0b' }}>{score}%</span>
         </div>
       </div>
       <div className="text-center">
-        <div className="text-sm font-bold" style={{ color: '#1e3a5f' }}>ATS Score</div>
-        <div className="text-xs" style={{ color: '#6b7280' }}>Beats 96% of resumes</div>
+        <div className="text-sm font-bold text-white">ATS Score</div>
+        <div className="text-xs" style={{ color: 'rgba(255,255,255,0.4)' }}>Beats 96% of resumes</div>
       </div>
     </div>
   );
@@ -124,7 +124,7 @@ function TypingEffect({ lines }: { lines: string[] }) {
   }, [charIndex, lineIndex, lines, done]);
 
   return (
-    <pre className="text-xs leading-relaxed whitespace-pre-wrap font-mono" style={{ color: '#374151' }}>
+    <pre className="text-xs leading-relaxed whitespace-pre-wrap font-mono" style={{ color: 'rgba(255,255,255,0.6)' }}>
       {displayed}
       {!done && <span className="inline-block w-0.5 h-3 ml-0.5 animate-pulse" style={{ background: '#f59e0b', verticalAlign: 'text-bottom' }} />}
     </pre>
@@ -203,33 +203,33 @@ export default function Home() {
 
   return (
     <>
-    <main className="min-h-screen relative z-10" style={{ background: '#fafafa', color: '#111827' }}>
+    <main className="min-h-screen relative z-10" style={{ background: '#080f1a', color: '#e5e7eb' }}>
 
-      {/* Subtle paper depth layers */}
+      {/* Ambient glow layers */}
       <div className="fixed inset-0 pointer-events-none" aria-hidden="true" style={{
-        background: 'radial-gradient(ellipse 80% 60% at 50% 0%, rgba(30,58,95,0.14) 0%, transparent 70%)',
+        background: 'radial-gradient(ellipse 70% 50% at 50% 0%, rgba(245,158,11,0.07) 0%, transparent 60%)',
         zIndex: 0,
       }} />
       <div className="fixed inset-0 pointer-events-none" aria-hidden="true" style={{
-        backgroundImage: 'radial-gradient(circle at 20% 80%, rgba(245,158,11,0.18) 0%, transparent 50%), radial-gradient(circle at 80% 20%, rgba(30,58,95,0.12) 0%, transparent 50%)',
+        backgroundImage: 'radial-gradient(circle at 80% 80%, rgba(30,58,95,0.18) 0%, transparent 50%)',
         zIndex: 0,
       }} />
 
       {/* Sticky Nav */}
-      <nav className="sticky top-0 z-50 border-b" style={{ background: 'rgba(250,250,250,0.92)', backdropFilter: 'blur(20px)', borderColor: 'rgba(30,58,95,0.08)' }}>
+      <nav className="sticky top-0 z-50 border-b" style={{ background: 'rgba(8,15,26,0.90)', backdropFilter: 'blur(20px)', borderColor: 'rgba(255,255,255,0.06)' }}>
         <div className="max-w-7xl mx-auto px-6">
           <div className="flex items-center justify-between h-14">
             <div className="flex items-center gap-3">
-              <span className="font-black text-lg tracking-tight" style={{ color: '#1e3a5f' }}>ResumeVault</span>
-              <span className="text-xs font-semibold px-2.5 py-1 rounded-full hidden sm:inline-flex" style={{ background: 'rgba(245,158,11,0.12)', color: '#b45309', border: '1px solid rgba(245,158,11,0.25)' }}>
+              <span className="font-black text-lg tracking-tight text-white">ResumeVault</span>
+              <span className="text-xs font-semibold px-2.5 py-1 rounded-full hidden sm:inline-flex" style={{ background: 'rgba(245,158,11,0.12)', color: '#f59e0b', border: '1px solid rgba(245,158,11,0.2)' }}>
                 ATS-Optimized
               </span>
             </div>
             <div className="flex items-center gap-4">
-              <a href="#how" className="text-sm font-medium hidden sm:block" style={{ color: '#6b7280' }}>How it works</a>
-              <a href="#pricing" className="text-sm font-medium hidden sm:block" style={{ color: '#6b7280' }}>Pricing</a>
+              <a href="#how" className="text-sm font-medium hidden sm:block" style={{ color: 'rgba(255,255,255,0.5)' }}>How it works</a>
+              <a href="#pricing" className="text-sm font-medium hidden sm:block" style={{ color: 'rgba(255,255,255,0.5)' }}>Pricing</a>
               {isPro ? (
-                <span className="text-xs font-bold px-3 py-1.5 rounded-full" style={{ background: 'rgba(245,158,11,0.15)', color: '#b45309' }}>
+                <span className="text-xs font-bold px-3 py-1.5 rounded-full" style={{ background: 'rgba(245,158,11,0.15)', color: '#f59e0b' }}>
                   ✦ Pro
                 </span>
               ) : (
@@ -237,7 +237,7 @@ export default function Home() {
                   onClick={handleUpgrade}
                   disabled={checkoutLoading}
                   className="text-sm px-5 py-2 font-semibold rounded-lg transition-all"
-                  style={{ background: '#1e3a5f', color: '#fff' }}
+                  style={{ background: '#f59e0b', color: '#0d1425' }}
                 >
                   {checkoutLoading ? 'Loading…' : 'Go Pro — $9/mo'}
                 </button>
@@ -248,104 +248,68 @@ export default function Home() {
       </nav>
 
       {/* Hero */}
-      <section className="relative overflow-hidden border-b" style={{ borderColor: 'rgba(30,58,95,0.06)' }}>
-        <div className="max-w-7xl mx-auto grid md:grid-cols-2 gap-8 items-center min-h-[88vh] px-6 md:px-12 py-16">
+      <section className="relative overflow-hidden border-b" style={{ borderColor: 'rgba(255,255,255,0.05)' }}>
+        <div className="max-w-7xl mx-auto grid md:grid-cols-2 gap-10 items-center px-6 md:px-12 py-14 md:py-20">
 
           {/* Left: Copy */}
-          <div className="flex flex-col gap-6 relative z-10">
-            <div>
-              <span className="text-xs font-bold px-3 py-1.5 rounded-full inline-flex items-center gap-1.5" style={{ background: 'rgba(30,58,95,0.07)', color: '#1e3a5f', border: '1px solid rgba(30,58,95,0.12)' }}>
-                <span style={{ color: '#f59e0b' }}>✦</span> #1 AI Resume Builder for ATS
-              </span>
-            </div>
-            <h1 className="text-4xl md:text-5xl font-black leading-[1.05] tracking-tight reveal" style={{ color: '#111827' }}>
-              Land your dream job with an<br />
-              <span style={{
-                background: 'linear-gradient(135deg, #1e3a5f 0%, #2d5986 50%, #1e3a5f 100%)',
-                WebkitBackgroundClip: 'text',
-                WebkitTextFillColor: 'transparent',
-                backgroundClip: 'text',
-              }}>AI-crafted resume</span>{' '}
-              <span style={{ color: '#f59e0b' }}>that gets past ATS</span>
+          <div className="flex flex-col gap-5 relative z-10">
+            <span className="text-xs font-bold px-3 py-1.5 rounded-full inline-flex items-center gap-1.5 w-fit" style={{ background: 'rgba(245,158,11,0.10)', color: '#f59e0b', border: '1px solid rgba(245,158,11,0.2)' }}>
+              <span>✦</span> #1 AI Resume Builder for ATS
+            </span>
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-black leading-[1.05] tracking-tight text-white reveal">
+              Your AI Resume<br />
+              <span style={{ color: '#f59e0b' }}>Writer</span>
             </h1>
-            <p className="text-base max-w-md leading-relaxed" style={{ color: '#6b7280' }}>
-              Paste your job description, add your experience — our AI tailors every bullet point for maximum ATS compatibility and recruiter impact.
+            <p className="text-base max-w-md leading-relaxed" style={{ color: 'rgba(255,255,255,0.55)' }}>
+              Paste a job description — AI tailors every bullet point for maximum ATS compatibility and recruiter impact in seconds.
             </p>
-            <ul className="flex flex-col gap-2.5">
-              {[
-                "ATS keyword optimisation for every posting",
-                "Job description match scoring",
-                "One-click PDF export",
-                "AI-written cover letters included",
-              ].map((item) => (
-                <li key={item} className="flex items-center gap-2.5 text-sm" style={{ color: '#374151' }}>
-                  <span className="w-5 h-5 rounded-full flex items-center justify-center flex-shrink-0 text-xs font-bold" style={{ background: 'rgba(245,158,11,0.15)', color: '#b45309' }}>✓</span>
-                  {item}
-                </li>
-              ))}
-            </ul>
-
-            {/* Trust badge */}
-            <div className="flex items-center gap-2 pt-1 text-xs" style={{ color: '#6b7280' }}>
-              <span className="flex items-center gap-1">✓ ATS optimised</span>
-              <span>·</span>
-              <span>Free forever plan</span>
-            </div>
-
-            {/* Trust bar */}
-            <div className="flex flex-wrap items-center gap-3 text-xs mb-1" style={{ color: '#9ca3af' }}>
-              <span>ATS optimised</span>
-              <span>·</span>
-              <a href="/pricing" className="underline underline-offset-2 transition hover:opacity-80" style={{ color: '#1e3a5f' }}>See pricing</a>
-            </div>
-
-            <div className="flex flex-wrap gap-3 pt-2">
+            <div className="flex flex-wrap gap-3 pt-1">
               <a
                 href="#how"
                 id="hero-cta"
-                className="px-6 py-3 text-sm font-bold rounded-lg transition-all"
-                style={{ background: '#1e3a5f', color: '#fff', boxShadow: '0 4px 16px rgba(30,58,95,0.25)' }}
+                className="px-7 py-3.5 text-sm font-bold rounded-lg transition-all min-h-[44px] flex items-center"
+                style={{ background: '#f59e0b', color: '#0d1425', boxShadow: '0 4px 20px rgba(245,158,11,0.35)' }}
               >
                 Build My Resume — Free
               </a>
               <a
                 href="#proof"
-                className="px-6 py-3 text-sm font-semibold rounded-lg transition-all border"
-                style={{ borderColor: 'rgba(30,58,95,0.2)', color: '#1e3a5f', background: 'transparent' }}
+                className="px-7 py-3.5 text-sm font-semibold rounded-lg transition-all border min-h-[44px] flex items-center"
+                style={{ borderColor: 'rgba(255,255,255,0.12)', color: 'rgba(255,255,255,0.7)', background: 'transparent' }}
               >
                 See before/after
               </a>
             </div>
           </div>
 
-          {/* Right: Resume Mockup + ATS meter */}
+          {/* Right: Resume Mockup + ATSMeter inline */}
           <div className="relative flex items-center justify-center">
-            {/* Floating document shadow behind */}
-            <div className="absolute" style={{ width: 280, height: 360, background: '#fff', borderRadius: 16, boxShadow: '0 8px 40px rgba(30,58,95,0.10)', transform: 'rotate(-3deg) translateX(-8px) translateY(8px)', zIndex: 0 }} />
-            <div className="absolute" style={{ width: 280, height: 360, background: '#fff', borderRadius: 16, boxShadow: '0 4px 20px rgba(30,58,95,0.07)', transform: 'rotate(1.5deg) translateX(6px) translateY(-4px)', zIndex: 1 }} />
+            {/* Stacked paper shadows */}
+            <div className="absolute" style={{ width: 280, height: 360, background: '#0d1425', borderRadius: 16, boxShadow: '0 8px 40px rgba(0,0,0,0.4)', transform: 'rotate(-3deg) translateX(-8px) translateY(8px)', zIndex: 0, border: '1px solid rgba(255,255,255,0.06)' }} />
+            <div className="absolute" style={{ width: 280, height: 360, background: '#0d1425', borderRadius: 16, transform: 'rotate(1.5deg) translateX(6px) translateY(-4px)', zIndex: 1, border: '1px solid rgba(255,255,255,0.06)' }} />
 
             {/* Main resume card */}
-            <div className="relative rounded-2xl p-6 w-full max-w-sm z-10" style={{ background: '#fff', border: '1px solid rgba(30,58,95,0.10)', boxShadow: '0 20px 60px rgba(30,58,95,0.12)' }}>
+            <div className="relative rounded-2xl p-6 w-full max-w-sm z-10" style={{ background: '#0d1425', border: '1px solid rgba(255,255,255,0.08)', boxShadow: '0 20px 60px rgba(0,0,0,0.5)' }}>
               {/* ATS Score badge */}
-              <div className="absolute -top-4 -right-4 w-16 h-16 rounded-full flex flex-col items-center justify-center" style={{ background: '#fff', border: '2px solid rgba(245,158,11,0.4)', boxShadow: '0 4px 16px rgba(245,158,11,0.2)' }}>
-                <span className="text-sm font-black" style={{ color: '#b45309' }}>94%</span>
-                <span className="text-[8px] font-semibold" style={{ color: '#6b7280' }}>ATS</span>
+              <div className="absolute -top-4 -right-4 w-16 h-16 rounded-full flex flex-col items-center justify-center" style={{ background: '#080f1a', border: '2px solid rgba(245,158,11,0.5)', boxShadow: '0 4px 16px rgba(245,158,11,0.2)' }}>
+                <span className="text-sm font-black" style={{ color: '#f59e0b' }}>94%</span>
+                <span className="text-[8px] font-semibold" style={{ color: 'rgba(255,255,255,0.4)' }}>ATS</span>
               </div>
 
               {/* Resume header */}
-              <div className="mb-4 pb-4 border-b" style={{ borderColor: 'rgba(30,58,95,0.08)' }}>
-                <div className="font-black text-lg leading-tight" style={{ color: '#111827' }}>Alexandra Chen</div>
-                <div className="text-sm font-semibold mb-2" style={{ color: '#1e3a5f' }}>Senior Product Manager</div>
+              <div className="mb-4 pb-4 border-b" style={{ borderColor: 'rgba(255,255,255,0.07)' }}>
+                <div className="font-black text-lg leading-tight text-white">Alexandra Chen</div>
+                <div className="text-sm font-semibold mb-2" style={{ color: '#f59e0b' }}>Senior Product Manager</div>
                 <div className="flex flex-wrap gap-1.5">
                   {['San Francisco, CA', 'a.chen@email.com', 'linkedin.com/in/achen'].map((pill) => (
-                    <span key={pill} className="text-[9px] px-2 py-0.5 rounded-full" style={{ background: 'rgba(30,58,95,0.06)', color: '#6b7280', border: '1px solid rgba(30,58,95,0.1)' }}>{pill}</span>
+                    <span key={pill} className="text-[9px] px-2 py-0.5 rounded-full" style={{ background: 'rgba(255,255,255,0.06)', color: 'rgba(255,255,255,0.4)', border: '1px solid rgba(255,255,255,0.08)' }}>{pill}</span>
                   ))}
                 </div>
               </div>
 
               {/* AI typing section */}
               <div className="mb-3">
-                <div className="text-[10px] font-black uppercase tracking-widest mb-2 flex items-center gap-1.5" style={{ color: '#1e3a5f' }}>
+                <div className="text-[10px] font-black uppercase tracking-widest mb-2 flex items-center gap-1.5" style={{ color: 'rgba(255,255,255,0.5)' }}>
                   <span className="w-1.5 h-1.5 rounded-full animate-pulse" style={{ background: '#f59e0b' }} />
                   AI Writing Experience…
                 </div>
@@ -353,41 +317,75 @@ export default function Home() {
               </div>
 
               {/* Keywords highlighted */}
-              <div className="pt-3 border-t" style={{ borderColor: 'rgba(30,58,95,0.06)' }}>
-                <div className="text-[9px] font-bold uppercase tracking-widest mb-1.5" style={{ color: '#6b7280' }}>ATS Keywords Matched</div>
+              <div className="pt-3 border-t" style={{ borderColor: 'rgba(255,255,255,0.07)' }}>
+                <div className="text-[9px] font-bold uppercase tracking-widest mb-1.5" style={{ color: 'rgba(255,255,255,0.3)' }}>ATS Keywords Matched</div>
                 <div className="flex flex-wrap gap-1">
                   {['Python','AWS','Agile','Product Strategy','SQL','Stakeholder Mgmt'].map((kw) => (
-                    <span key={kw} className="text-[9px] px-1.5 py-0.5 rounded font-semibold" style={{ background: 'rgba(245,158,11,0.12)', color: '#92400e' }}>{kw}</span>
+                    <span key={kw} className="text-[9px] px-1.5 py-0.5 rounded font-semibold" style={{ background: 'rgba(245,158,11,0.12)', color: '#f59e0b' }}>{kw}</span>
                   ))}
                 </div>
               </div>
 
               {/* AI label */}
-              <div className="pt-3 mt-2 border-t flex items-center gap-1.5" style={{ borderColor: 'rgba(30,58,95,0.06)' }}>
+              <div className="pt-3 mt-2 border-t flex items-center gap-1.5" style={{ borderColor: 'rgba(255,255,255,0.07)' }}>
                 <span className="w-1.5 h-1.5 rounded-full animate-pulse" style={{ background: '#22c55e' }} />
-                <span className="text-[9px]" style={{ color: '#9ca3af' }}>AI-generated · tailored to job description</span>
+                <span className="text-[9px]" style={{ color: 'rgba(255,255,255,0.3)' }}>AI-generated · tailored to job description</span>
               </div>
             </div>
 
-            {/* Floating ATS meter */}
-            <div className="absolute -bottom-6 -left-6 rounded-2xl p-4 z-20" style={{ background: '#fff', border: '1px solid rgba(30,58,95,0.10)', boxShadow: '0 8px 30px rgba(30,58,95,0.10)' }}>
+            {/* ATSMeter inline below card on desktop */}
+            <div className="absolute -bottom-6 -left-6 rounded-2xl p-4 z-20" style={{ background: '#0d1425', border: '1px solid rgba(255,255,255,0.08)', boxShadow: '0 8px 30px rgba(0,0,0,0.4)' }}>
               <ATSMeter />
             </div>
           </div>
         </div>
       </section>
 
+      {/* Social proof bar */}
+      <div className="border-b" style={{ borderColor: 'rgba(255,255,255,0.05)', background: '#0d1425' }}>
+        <div className="max-w-4xl mx-auto px-6 py-3 flex flex-wrap items-center justify-center gap-x-6 gap-y-1 text-xs" style={{ color: 'rgba(255,255,255,0.35)' }}>
+          <span>ATS-optimised</span>
+          <span style={{ color: 'rgba(255,255,255,0.15)' }}>·</span>
+          <span>Free to start</span>
+          <span style={{ color: 'rgba(255,255,255,0.15)' }}>·</span>
+          <span>10,000+ resumes built</span>
+        </div>
+      </div>
+
       {/* Company badges — social proof */}
-      <section id="proof" className="border-b py-8" style={{ background: '#fff', borderColor: 'rgba(30,58,95,0.06)' }}>
+      <section id="proof" className="border-b py-8" style={{ background: '#0d1425', borderColor: 'rgba(255,255,255,0.05)' }}>
         <div className="max-w-5xl mx-auto px-6">
-          <p className="text-center text-xs font-semibold uppercase tracking-widest mb-6" style={{ color: '#9ca3af' }}>
+          <p className="text-center text-xs font-semibold uppercase tracking-widest mb-5" style={{ color: 'rgba(255,255,255,0.25)' }}>
             ResumeVault users got interviews at
           </p>
-          <div className="flex flex-wrap items-center justify-center gap-6">
+          <div className="flex flex-wrap items-center justify-center gap-4">
             {companies.map((c) => (
-              <div key={c.name} className="flex items-center gap-2 px-4 py-2 rounded-lg border" style={{ borderColor: 'rgba(30,58,95,0.08)', background: '#fafafa' }}>
+              <div key={c.name} className="flex items-center gap-2 px-4 py-2 rounded-lg border" style={{ borderColor: 'rgba(255,255,255,0.07)', background: 'rgba(255,255,255,0.03)' }}>
                 <div className="w-6 h-6 rounded flex items-center justify-center text-[9px] font-black text-white" style={{ background: c.bg }}>{c.name[0]}</div>
-                <span className="text-sm font-semibold" style={{ color: '#374151' }}>{c.name}</span>
+                <span className="text-sm font-semibold" style={{ color: 'rgba(255,255,255,0.6)' }}>{c.name}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* How it works — 3-step horizontal */}
+      <section className="border-b py-12" style={{ borderColor: 'rgba(255,255,255,0.05)', background: '#080f1a' }}>
+        <div className="max-w-4xl mx-auto px-6">
+          <div className="text-center mb-8 reveal">
+            <div className="text-xs font-bold uppercase tracking-widest mb-2" style={{ color: '#f59e0b' }}>How it works</div>
+            <h2 className="text-2xl font-black tracking-tight text-white">Three steps to a recruiter-ready resume</h2>
+          </div>
+          <div className="grid md:grid-cols-3 gap-4">
+            {[
+              { step: '01', title: 'Paste job description', desc: 'Drop in the JD — AI extracts every required keyword instantly.' },
+              { step: '02', title: 'Add your experience', desc: 'Enter your background. AI rewrites it with impact metrics & action verbs.' },
+              { step: '03', title: 'Download & apply', desc: 'Export a polished PDF that passes ATS filters and wows recruiters.' },
+            ].map((s, i) => (
+              <div key={s.step} className={`rounded-xl p-5 border reveal stagger-${i + 1}`} style={{ background: '#0d1425', borderColor: 'rgba(255,255,255,0.07)' }}>
+                <div className="text-3xl font-black mb-3" style={{ color: 'rgba(245,158,11,0.3)', fontVariantNumeric: 'tabular-nums' }}>{s.step}</div>
+                <div className="font-bold text-sm mb-1 text-white">{s.title}</div>
+                <div className="text-xs leading-relaxed" style={{ color: 'rgba(255,255,255,0.4)' }}>{s.desc}</div>
               </div>
             ))}
           </div>
@@ -395,60 +393,52 @@ export default function Home() {
       </section>
 
       {/* Before / After comparison */}
-      <section className="py-20 border-b" style={{ borderColor: 'rgba(30,58,95,0.06)' }}>
+      <section className="py-12 border-b" style={{ borderColor: 'rgba(255,255,255,0.05)', background: '#0d1425' }}>
         <div className="max-w-5xl mx-auto px-6">
-          <div className="text-center mb-12 reveal">
-            <div className="text-xs font-bold uppercase tracking-widest mb-3" style={{ color: '#f59e0b' }}>Before vs After</div>
-            <h2 className="text-3xl font-black tracking-tight" style={{ color: '#111827' }}>See the AI difference</h2>
-            <p className="text-sm mt-2" style={{ color: '#6b7280' }}>Same candidate — completely different results</p>
+          <div className="text-center mb-8 reveal">
+            <div className="text-xs font-bold uppercase tracking-widest mb-2" style={{ color: '#f59e0b' }}>Before vs After</div>
+            <h2 className="text-2xl font-black tracking-tight text-white">See the AI difference</h2>
           </div>
-          <div className="grid md:grid-cols-2 gap-6">
+          <div className="grid md:grid-cols-2 gap-5">
             {/* Before */}
-            <div className="rounded-2xl p-6 reveal" style={{ background: '#fff', border: '1px solid rgba(220,38,38,0.15)', boxShadow: '0 4px 20px rgba(220,38,38,0.05)' }}>
-              <div className="flex items-center gap-2 mb-4">
-                <span className="w-6 h-6 rounded-full flex items-center justify-center text-xs font-black text-white" style={{ background: '#ef4444' }}>✕</span>
+            <div className="rounded-xl p-5 reveal" style={{ background: '#080f1a', border: '1px solid rgba(239,68,68,0.2)' }}>
+              <div className="flex items-center gap-2 mb-3">
+                <span className="w-5 h-5 rounded-full flex items-center justify-center text-xs font-black text-white" style={{ background: '#ef4444' }}>✕</span>
                 <span className="text-sm font-bold" style={{ color: '#ef4444' }}>Before ResumeVault</span>
-                <span className="ml-auto text-xs px-2 py-0.5 rounded-full font-semibold" style={{ background: 'rgba(220,38,38,0.08)', color: '#ef4444' }}>ATS: 31%</span>
+                <span className="ml-auto text-xs px-2 py-0.5 rounded-full font-semibold" style={{ background: 'rgba(220,38,38,0.12)', color: '#ef4444' }}>ATS: 31%</span>
               </div>
-              <div className="space-y-2 text-xs leading-relaxed" style={{ color: '#9ca3af' }}>
+              <div className="space-y-1.5 text-xs leading-relaxed" style={{ color: 'rgba(255,255,255,0.3)' }}>
                 <p>• Responsible for managing projects</p>
                 <p>• Worked with team members on deliverables</p>
                 <p>• Helped improve company processes</p>
                 <p>• Did various tasks related to product</p>
-                <p style={{ color: '#d1d5db' }}>Skills: Excel, PowerPoint, communication</p>
               </div>
-              <div className="mt-4 text-xs font-medium" style={{ color: '#ef4444' }}>
-                ✕ Generic · No keywords · Rejected by ATS
-              </div>
+              <div className="mt-3 text-xs font-medium" style={{ color: '#ef4444' }}>✕ Generic · No keywords · Rejected by ATS</div>
             </div>
             {/* After */}
-            <div className="rounded-2xl p-6 reveal stagger-2" style={{ background: '#fff', border: '1px solid rgba(34,197,94,0.2)', boxShadow: '0 4px 20px rgba(34,197,94,0.06)' }}>
-              <div className="flex items-center gap-2 mb-4">
-                <span className="w-6 h-6 rounded-full flex items-center justify-center text-xs font-black text-white" style={{ background: '#22c55e' }}>✓</span>
-                <span className="text-sm font-bold" style={{ color: '#16a34a' }}>After ResumeVault</span>
-                <span className="ml-auto text-xs px-2 py-0.5 rounded-full font-semibold" style={{ background: 'rgba(34,197,94,0.1)', color: '#16a34a' }}>ATS: 94%</span>
+            <div className="rounded-xl p-5 reveal stagger-2" style={{ background: '#080f1a', border: '1px solid rgba(34,197,94,0.2)' }}>
+              <div className="flex items-center gap-2 mb-3">
+                <span className="w-5 h-5 rounded-full flex items-center justify-center text-xs font-black text-white" style={{ background: '#22c55e' }}>✓</span>
+                <span className="text-sm font-bold" style={{ color: '#22c55e' }}>After ResumeVault</span>
+                <span className="ml-auto text-xs px-2 py-0.5 rounded-full font-semibold" style={{ background: 'rgba(34,197,94,0.12)', color: '#22c55e' }}>ATS: 94%</span>
               </div>
-              <div className="space-y-2 text-xs leading-relaxed" style={{ color: '#374151' }}>
-                <p>• <strong>Led product roadmap</strong> for B2B SaaS, driving <strong>$1.2M ARR</strong> growth in 6 months</p>
-                <p>• Managed <strong>cross-functional team of 12</strong> across Engineering, Design & Data</p>
-                <p>• Implemented <strong>agile sprint framework</strong>, improving velocity by <strong>34%</strong></p>
-                <p>• Shipped <strong>3 major features</strong> with 98% on-time delivery rate</p>
-                <p>Skills: <strong>Product Strategy, SQL, Python, Stakeholder Management, OKRs</strong></p>
+              <div className="space-y-1.5 text-xs leading-relaxed" style={{ color: 'rgba(255,255,255,0.6)' }}>
+                <p>• <strong className="text-white">Led product roadmap</strong> for B2B SaaS, driving <strong className="text-white">$1.2M ARR</strong> growth in 6 months</p>
+                <p>• Managed <strong className="text-white">cross-functional team of 12</strong> across Engineering, Design &amp; Data</p>
+                <p>• Implemented <strong className="text-white">agile sprint framework</strong>, improving velocity by <strong className="text-white">34%</strong></p>
               </div>
-              <div className="mt-4 text-xs font-medium" style={{ color: '#16a34a' }}>
-                ✓ Keyword-rich · Metrics · Passes every ATS filter
-              </div>
+              <div className="mt-3 text-xs font-medium" style={{ color: '#22c55e' }}>✓ Keyword-rich · Metrics · Passes every ATS filter</div>
             </div>
           </div>
         </div>
       </section>
 
       {/* Main Builder */}
-      <section id="how" className="max-w-7xl mx-auto px-4 sm:px-6 py-10 sm:py-14">
+      <section id="how" className="max-w-7xl mx-auto px-4 sm:px-6 py-10 sm:py-12" style={{ background: '#080f1a' }}>
         {/* Mobile: stacked */}
         <div className="lg:hidden space-y-6">
           <div className="space-y-4">
-            <div className="rounded-2xl p-8 border" style={{ background: '#fff', borderColor: 'rgba(30,58,95,0.08)', boxShadow: '0 4px 20px rgba(30,58,95,0.06)' }}>
+            <div className="rounded-2xl p-6 border" style={{ background: '#0d1425', borderColor: 'rgba(255,255,255,0.07)' }}>
               <ResumeForm
                 onGenerate={(r, s) => { setResume(r); setSuggestions(s ?? []); setActivePreviewTab('resume'); }}
                 setLoading={setLoading}
@@ -489,7 +479,7 @@ export default function Home() {
           <PanelGroup orientation="horizontal" className="h-full">
             <Panel defaultSize={45} minSize={30} maxSize={65}>
               <div className="h-full overflow-y-auto pr-2 space-y-4">
-                <div className="rounded-2xl p-8 border" style={{ background: '#fff', borderColor: 'rgba(30,58,95,0.08)', boxShadow: '0 4px 20px rgba(30,58,95,0.06)' }}>
+                <div className="rounded-2xl p-8 border" style={{ background: '#0d1425', borderColor: 'rgba(255,255,255,0.07)' }}>
                   <ResumeForm
                     onGenerate={(r, s) => { setResume(r); setSuggestions(s ?? []); setActivePreviewTab('resume'); }}
                     setLoading={setLoading}
@@ -511,9 +501,9 @@ export default function Home() {
             </Panel>
 
             <PanelResizeHandle className="w-2 mx-1 flex items-center justify-center group cursor-col-resize">
-              <div className="w-1 h-16 rounded-full transition-colors" style={{ background: 'rgba(30,58,95,0.12)' }}
+              <div className="w-1 h-16 rounded-full transition-colors" style={{ background: 'rgba(255,255,255,0.08)' }}
                 onMouseEnter={e => (e.currentTarget.style.background = 'rgba(245,158,11,0.5)')}
-                onMouseLeave={e => (e.currentTarget.style.background = 'rgba(30,58,95,0.12)')}
+                onMouseLeave={e => (e.currentTarget.style.background = 'rgba(255,255,255,0.08)')}
               />
             </PanelResizeHandle>
 
@@ -540,14 +530,14 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Why Pro section */}
-      <section className="py-20 border-t border-b" style={{ borderColor: 'rgba(30,58,95,0.06)', background: '#fff' }}>
+      {/* Feature cards */}
+      <section className="py-12 border-t border-b" style={{ borderColor: 'rgba(255,255,255,0.05)', background: '#0d1425' }}>
         <div className="max-w-5xl mx-auto px-6">
-          <div className="text-center mb-12 reveal">
-            <div className="text-xs font-bold uppercase tracking-widest mb-3" style={{ color: '#f59e0b' }}>Why Pro</div>
-            <h2 className="text-3xl font-black tracking-tight" style={{ color: '#111827' }}>Everything you need to land the role</h2>
+          <div className="text-center mb-8 reveal">
+            <div className="text-xs font-bold uppercase tracking-widest mb-2" style={{ color: '#f59e0b' }}>Why Pro</div>
+            <h2 className="text-2xl font-black tracking-tight text-white">Everything you need to land the role</h2>
           </div>
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-3">
             {[
               { icon: '∞', title: 'Unlimited Resumes', desc: 'Create a tailored resume for every job — no monthly limits.' },
               { icon: '🎯', title: 'ATS Optimisation', desc: 'AI scans job postings and injects exact keywords that pass filters.' },
@@ -556,10 +546,10 @@ export default function Home() {
               { icon: '⬇', title: 'PDF Export', desc: 'Download polished, recruiter-ready PDFs in seconds.' },
               { icon: '💬', title: 'Interview Prep', desc: 'AI-generated interview questions tailored to the exact role.' },
             ].map((feat, i) => (
-              <div key={feat.title} className={`rounded-xl p-5 border reveal stagger-${(i % 6) + 1}`} style={{ background: '#fafafa', borderColor: 'rgba(30,58,95,0.08)' }}>
-                <div className="text-2xl mb-3">{feat.icon}</div>
-                <div className="font-bold text-sm mb-1" style={{ color: '#111827' }}>{feat.title}</div>
-                <div className="text-xs leading-relaxed" style={{ color: '#6b7280' }}>{feat.desc}</div>
+              <div key={feat.title} className={`rounded-lg p-4 border reveal stagger-${(i % 6) + 1}`} style={{ background: '#080f1a', borderColor: 'rgba(255,255,255,0.07)' }}>
+                <div className="text-xl mb-2">{feat.icon}</div>
+                <div className="font-bold text-sm mb-1 text-white">{feat.title}</div>
+                <div className="text-xs leading-relaxed" style={{ color: 'rgba(255,255,255,0.4)' }}>{feat.desc}</div>
               </div>
             ))}
           </div>
@@ -567,20 +557,20 @@ export default function Home() {
       </section>
 
       {/* Pricing */}
-      <section id="pricing" className="py-20">
+      <section id="pricing" className="py-12" style={{ background: '#080f1a' }}>
         <div className="max-w-4xl mx-auto px-6">
-          <div className="text-center mb-12 reveal">
-            <div className="text-xs font-bold uppercase tracking-widest mb-3" style={{ color: '#f59e0b' }}>Pricing</div>
-            <h2 className="text-3xl font-black tracking-tight" style={{ color: '#111827' }}>Simple, honest pricing</h2>
-            <p className="text-sm mt-2" style={{ color: '#6b7280' }}>One plan. Everything included. Cancel anytime.</p>
+          <div className="text-center mb-8 reveal">
+            <div className="text-xs font-bold uppercase tracking-widest mb-2" style={{ color: '#f59e0b' }}>Pricing</div>
+            <h2 className="text-2xl font-black tracking-tight text-white">Simple, honest pricing</h2>
+            <p className="text-sm mt-1.5" style={{ color: 'rgba(255,255,255,0.4)' }}>One plan. Everything included. Cancel anytime.</p>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
             {/* Free */}
-            <div className="rounded-2xl p-8 border reveal" style={{ background: '#fff', borderColor: 'rgba(30,58,95,0.10)' }}>
-              <div className="text-xs font-bold uppercase tracking-widest mb-1" style={{ color: '#9ca3af' }}>Free</div>
-              <div className="text-5xl font-black mb-0.5" style={{ color: '#111827' }}>$0</div>
-              <div className="text-sm mb-6" style={{ color: '#9ca3af' }}>Always free</div>
-              <ul className="space-y-2.5 mb-8">
+            <div className="rounded-2xl p-7 border reveal" style={{ background: '#0d1425', borderColor: 'rgba(255,255,255,0.08)' }}>
+              <div className="text-xs font-bold uppercase tracking-widest mb-1" style={{ color: 'rgba(255,255,255,0.3)' }}>Free</div>
+              <div className="text-5xl font-black mb-0.5 text-white">$0</div>
+              <div className="text-sm mb-5" style={{ color: 'rgba(255,255,255,0.3)' }}>Always free</div>
+              <ul className="space-y-2 mb-7">
                 {[
                   "3 resumes per month",
                   "Job match score",
@@ -589,29 +579,33 @@ export default function Home() {
                   "Interview prep (3 questions)",
                   "All export formats",
                 ].map((f) => (
-                  <li key={f} className="flex items-start gap-2 text-sm" style={{ color: '#6b7280' }}>
-                    <span style={{ color: '#1e3a5f' }}>✓</span> {f}
+                  <li key={f} className="flex items-start gap-2 text-sm" style={{ color: 'rgba(255,255,255,0.5)' }}>
+                    <span style={{ color: 'rgba(255,255,255,0.3)' }}>✓</span> {f}
                   </li>
                 ))}
               </ul>
-              <a href="#how" className="block w-full py-3 text-center font-semibold text-sm rounded-lg border transition-all" style={{ borderColor: 'rgba(30,58,95,0.2)', color: '#1e3a5f' }}>
+              <a href="#how" className="block w-full py-3 text-center font-semibold text-sm rounded-lg border transition-all" style={{ borderColor: 'rgba(255,255,255,0.12)', color: 'rgba(255,255,255,0.6)' }}>
                 Get started free
               </a>
             </div>
 
-            {/* Pro */}
-            <div className="rounded-2xl p-8 border reveal stagger-2 relative overflow-hidden" style={{ background: '#1e3a5f', borderColor: '#1e3a5f' }}>
-              {/* Gold accent stripe */}
-              <div className="absolute top-0 left-0 right-0 h-1 rounded-t-2xl" style={{ background: 'linear-gradient(90deg, #f59e0b, #fbbf24)' }} />
-              <div className="absolute -top-3 right-6 text-xs font-bold px-3 py-1 rounded-full" style={{ background: '#f59e0b', color: '#111827' }}>Most Popular</div>
+            {/* Pro — border glow highlight */}
+            <div className="rounded-2xl p-7 border reveal stagger-2 relative overflow-hidden" style={{
+              background: 'linear-gradient(135deg, #0d1a2e 0%, #0d1425 100%)',
+              borderColor: 'rgba(245,158,11,0.45)',
+              boxShadow: '0 0 0 1px rgba(245,158,11,0.15), 0 8px 40px rgba(245,158,11,0.12), inset 0 1px 0 rgba(245,158,11,0.1)',
+            }}>
+              {/* Top amber stripe */}
+              <div className="absolute top-0 left-0 right-0 h-0.5" style={{ background: 'linear-gradient(90deg, transparent, #f59e0b, transparent)' }} />
+              <div className="absolute -top-3 right-5 text-xs font-bold px-3 py-1 rounded-full" style={{ background: '#f59e0b', color: '#0d1425' }}>Most Popular</div>
 
               <div className="text-xs font-bold uppercase tracking-widest mb-1" style={{ color: '#f59e0b' }}>Pro</div>
               <div className="flex items-baseline gap-1 mb-0.5">
                 <span className="text-5xl font-black text-white">$9</span>
-                <span className="text-lg text-white/60">/mo</span>
+                <span className="text-lg" style={{ color: 'rgba(255,255,255,0.4)' }}>/mo</span>
               </div>
-              <div className="text-sm mb-6 text-white/50">Cancel anytime · no contracts</div>
-              <ul className="space-y-2.5 mb-8">
+              <div className="text-sm mb-5" style={{ color: 'rgba(255,255,255,0.35)' }}>Cancel anytime · no contracts</div>
+              <ul className="space-y-2 mb-7">
                 {[
                   "Unlimited resumes & cover letters",
                   "Full ATS optimisation engine",
@@ -621,13 +615,13 @@ export default function Home() {
                   "Salary range insights",
                   "Priority support",
                 ].map((f) => (
-                  <li key={f} className="flex items-start gap-2 text-sm text-white/80">
+                  <li key={f} className="flex items-start gap-2 text-sm" style={{ color: 'rgba(255,255,255,0.7)' }}>
                     <span style={{ color: '#f59e0b' }}>✓</span> {f}
                   </li>
                 ))}
               </ul>
               {isPro ? (
-                <div className="w-full py-3 text-center font-bold text-sm rounded-lg" style={{ background: 'rgba(245,158,11,0.2)', color: '#f59e0b' }}>
+                <div className="w-full py-3 text-center font-bold text-sm rounded-lg" style={{ background: 'rgba(245,158,11,0.15)', color: '#f59e0b' }}>
                   ✦ You&apos;re on Pro
                 </div>
               ) : (
@@ -635,7 +629,7 @@ export default function Home() {
                   onClick={handleUpgrade}
                   disabled={checkoutLoading}
                   className="w-full py-3 font-bold text-sm rounded-lg transition-all"
-                  style={{ background: '#f59e0b', color: '#111827', boxShadow: '0 4px 16px rgba(245,158,11,0.35)' }}
+                  style={{ background: '#f59e0b', color: '#0d1425', boxShadow: '0 4px 20px rgba(245,158,11,0.35)' }}
                 >
                   {checkoutLoading ? 'Loading…' : 'Start Pro — $9/mo'}
                 </button>
@@ -644,33 +638,33 @@ export default function Home() {
           </div>
 
           {/* Trust badges */}
-          <div className="flex flex-wrap items-center justify-center gap-6 mt-8 text-xs" style={{ color: '#9ca3af' }}>
-            <span className="flex items-center gap-1.5">🔒 Secure Stripe checkout</span>
-            <span className="flex items-center gap-1.5">↩ Cancel anytime</span>
-            <span className="flex items-center gap-1.5">✓ No hidden fees</span>
-            <span className="flex items-center gap-1.5">✓ ATS optimised templates</span>
+          <div className="flex flex-wrap items-center justify-center gap-5 mt-7 text-xs" style={{ color: 'rgba(255,255,255,0.3)' }}>
+            <span>🔒 Secure Stripe checkout</span>
+            <span>↩ Cancel anytime</span>
+            <span>✓ No hidden fees</span>
+            <span>✓ ATS optimised templates</span>
           </div>
         </div>
       </section>
 
-      <div className="max-w-4xl mx-auto px-6">
+      <div className="max-w-4xl mx-auto px-6 py-4" style={{ background: '#080f1a' }}>
         <ResumeVaultAffiliates />
       </div>
 
       {/* Competitor comparison */}
-      <section style={{ borderTop:'1px solid rgba(30,58,95,0.08)', padding:'48px 24px', background:'#f9fafb' }}>
+      <section style={{ borderTop:'1px solid rgba(255,255,255,0.05)', padding:'40px 24px', background:'#0d1425' }}>
         <div style={{ maxWidth:800, margin:'0 auto' }}>
-          <div style={{ textAlign:'center', marginBottom:32 }}>
-            <p style={{ fontSize:10, color:'rgba(30,58,95,0.4)', letterSpacing:'0.15em', textTransform:'uppercase', marginBottom:8 }}>How we compare</p>
-            <h2 style={{ fontSize:20, fontWeight:800, color:'#1e3a5f' }}>ResumeVault vs alternatives</h2>
+          <div style={{ textAlign:'center', marginBottom:28 }}>
+            <p style={{ fontSize:10, color:'rgba(255,255,255,0.2)', letterSpacing:'0.15em', textTransform:'uppercase', marginBottom:8 }}>How we compare</p>
+            <h2 style={{ fontSize:20, fontWeight:800, color:'#fff' }}>ResumeVault vs alternatives</h2>
           </div>
           <div style={{ overflowX:'auto' }}>
-            <table style={{ width:'100%', borderCollapse:'collapse', fontSize:12, background:'#fff', borderRadius:12, overflow:'hidden', boxShadow:'0 1px 4px rgba(0,0,0,0.06)' }}>
+            <table style={{ width:'100%', borderCollapse:'collapse', fontSize:12, background:'#080f1a', borderRadius:12, overflow:'hidden', border:'1px solid rgba(255,255,255,0.06)' }}>
               <thead>
-                <tr style={{ borderBottom:'1px solid rgba(30,58,95,0.1)', background:'rgba(30,58,95,0.03)' }}>
+                <tr style={{ borderBottom:'1px solid rgba(255,255,255,0.06)', background:'rgba(255,255,255,0.02)' }}>
                   {['Feature','ResumeVault','Resume.io','Zety','Canva'].map((h,i) => (
                     <th key={h} style={{ padding:'12px 14px', textAlign:i===0?'left':'center',
-                      color: i===1 ? '#1e3a5f' : '#9ca3af', fontWeight:700, fontSize:11, letterSpacing:'0.05em' }}>{h}</th>
+                      color: i===1 ? '#f59e0b' : 'rgba(255,255,255,0.3)', fontWeight:700, fontSize:11, letterSpacing:'0.05em' }}>{h}</th>
                   ))}
                 </tr>
               </thead>
@@ -684,11 +678,11 @@ export default function Home() {
                   ['PDF download free','✅','❌ Paid','❌ Paid','✅'],
                   ['Cost','Free / $9 mo','$9.95/mo','$8.25/mo','Free / $15 mo'],
                 ].map(row => (
-                  <tr key={row[0]} style={{ borderBottom:'1px solid rgba(30,58,95,0.06)' }}>
+                  <tr key={row[0]} style={{ borderBottom:'1px solid rgba(255,255,255,0.04)' }}>
                     {row.map((cell,i) => (
                       <td key={i} style={{ padding:'10px 14px', textAlign:i===0?'left':'center',
-                        color: i===1 ? '#1e3a5f' : i===0 ? '#374151' : '#9ca3af',
-                        background: i===1 ? 'rgba(30,58,95,0.03)' : 'transparent', fontSize:11, fontWeight: i===1 ? 600 : 400 }}>{cell}</td>
+                        color: i===1 ? '#f59e0b' : i===0 ? 'rgba(255,255,255,0.6)' : 'rgba(255,255,255,0.3)',
+                        background: i===1 ? 'rgba(245,158,11,0.04)' : 'transparent', fontSize:11, fontWeight: i===1 ? 600 : 400 }}>{cell}</td>
                     ))}
                   </tr>
                 ))}
@@ -699,22 +693,22 @@ export default function Home() {
       </section>
 
       {/* Footer */}
-      <footer style={{ borderTop:'1px solid rgba(30,58,95,0.08)', padding:'24px', background:'#fff' }}>
+      <footer style={{ borderTop:'1px solid rgba(255,255,255,0.05)', padding:'24px', background:'#080f1a' }}>
         <div style={{ maxWidth:900, margin:'0 auto', display:'flex', flexWrap:'wrap', justifyContent:'space-between', alignItems:'center', gap:16 }}>
           <div>
-            <span style={{ fontWeight:900, fontSize:15, color:'#1e3a5f' }}>ResumeVault</span>
-            <p style={{ fontSize:11, color:'#9ca3af', marginTop:4 }}>AI-powered resume builder — no login, no hidden fees.</p>
+            <span style={{ fontWeight:900, fontSize:15, color:'#fff' }}>ResumeVault</span>
+            <p style={{ fontSize:11, color:'rgba(255,255,255,0.25)', marginTop:4 }}>AI-powered resume builder — no login, no hidden fees.</p>
           </div>
           <div style={{ display:'flex', gap:20, flexWrap:'wrap' }}>
             {[['About','/about'],['Privacy','/privacy'],['Terms','/terms'],['Cookie Policy','/cookies']].map(([label,href]) => (
-              <a key={label} href={href} style={{ fontSize:11, color:'#9ca3af', textDecoration:'none' }}
-                onMouseOver={e=>(e.currentTarget.style.color='#1e3a5f')} onMouseOut={e=>(e.currentTarget.style.color='#9ca3af')}>{label}</a>
+              <a key={label} href={href} style={{ fontSize:11, color:'rgba(255,255,255,0.3)', textDecoration:'none' }}
+                onMouseOver={e=>(e.currentTarget.style.color='#f59e0b')} onMouseOut={e=>(e.currentTarget.style.color='rgba(255,255,255,0.3)')}>{label}</a>
             ))}
           </div>
-          <p style={{ fontSize:10, color:'#d1d5db' }}>© 2026 ResumeVault</p>
+          <p style={{ fontSize:10, color:'rgba(255,255,255,0.15)' }}>© 2026 ResumeVault</p>
         </div>
       </footer>
-      <GuidedTour steps={RESUME_TOUR} storageKey="resumevault_tour_v1" accentColor="#1e3a5f" />
+      <GuidedTour steps={RESUME_TOUR} storageKey="resumevault_tour_v1" accentColor="#f59e0b" />
     </main>
     <ResumeVaultCookieBanner />
     </>
@@ -729,22 +723,22 @@ function ResumeVaultCookieBanner() {
   if (!visible) return null
   return (
     <div style={{ position:'fixed', bottom:0, left:0, right:0, zIndex:200, padding:'12px 24px',
-      background:'rgba(255,255,255,0.97)', borderTop:'1px solid rgba(30,58,95,0.15)',
-      backdropFilter:'blur(16px)', boxShadow:'0 -4px 24px rgba(0,0,0,0.06)',
+      background:'rgba(13,20,37,0.97)', borderTop:'1px solid rgba(255,255,255,0.07)',
+      backdropFilter:'blur(16px)', boxShadow:'0 -4px 24px rgba(0,0,0,0.3)',
       display:'flex', alignItems:'center', justifyContent:'space-between', gap:16, flexWrap:'wrap' }}>
-      <p style={{ fontSize:12, color:'#6b7280', maxWidth:600, lineHeight:1.5 }}>
+      <p style={{ fontSize:12, color:'rgba(255,255,255,0.5)', maxWidth:600, lineHeight:1.5 }}>
         ResumeVault uses essential cookies to save your resume drafts locally. No tracking, no ads.{' '}
-        <a href="/privacy" style={{ color:'#1e3a5f', textDecoration:'underline', cursor:'pointer' }}>Privacy policy</a>
+        <a href="/privacy" style={{ color:'#f59e0b', textDecoration:'underline', cursor:'pointer' }}>Privacy policy</a>
       </p>
       <div style={{ display:'flex', gap:10 }}>
         <button onClick={() => { localStorage.setItem('rv_cookies_ok','1'); setVisible(false) }}
           style={{ fontSize:12, fontWeight:700, padding:'7px 20px', borderRadius:8,
-            background:'#1e3a5f', color:'#fff', border:'none', cursor:'pointer' }}>
+            background:'#f59e0b', color:'#0d1425', border:'none', cursor:'pointer' }}>
           Accept
         </button>
         <button onClick={() => setVisible(false)}
           style={{ fontSize:12, fontWeight:500, padding:'7px 14px', borderRadius:8,
-            background:'transparent', color:'#9ca3af', border:'1px solid #e5e7eb', cursor:'pointer' }}>
+            background:'transparent', color:'rgba(255,255,255,0.35)', border:'1px solid rgba(255,255,255,0.1)', cursor:'pointer' }}>
           Decline
         </button>
       </div>
