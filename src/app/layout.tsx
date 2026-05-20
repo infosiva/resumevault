@@ -4,7 +4,6 @@ import './globals.css'
 import SharedNavbar from '@/components/SharedNavbar'
 import Footer from '../../components/Footer'
 import DesignEffects from '@/components/DesignEffects'
-import ChatBot from '@/components/ChatBot'
 import type { BrandConfig } from '@/components/SharedNavbar'
 import CookieConsent from "../../components/CookieConsent";
 import StickyFooterCTA from "../../components/StickyFooterCTA";
@@ -119,7 +118,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <main className="flex-1">{children}</main>
         <AffiliateStrip />
         <Footer siteName="ResumeVault" />
-        <ChatBot />
         <script src="http://31.97.56.148:3098/t.js" data-site="resumevault.app" defer></script>
         <script dangerouslySetInnerHTML={{ __html: `fetch('http://31.97.56.148:3099/api/stats',{method:'POST',body:JSON.stringify({site:'resumevault.app',event:'pageview'}),headers:{'Content-Type':'application/json'}}).catch(function(){})` }} />
       <CookieConsent />
