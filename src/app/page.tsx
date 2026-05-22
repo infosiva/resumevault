@@ -416,7 +416,7 @@ export default function Home() {
           <span style={{ color: 'rgba(255,255,255,0.15)' }}>·</span>
           <span>Free to start</span>
           <span style={{ color: 'rgba(255,255,255,0.15)' }}>·</span>
-          <span>10,000+ resumes built</span>
+          <span>Join early users</span>
         </div>
       </div>
 
