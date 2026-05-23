@@ -6,6 +6,7 @@ import Footer from '../../components/Footer'
 import DesignEffects from '@/components/DesignEffects'
 import type { BrandConfig } from '@/components/SharedNavbar'
 import CookieConsent from "../../components/CookieConsent";
+import BackToTop from '@/components/BackToTop'
 import StickyFooterCTA from "../../components/StickyFooterCTA";
 import siteConfig from '../../site.config'
 import AuthButton from '@/components/AuthButton'
@@ -120,6 +121,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <Footer siteName="ResumeVault" />
         <script src="http://31.97.56.148:3098/t.js" data-site="resumevault.app" defer></script>
         <script dangerouslySetInnerHTML={{ __html: `fetch('http://31.97.56.148:3099/api/stats',{method:'POST',body:JSON.stringify({site:'resumevault.app',event:'pageview'}),headers:{'Content-Type':'application/json'}}).catch(function(){})` }} />
+      <BackToTop accentColor="#1e3a8a" />
       <CookieConsent />
       <StickyFooterCTA />
             <Script async src="http://31.97.56.148:3100/script.js" data-website-id="0ffb8fac-4921-4827-a610-61f3b3c0c420" strategy="afterInteractive" />
