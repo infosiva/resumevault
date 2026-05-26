@@ -119,12 +119,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <main className="flex-1">{children}</main>
         <AffiliateStrip />
         <Footer siteName="ResumeVault" />
-        <script src="http://31.97.56.148:3098/t.js" data-site="resumevault.app" defer></script>
-        <script dangerouslySetInnerHTML={{ __html: `fetch('http://31.97.56.148:3099/api/stats',{method:'POST',body:JSON.stringify({site:'resumevault.app',event:'pageview'}),headers:{'Content-Type':'application/json'}}).catch(function(){})` }} />
       <BackToTop accentColor="#1e3a8a" />
       <CookieConsent />
       <StickyFooterCTA />
-            <Script async src="http://31.97.56.148:3100/script.js" data-website-id="0ffb8fac-4921-4827-a610-61f3b3c0c420" strategy="afterInteractive" />
+      <Script defer data-domain="resumevault.app" src="https://plausible.io/js/script.js" strategy="afterInteractive" />
       </body>
     </html>
   )
