@@ -11,6 +11,7 @@ import StickyFooterCTA from "../../components/StickyFooterCTA";
 import siteConfig from '../../site.config'
 import AuthButton from '@/components/AuthButton'
 import AffiliateStrip from '@/components/AffiliateStrip'
+import ChatBot from '@/components/ChatBot'
 
 const brand: BrandConfig = {
   name: 'ResumeVault',
@@ -100,29 +101,36 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           :root {
             --theme-primary: #1e3a8a;
             --theme-secondary: #3b82f6;
-            --theme-base: #f8fafc;
-            --background: #f8fafc;
-            --surface-1: #ffffff;
-            --surface-2: #f1f5f9;
-            --foreground: #0f172a;
-            --text-2: #475569;
-            --border-default: rgba(30,58,138,0.12);
-            --border-strong: rgba(30,58,138,0.25);
+            --theme-base: #080712;
+            --background: #080712;
+            --surface-1: #0e0c22;
+            --surface-2: #161430;
+            --foreground: #f0eeff;
+            --text-2: #a5b4fc;
+            --border-default: rgba(99,102,241,0.14);
+            --border-strong: rgba(99,102,241,0.25);
           }
-          body { font-family: 'Inter', system-ui, sans-serif !important; color: #0f172a !important; background: #f8fafc !important; }
+          body { font-family: 'Inter', system-ui, sans-serif !important; color: #f0eeff !important; background: #080712 !important; }
           h1, h2, h3 { font-family: 'Playfair Display', serif !important; }
-          .glass { background: rgba(248,250,252,0.85) !important; border-color: rgba(30,58,138,0.1) !important; color: #0f172a !important; }
+          .glass { background: rgba(255,255,255,0.03) !important; border-color: rgba(99,102,241,0.12) !important; backdrop-filter: blur(16px) saturate(140%) !important; }
         ` }} />
       </head>
       <body className="flex flex-col min-h-screen">
+        <div className="aurora aurora-primary" aria-hidden />
+        <div className="aurora aurora-secondary" aria-hidden />
+        <div className="aurora aurora-third" aria-hidden />
+        <div className="grain" aria-hidden />
         <DesignEffects />
-        <main className="flex-1">{children}</main>
+        <div id="layout-nav"><SharedNavbar brand={brand} /></div>
+        <main className="flex-1 pt-16">{children}</main>
         <AffiliateStrip />
         <Footer siteName="ResumeVault" />
+      <ChatBot />
       <BackToTop accentColor="#1e3a8a" />
       <CookieConsent />
       <StickyFooterCTA />
       <Script defer data-domain="resumevault.app" src="https://plausible.io/js/script.js" strategy="afterInteractive" />
+      <Script defer data-site="resumevault.app" src="http://31.97.56.148:3098/t.js" strategy="afterInteractive" />
       </body>
     </html>
   )
