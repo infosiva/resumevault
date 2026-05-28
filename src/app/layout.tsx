@@ -12,6 +12,7 @@ import siteConfig from '../../site.config'
 import AuthButton from '@/components/AuthButton'
 import AffiliateStrip from '@/components/AffiliateStrip'
 import ChatBot from '@/components/ChatBot'
+import { getSiteFlags } from '@/lib/flags'
 
 const brand: BrandConfig = {
   name: 'ResumeVault',
@@ -53,7 +54,8 @@ export const metadata: Metadata = {
   robots: { index: true, follow: true, googleBot: { index: true, follow: true } },
 }
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+export default async function RootLayout({ children }: { children: React.ReactNode }) {
+  const flags = await getSiteFlags('resumevault')
   return (
     <html lang="en">
       <head>
@@ -125,7 +127,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <main className="flex-1 pt-16">{children}</main>
         <AffiliateStrip />
         <Footer siteName="ResumeVault" />
-      <ChatBot />
+      {flags.chatbot && <ChatBot />}
       <BackToTop accentColor="#1e3a8a" />
       <CookieConsent />
       <StickyFooterCTA />
