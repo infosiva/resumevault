@@ -11,16 +11,25 @@ const API_ENDPOINT = siteConfig.chatbot.apiEndpoint
 const SYSTEM_PROMPT = `You are ResumeBot, the AI career assistant for ResumeVault — an AI-powered ATS resume builder.
 Help users write better resumes, understand ATS scoring, improve bullet points, prep for interviews, and navigate job searches.
 Be specific, encouraging, and give actionable advice. Focus on helping them land their next role.`
+const BOTTOM_OFFSET = 84
 
 interface Message { role: 'user' | 'assistant'; content: string }
 
 export default function ChatBot() {
   const [open, setOpen] = useState(false)
+  const [isMobile, setIsMobile] = useState(false)
   const [messages, setMessages] = useState<Message[]>([{ role: 'assistant', content: WELCOME }])
   const [input, setInput] = useState('')
   const [loading, setLoading] = useState(false)
   const bottomRef = useRef<HTMLDivElement>(null)
   const inputRef = useRef<HTMLInputElement>(null)
+
+  useEffect(() => {
+    const check = () => setIsMobile(window.innerWidth < 640)
+    check()
+    window.addEventListener('resize', check)
+    return () => window.removeEventListener('resize', check)
+  }, [])
 
   useEffect(() => { bottomRef.current?.scrollIntoView({ behavior: 'smooth' }) }, [messages, loading])
   useEffect(() => { if (open) setTimeout(() => inputRef.current?.focus(), 100) }, [open])
@@ -65,6 +74,23 @@ export default function ChatBot() {
 
   const onKey = (e: React.KeyboardEvent) => { if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); send() } }
 
+  const panelStyle: React.CSSProperties = isMobile ? {
+    position: 'fixed', bottom: 0, left: 0, right: 0, zIndex: 9998,
+    width: '100%', height: `calc(100dvh - ${BOTTOM_OFFSET}px)`,
+    borderRadius: '16px 16px 0 0',
+    background: '#fafafa', border: `1px solid rgba(30,58,95,0.2)`,
+    boxShadow: '0 -8px 40px rgba(0,0,0,0.3)',
+    display: 'flex', flexDirection: 'column', overflow: 'hidden',
+    animation: 'rv-slide-bottom 0.3s cubic-bezier(0.23,1,0.32,1)',
+  } : {
+    position: 'fixed', bottom: 88, right: 24, zIndex: 9998,
+    width: 370, height: 500, borderRadius: 12,
+    background: '#fafafa', border: `1px solid rgba(30,58,95,0.2)`,
+    boxShadow: '0 8px 40px rgba(0,0,0,0.2)',
+    display: 'flex', flexDirection: 'column', overflow: 'hidden',
+    animation: 'rv-slide 0.2s ease-out',
+  }
+
   return (
     <>
       <button onClick={() => setOpen(o => !o)} aria-label="ResumeBot"
@@ -79,9 +105,14 @@ export default function ChatBot() {
       </button>
 
       {open && (
-        <div style={{ position: 'fixed', bottom: 88, right: 24, zIndex: 9998, width: 370, height: 500, borderRadius: 12, background: '#fafafa', border: `1px solid rgba(30,58,95,0.2)`, boxShadow: '0 8px 40px rgba(0,0,0,0.2)', display: 'flex', flexDirection: 'column', overflow: 'hidden', animation: 'rv-slide 0.2s ease-out' }}>
-          <style>{`@keyframes rv-slide{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:translateY(0)}} .rv-msg::-webkit-scrollbar{width:4px} .rv-msg::-webkit-scrollbar-thumb{background:rgba(30,58,95,0.2);border-radius:2px} @keyframes rv-bounce{0%,80%,100%{transform:translateY(0)}40%{transform:translateY(-5px)}}`}</style>
-          <div style={{ padding: '12px 16px', borderBottom: '1px solid rgba(30,58,95,0.12)', display: 'flex', alignItems: 'center', justifyContent: 'space-between', background: 'rgba(30,58,95,0.05)' }}>
+        <div style={panelStyle}>
+          <style>{`
+            @keyframes rv-slide{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:translateY(0)}}
+            @keyframes rv-slide-bottom{from{transform:translateY(100%)}to{transform:translateY(0)}}
+            .rv-msg::-webkit-scrollbar{width:4px} .rv-msg::-webkit-scrollbar-thumb{background:rgba(30,58,95,0.2);border-radius:2px}
+            @keyframes rv-bounce{0%,80%,100%{transform:translateY(0)}40%{transform:translateY(-5px)}}
+          `}</style>
+          <div style={{ padding: '12px 16px', borderBottom: '1px solid rgba(30,58,95,0.12)', display: 'flex', alignItems: 'center', justifyContent: 'space-between', background: 'rgba(30,58,95,0.05)', flexShrink: 0 }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
               <div style={{ width: 34, height: 34, borderRadius: 8, background: ACCENT, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 18 }}>📄</div>
               <div>
@@ -93,7 +124,7 @@ export default function ChatBot() {
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
             </button>
           </div>
-          <div className="rv-msg" style={{ flex: 1, overflowY: 'auto', padding: '14px 14px 6px', display: 'flex', flexDirection: 'column', gap: 10, background: '#fafafa' }}>
+          <div className="rv-msg" style={{ flex: 1, minHeight: 0, overflowY: 'auto', padding: '14px 14px 6px', display: 'flex', flexDirection: 'column', gap: 10, background: '#fafafa' }}>
             {messages.map((m, i) => (
               <div key={i} style={{ display: 'flex', justifyContent: m.role === 'user' ? 'flex-end' : 'flex-start' }}>
                 <div style={{ maxWidth: '85%', padding: '9px 13px', borderRadius: m.role === 'user' ? '12px 12px 3px 12px' : '12px 12px 12px 3px', background: m.role === 'user' ? ACCENT : '#fff', border: m.role === 'user' ? 'none' : '1px solid rgba(30,58,95,0.12)', color: m.role === 'user' ? '#fff' : '#374151', fontSize: 13.5, lineHeight: 1.6, wordBreak: 'break-word', whiteSpace: 'pre-wrap' }}>{m.content}</div>
@@ -108,9 +139,9 @@ export default function ChatBot() {
             )}
             <div ref={bottomRef}/>
           </div>
-          <div style={{ padding: '10px 12px', borderTop: '1px solid rgba(30,58,95,0.1)', display: 'flex', gap: 8, alignItems: 'center', background: '#f9fafb' }}>
+          <div style={{ padding: '10px 12px', borderTop: '1px solid rgba(30,58,95,0.1)', display: 'flex', gap: 8, alignItems: 'center', background: '#f9fafb', flexShrink: 0, paddingBottom: 'max(10px, env(safe-area-inset-bottom))' }}>
             <input ref={inputRef} value={input} onChange={e => setInput(e.target.value)} onKeyDown={onKey} placeholder="Ask about your resume…" disabled={loading}
-              style={{ flex: 1, background: '#fff', border: '1px solid rgba(30,58,95,0.2)', borderRadius: 8, padding: '9px 13px', color: '#111827', fontSize: 13.5, outline: 'none' }}
+              style={{ flex: 1, background: '#fff', border: '1px solid rgba(30,58,95,0.2)', borderRadius: 8, padding: '9px 13px', color: '#111827', fontSize: isMobile ? 16 : 13.5, outline: 'none' }}
               onFocus={e => (e.target.style.borderColor = ACCENT)} onBlur={e => (e.target.style.borderColor = 'rgba(30,58,95,0.2)')}/>
             <button onClick={send} disabled={loading || !input.trim()} style={{ width: 38, height: 38, borderRadius: 8, border: 'none', background: input.trim() && !loading ? ACCENT : 'rgba(30,58,95,0.1)', cursor: input.trim() && !loading ? 'pointer' : 'not-allowed', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
