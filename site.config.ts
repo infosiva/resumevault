@@ -5,8 +5,8 @@
 
 export const siteConfig = {
   name: 'ResumeVault',
-  tagline: 'Build a Resume That Gets Interviews',
-  description: 'AI-powered resume builder that tailors your resume to job descriptions. ATS-optimized, professional templates.',
+  tagline: 'The resume that gets the interview.',
+  description: 'AI tailors your CV to each job description — ATS-scored, interview-ready in 60 seconds.',
   url: 'https://resumevault.app',
   primaryColor: '#0f172a',
   email: 'info.siva@gmail.com',
@@ -18,7 +18,7 @@ export const siteConfig = {
   },
 
   chatbot: {
-    openingMessage: 'Hi! I can help you build a winning resume. What job are you applying for?',
+    openingMessage: 'Tell me the job title you\'re targeting and I\'ll tailor your resume to beat the ATS and get the interview.',
     apiEndpoint: '/api/chat',
   },
 

@@ -88,7 +88,7 @@ export default function ChatBot() {
     background: '#fafafa', border: `1px solid rgba(30,58,95,0.2)`,
     boxShadow: '0 8px 40px rgba(0,0,0,0.2)',
     display: 'flex', flexDirection: 'column', overflow: 'hidden',
-    animation: 'rv-slide 0.2s ease-out',
+    animation: 'rv-slide 0.22s cubic-bezier(0.23,1,0.32,1)',
   }
 
   return (
@@ -96,7 +96,9 @@ export default function ChatBot() {
       <button onClick={() => setOpen(o => !o)} aria-label="ResumeBot"
         style={{ position: 'fixed', bottom: 24, right: 24, zIndex: 9999, width: 52, height: 52, borderRadius: 12, background: ACCENT, border: 'none', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', boxShadow: `0 4px 20px ${ACCENT}88`, transition: 'transform 0.2s' }}
         onMouseEnter={e => (e.currentTarget.style.transform = 'scale(1.08)')}
-        onMouseLeave={e => (e.currentTarget.style.transform = 'scale(1)')}>
+        onMouseLeave={e => (e.currentTarget.style.transform = 'scale(1)')}
+        onMouseDown={e => (e.currentTarget.style.transform = 'scale(0.97)')}
+        onMouseUp={e => (e.currentTarget.style.transform = 'scale(1.08)')}>
         {open ? (
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#fff" strokeWidth="2.5" strokeLinecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
         ) : (
@@ -107,7 +109,7 @@ export default function ChatBot() {
       {open && (
         <div style={panelStyle}>
           <style>{`
-            @keyframes rv-slide{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:translateY(0)}}
+            @keyframes rv-slide{from{opacity:0;transform:translateY(14px) scale(0.95)}to{opacity:1;transform:translateY(0) scale(1)}}
             @keyframes rv-slide-bottom{from{transform:translateY(100%)}to{transform:translateY(0)}}
             .rv-msg::-webkit-scrollbar{width:4px} .rv-msg::-webkit-scrollbar-thumb{background:rgba(30,58,95,0.2);border-radius:2px}
             @keyframes rv-bounce{0%,80%,100%{transform:translateY(0)}40%{transform:translateY(-5px)}}
