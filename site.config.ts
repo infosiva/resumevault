@@ -5,8 +5,8 @@
 
 export const siteConfig = {
   name: 'ResumeVault',
-  tagline: 'The resume that gets the interview.',
-  description: 'AI tailors your CV to each job description — ATS-scored, interview-ready in 60 seconds.',
+  tagline: 'Your resume, rewritten for every job — ATS-optimized before you hit send.',
+  description: 'Paste a job description and watch AI rewrite your bullets to match — no manual editing. ATS keyword matching, instant tailoring, free to start.',
   url: 'https://resumevault.app',
   primaryColor: '#0f172a',
   email: 'info.siva@gmail.com',
@@ -23,8 +23,8 @@ export const siteConfig = {
   },
 
   seo: {
-    title: 'ResumeVault — AI Resume Builder for Job Seekers',
-    description: 'Build an ATS-optimized resume with AI. Tailored to job descriptions, ready in minutes.',
+    title: 'ResumeVault — AI Resume Builder | ATS-Optimized for Every Job',
+    description: 'AI resume builder that rewrites your resume for each job application. ATS keyword matching, instant tailoring, free to start.',
     keywords: [
       'resume builder',
       'AI resume',
