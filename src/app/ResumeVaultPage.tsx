@@ -6,6 +6,7 @@ import ResumeForm from "@/components/ResumeForm";
 import ResumePreview from "@/components/ResumePreview";
 import KeywordBar from "@/components/KeywordBar";
 import ResumeVaultAffiliates from "@/components/ResumeVaultAffiliates";
+import JobMatcher from "@/components/JobMatcher";
 import GuidedTour, { type TourStep } from "@/components/GuidedTour";
 import type { ContentOverrides } from "@/lib/content";
 
@@ -217,9 +218,10 @@ export default function ResumeVaultPage({ overrides }: { overrides: ContentOverr
   const [suggestions, setSuggestions] = useState<{ id: string; text: string }[]>([]);
   const [jdKeywords, setJdKeywords] = useState<{ required: string[]; niceToHave: string[] }>({ required: [], niceToHave: [] });
   const [heroRole, setHeroRole] = useState("");
+  const [tailorPrompt, setTailorPrompt] = useState<string | null>(null);
 
-  const headline = overrides.headline ?? 'Get interviews,';
-  const subheadline = overrides.subheadline ?? 'Paste a job description — AI tailors every bullet point for maximum ATS compatibility and recruiter impact in under 60 seconds.';
+  const headline = overrides.headline ?? 'Your resume, rewritten for every job';
+  const subheadline = overrides.subheadline ?? 'Paste a job description and watch AI rewrite your bullets to match — no manual editing.';
   const ctaLabel = overrides.cta ?? 'Build Free →';
 
   useEffect(() => {
@@ -350,13 +352,13 @@ export default function ResumeVaultPage({ overrides }: { overrides: ContentOverr
               <span style={{ color: '#f59e0b' }}>✦</span> AI Resume Builder · ATS-Optimized · Free
             </span>
 
-            <h1 className="text-4xl lg:text-5xl xl:text-6xl font-black leading-[1.05] tracking-tight text-white reveal">
-              {headline}<br />
-              not <span style={{
+            <h1 className="text-4xl lg:text-5xl xl:text-6xl font-black leading-[1.08] tracking-tight text-white reveal">
+              {headline} —<br />
+              <span style={{
                 background: 'linear-gradient(90deg, #f59e0b, #fbbf24)',
                 WebkitBackgroundClip: 'text',
                 WebkitTextFillColor: 'transparent'
-              }}>rejections</span>
+              }}>ATS-optimized</span> before you hit send.
             </h1>
 
             <p className="text-base max-w-md leading-relaxed" style={{ color: 'rgba(255,255,255,0.5)' }}>
@@ -570,6 +572,17 @@ export default function ResumeVaultPage({ overrides }: { overrides: ContentOverr
 
       {/* ── MAIN BUILDER ─────────────────────── */}
       <section id="how" className="max-w-7xl mx-auto px-4 sm:px-6 py-10 sm:py-12" style={{ background: BG }}>
+        {tailorPrompt && (
+          <div className="mb-4 rounded-xl flex items-start gap-3 px-4 py-3 border"
+            style={{ background: 'rgba(245,158,11,0.08)', borderColor: 'rgba(245,158,11,0.25)' }}>
+            <span className="text-sm mt-0.5" style={{ color: '#f59e0b' }}>🎯</span>
+            <div className="flex-1 min-w-0">
+              <p className="text-xs font-semibold mb-0.5" style={{ color: '#f59e0b' }}>Job tailor ready</p>
+              <p className="text-xs truncate" style={{ color: 'rgba(255,255,255,0.5)' }}>{tailorPrompt}</p>
+            </div>
+            <button onClick={() => setTailorPrompt(null)} className="text-xs flex-shrink-0" style={{ color: 'rgba(255,255,255,0.25)' }}>✕</button>
+          </div>
+        )}
         {/* Mobile: stacked */}
         <div className="lg:hidden space-y-6">
           <div className="space-y-4">
@@ -584,6 +597,7 @@ export default function ResumeVaultPage({ overrides }: { overrides: ContentOverr
                 initialValues={savedSession}
               />
             </div>
+            <JobMatcher onTailor={(prompt) => { setTailorPrompt(prompt); document.getElementById('how')?.scrollIntoView({ behavior: 'smooth' }); }} />
             {(jdKeywords.required.length > 0 || jdKeywords.niceToHave.length > 0) && (
               <KeywordBar
                 required={jdKeywords.required}
@@ -625,6 +639,7 @@ export default function ResumeVaultPage({ overrides }: { overrides: ContentOverr
                     initialValues={savedSession}
                   />
                 </div>
+                <JobMatcher onTailor={(prompt) => setTailorPrompt(prompt)} />
                 {(jdKeywords.required.length > 0 || jdKeywords.niceToHave.length > 0) && (
                   <KeywordBar
                     required={jdKeywords.required}
