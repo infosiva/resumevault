@@ -347,21 +347,35 @@ export default function ResumeVaultPage({ overrides }: { overrides: ContentOverr
 
           {/* Left: copy + role input */}
           <div className="flex flex-col gap-5 relative z-10">
-            <span className="text-xs font-bold px-3 py-1.5 rounded-full inline-flex items-center gap-1.5 w-fit"
-              style={{ background: 'rgba(30,58,138,0.18)', color: '#93c5fd', border: '1px solid rgba(59,130,246,0.25)' }}>
+            {/* liquid-glass badge — VaultShield professional */}
+            <span
+              className="text-[11px] font-bold px-4 py-1.5 rounded-full inline-flex items-center gap-2 w-fit uppercase tracking-widest"
+              style={{
+                background: 'rgba(255,255,255,0.04)',
+                backdropFilter: 'blur(12px)',
+                WebkitBackdropFilter: 'blur(12px)',
+                border: '1px solid rgba(255,255,255,0.09)',
+                boxShadow: 'inset 0 1px 0 rgba(255,255,255,0.07)',
+                color: 'rgba(147,197,253,0.82)',
+              }}
+            >
               <span style={{ color: '#f59e0b' }}>✦</span> AI Resume Builder · ATS-Optimized · Free
             </span>
 
-            <h1 className="text-4xl lg:text-5xl xl:text-6xl font-black leading-[1.08] tracking-tight text-white reveal">
+            <h1
+              className="font-black leading-[0.97] tracking-tight text-white reveal"
+              style={{ fontSize: 'clamp(2.25rem, 5vw, 3.75rem)' }}
+            >
               {headline} —<br />
               <span style={{
-                background: 'linear-gradient(90deg, #f59e0b, #fbbf24)',
+                background: 'linear-gradient(135deg, #f59e0b 0%, #fbbf24 50%, #fde68a 100%)',
                 WebkitBackgroundClip: 'text',
-                WebkitTextFillColor: 'transparent'
+                WebkitTextFillColor: 'transparent',
+                filter: 'drop-shadow(0 0 28px rgba(245,158,11,0.45))',
               }}>ATS-optimized</span> before you hit send.
             </h1>
 
-            <p className="text-base max-w-md leading-relaxed" style={{ color: 'rgba(255,255,255,0.5)' }}>
+            <p className="text-[15px] max-w-md leading-relaxed" style={{ color: 'rgba(255,255,255,0.48)' }}>
               {subheadline}
             </p>
 
