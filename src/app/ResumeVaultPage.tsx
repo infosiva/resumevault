@@ -366,38 +366,6 @@ export default function ResumeVaultPage({ overrides }: { overrides: ContentOverr
         />
       </div>
 
-      {/* Sticky Nav */}
-      <nav className="sticky top-0 z-50 border-b" style={{ background: 'rgba(8,15,26,0.92)', backdropFilter: 'blur(20px)', borderColor: 'rgba(255,255,255,0.06)' }}>
-        <div className="max-w-7xl mx-auto px-6">
-          <div className="flex items-center justify-between h-14">
-            <div className="flex items-center gap-3">
-              <span className="font-black text-lg tracking-tight text-white">Resume<span style={{ color: '#3b82f6' }}>Vault</span></span>
-              <span className="text-xs font-semibold px-2.5 py-1 rounded-full hidden sm:inline-flex" style={{ background: 'rgba(30,58,138,0.18)', color: '#93c5fd', border: '1px solid rgba(59,130,246,0.2)' }}>
-                ATS-Optimized
-              </span>
-            </div>
-            <div className="flex items-center gap-4">
-              <a href="#how" className="text-sm font-medium hidden sm:block" style={{ color: 'rgba(255,255,255,0.45)' }}>How it works</a>
-              <a href="#pricing" className="text-sm font-medium hidden sm:block" style={{ color: 'rgba(255,255,255,0.45)' }}>Pricing</a>
-              {isPro ? (
-                <span className="text-xs font-bold px-3 py-1.5 rounded-full" style={{ background: 'rgba(245,158,11,0.15)', color: '#f59e0b' }}>
-                  ✦ Pro
-                </span>
-              ) : (
-                <button
-                  onClick={handleUpgrade}
-                  disabled={checkoutLoading}
-                  className="text-sm px-5 py-2 font-semibold rounded-lg btn-press transition-all"
-                  style={{ background: '#1e3a8a', color: '#fff', border: '1px solid rgba(59,130,246,0.3)' }}
-                >
-                  {checkoutLoading ? 'Loading…' : 'Go Pro — $9/mo'}
-                </button>
-              )}
-            </div>
-          </div>
-        </div>
-      </nav>
-
       {/* ── HERO ─────────────────────────────── */}
       <section className="relative overflow-hidden border-b" style={{ borderColor: 'rgba(255,255,255,0.05)' }}>
         <div className="max-w-7xl mx-auto grid lg:grid-cols-2 gap-10 items-center px-6 lg:px-12 py-14 lg:py-20">
@@ -416,24 +384,24 @@ export default function ResumeVaultPage({ overrides }: { overrides: ContentOverr
                 color: 'rgba(147,197,253,0.82)',
               }}
             >
-              <span style={{ color: '#f59e0b' }}>✦</span> AI Resume Builder · ATS-Optimized · Free
+              <span style={{ color: '#60a5fa' }}>✦</span> AI Resume Builder · ATS-Optimized · Free to start
             </span>
 
             <h1
-              className="font-black leading-[0.97] tracking-tight text-white reveal"
-              style={{ fontSize: 'clamp(2.25rem, 5vw, 3.75rem)' }}
+              className="font-black leading-[1.02] tracking-tight text-white reveal"
+              style={{ fontSize: 'clamp(2.1rem, 4.8vw, 3.5rem)' }}
             >
-              {headline} —<br />
+              Your resume, rewritten<br />
               <span style={{
-                background: 'linear-gradient(135deg, #f59e0b 0%, #fbbf24 50%, #fde68a 100%)',
+                background: 'linear-gradient(135deg, #60a5fa 0%, #818cf8 55%, #a78bfa 100%)',
                 WebkitBackgroundClip: 'text',
                 WebkitTextFillColor: 'transparent',
-                filter: 'drop-shadow(0 0 28px rgba(245,158,11,0.45))',
-              }}>ATS-optimized</span> before you hit send.
+                filter: 'drop-shadow(0 0 32px rgba(96,165,250,0.4))',
+              }}>for every job you apply to.</span>
             </h1>
 
-            <p className="text-[15px] max-w-md leading-relaxed" style={{ color: 'rgba(255,255,255,0.48)' }}>
-              {subheadline}
+            <p className="text-[15px] max-w-[420px] leading-relaxed" style={{ color: 'rgba(255,255,255,0.52)' }}>
+              Paste a job description — AI rewrites your bullets with the exact keywords that pass ATS filters and catch recruiter attention.
             </p>
 
             {/* Role targeting input */}
@@ -457,7 +425,7 @@ export default function ResumeVaultPage({ overrides }: { overrides: ContentOverr
                 type="submit"
                 id="hero-cta"
                 className="px-6 py-3 text-sm font-bold rounded-lg btn-press whitespace-nowrap"
-                style={{ background: '#f59e0b', color: '#0d1425', boxShadow: '0 4px 20px rgba(245,158,11,0.3)', minHeight: 44 }}
+                style={{ background: 'linear-gradient(135deg, #3b82f6, #6366f1)', color: '#fff', boxShadow: '0 4px 24px rgba(99,102,241,0.45)', minHeight: 44 }}
               >
                 {ctaLabel}
               </button>

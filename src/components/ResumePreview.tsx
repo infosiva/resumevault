@@ -573,6 +573,7 @@ h1{color:#111}h2{color:#333;border-bottom:1px solid #ddd}li{margin:0.2rem 0}
                 {resume && (
                   <div className="relative">
                     <div className="flex gap-2">
+                      <CopyButton text={resume} />
                       <button
                         onClick={downloadPDF}
                         className="px-3 py-2 rounded-lg border border-white/10 bg-white/5 hover:bg-white/10 text-xs font-medium transition-all text-white/70 hover:text-white"
@@ -636,7 +637,7 @@ h1{color:#111}h2{color:#333;border-bottom:1px solid #ddd}li{margin:0.2rem 0}
                 </div>
               )}
 
-              <div className="rounded-xl border border-white/5 bg-black/30 p-6 min-h-[350px] overflow-y-auto flex-1">
+              <div className="rounded-xl border border-white/5 bg-black/30 p-4 min-h-[350px] overflow-y-auto flex-1">
                 {loading ? (
                   <div className="flex flex-col items-center justify-center h-full gap-4">
                     <div className="w-10 h-10 rounded-full border-2 border-orange-500 border-t-transparent animate-spin" />
@@ -666,8 +667,19 @@ h1{color:#111}h2{color:#333;border-bottom:1px solid #ddd}li{margin:0.2rem 0}
                         </svg>
                       </div>
                     )}
+                    {/* Document-style preview — white page, dark serif text */}
                     <div
-                      className="text-sm text-white/80 leading-relaxed prose prose-invert max-w-none"
+                      className="mx-auto shadow-2xl"
+                      style={{
+                        background: '#ffffff',
+                        color: '#111111',
+                        fontFamily: 'Georgia, "Times New Roman", serif',
+                        padding: '2.5rem 2.75rem',
+                        maxWidth: '680px',
+                        borderRadius: '4px',
+                        lineHeight: 1.65,
+                        fontSize: '13.5px',
+                      }}
                       dangerouslySetInnerHTML={{ __html: mdToHtml(resume) }}
                     />
                   </div>
