@@ -43,6 +43,63 @@ interface InterviewPrep {
 }
 
 // ATS Score ring — animates on viewport entry
+// Hero ATS meter — starts immediately on load, animates 54→91, red→amber→green
+function HeroATSMeter() {
+  const [score, setScore] = useState(54);
+  const [phase, setPhase] = useState<'before'|'animating'|'after'>('before');
+
+  useEffect(() => {
+    // Brief pause so user sees the "before" state, then climb
+    const t1 = setTimeout(() => {
+      setPhase('animating');
+      let current = 54;
+      const target = 91;
+      const step = () => {
+        current += 1;
+        if (current >= target) { setScore(target); setPhase('after'); return; }
+        setScore(current);
+        requestAnimationFrame(step);
+      };
+      requestAnimationFrame(step);
+    }, 900);
+    return () => clearTimeout(t1);
+  }, []);
+
+  const circumference = 2 * Math.PI * 40;
+  const strokeDashoffset = circumference - (score / 100) * circumference;
+  const color = score < 65 ? '#ef4444' : score < 80 ? '#f59e0b' : '#22c55e';
+  const label = score < 65 ? 'Needs work' : score < 80 ? 'Getting there' : 'Top 8%';
+
+  return (
+    <div className="flex flex-col items-center gap-2">
+      <div className="relative w-24 h-24">
+        <svg className="w-24 h-24 -rotate-90" viewBox="0 0 96 96">
+          <circle cx="48" cy="48" r="40" fill="none" stroke="rgba(255,255,255,0.06)" strokeWidth="8" />
+          <circle cx="48" cy="48" r="40" fill="none"
+            stroke={color} strokeWidth="8" strokeLinecap="round"
+            strokeDasharray={circumference} strokeDashoffset={strokeDashoffset}
+            style={{ transition: 'stroke-dashoffset 0.04s linear, stroke 0.3s ease' }}
+          />
+        </svg>
+        <div className="absolute inset-0 flex flex-col items-center justify-center">
+          <span className="text-2xl font-black" style={{ color, transition: 'color 0.3s ease' }}>{score}</span>
+          <span className="text-[9px] font-semibold" style={{ color: 'rgba(255,255,255,0.35)' }}>/ 100</span>
+        </div>
+      </div>
+      <div className="text-center">
+        <div className="text-xs font-bold text-white">ATS Score</div>
+        <div className="text-[10px] transition-all duration-300" style={{ color }}>{label}</div>
+        {phase === 'after' && (
+          <div className="text-[9px] mt-1 px-2 py-0.5 rounded-full font-semibold"
+            style={{ background: 'rgba(34,197,94,0.15)', color: '#22c55e', border: '1px solid rgba(34,197,94,0.25)' }}>
+            ↑ AI improved
+          </div>
+        )}
+      </div>
+    </div>
+  );
+}
+
 function ATSMeter() {
   const [score, setScore] = useState(0);
   const ref = useRef<HTMLDivElement>(null);
@@ -432,11 +489,10 @@ export default function ResumeVaultPage({ overrides }: { overrides: ContentOverr
               background: BG2, border: '1px solid rgba(59,130,246,0.15)',
               boxShadow: '0 20px 60px rgba(0,0,0,0.5), 0 0 0 1px rgba(59,130,246,0.08)' }}>
 
-              {/* ATS badge */}
-              <div className="absolute -top-4 -right-4 w-16 h-16 rounded-full flex flex-col items-center justify-center"
-                style={{ background: BG, border: '2px solid rgba(245,158,11,0.5)', boxShadow: '0 4px 16px rgba(245,158,11,0.2)' }}>
-                <span className="text-sm font-black" style={{ color: '#f59e0b' }}>94%</span>
-                <span className="text-[8px] font-semibold" style={{ color: 'rgba(255,255,255,0.35)' }}>ATS</span>
+              {/* ATS Score — animated 54→91 on load */}
+              <div className="absolute -top-6 -right-6 rounded-2xl p-3 z-20"
+                style={{ background: BG, border: '1px solid rgba(59,130,246,0.18)', boxShadow: '0 8px 30px rgba(0,0,0,0.5)' }}>
+                <HeroATSMeter />
               </div>
 
               {/* Resume header */}
@@ -478,10 +534,11 @@ export default function ResumeVaultPage({ overrides }: { overrides: ContentOverr
               </div>
             </div>
 
-            {/* ATS Meter — floats bottom-left of card */}
-            <div className="absolute -bottom-4 -left-4 rounded-2xl p-4 z-20 hidden sm:block"
-              style={{ background: BG2, border: '1px solid rgba(59,130,246,0.12)', boxShadow: '0 8px 30px rgba(0,0,0,0.4)' }}>
-              <ATSMeter />
+            {/* Keywords matched pill — floats bottom-left */}
+            <div className="absolute -bottom-4 -left-4 rounded-xl px-3 py-2 z-20 hidden sm:flex items-center gap-2"
+              style={{ background: BG2, border: '1px solid rgba(34,197,94,0.2)', boxShadow: '0 8px 30px rgba(0,0,0,0.4)' }}>
+              <span className="w-1.5 h-1.5 rounded-full" style={{ background: '#22c55e' }} />
+              <span className="text-xs font-semibold" style={{ color: '#22c55e' }}>6 keywords matched</span>
             </div>
           </div>
         </div>
