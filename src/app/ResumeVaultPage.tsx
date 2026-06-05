@@ -368,7 +368,7 @@ export default function ResumeVaultPage({ overrides }: { overrides: ContentOverr
 
       {/* ── HERO ─────────────────────────────── */}
       <section className="relative overflow-hidden border-b" style={{ borderColor: 'rgba(255,255,255,0.05)' }}>
-        <div className="max-w-7xl mx-auto grid lg:grid-cols-2 gap-10 items-center px-6 lg:px-12 py-14 lg:py-20">
+        <div className="max-w-7xl mx-auto grid lg:grid-cols-2 gap-10 items-center px-6 lg:px-12 py-8 lg:py-12">
 
           {/* Left: copy + role input */}
           <div className="flex flex-col gap-5 relative z-10">
@@ -522,6 +522,8 @@ export default function ResumeVaultPage({ overrides }: { overrides: ContentOverr
           <span>Free PDF download</span>
           <span style={{ color: 'rgba(255,255,255,0.12)' }}>·</span>
           <span>AI cover letter included</span>
+          <span style={{ color: 'rgba(255,255,255,0.12)' }}>·</span>
+          <span>No fake stats</span>
         </div>
       </div>
 
