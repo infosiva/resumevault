@@ -12,7 +12,9 @@ import siteConfig from '../../site.config'
 import AuthButton from '@/components/AuthButton'
 import AffiliateStrip from '@/components/AffiliateStrip'
 import ChatBot from '@/components/ChatBot'
+import FeedbackWidget from '@/components/FeedbackWidget'
 import { getSiteFlags } from '@/lib/flags'
+import { loadSiteTheme, buildThemeStyleTag, isWidgetHidden } from '@/lib/theme-loader'
 
 const brand: BrandConfig = {
   name: 'ResumeVault',
@@ -55,7 +57,17 @@ export const metadata: Metadata = {
 }
 
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
-  const flags = await getSiteFlags('resumevault')
+  const [flags, theme] = await Promise.all([
+    getSiteFlags('resumevault'),
+    loadSiteTheme('resumevault'),
+  ])
+
+  const themeCSS = buildThemeStyleTag(theme, {
+    background: '#080712',
+    primary: '#1e3a8a',
+    secondary: '#3b82f6',
+  })
+
   return (
     <html lang="en">
       <head>
@@ -95,7 +107,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
             }
           ]
         })}} />
-      
+
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
@@ -115,6 +127,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
           body { font-family: 'Inter', system-ui, sans-serif !important; color: #f0eeff !important; background: #080712 !important; }
           h1, h2, h3 { font-family: 'Playfair Display', serif !important; }
           .glass { background: rgba(255,255,255,0.03) !important; border-color: rgba(99,102,241,0.12) !important; backdrop-filter: blur(16px) saturate(140%) !important; }
+          ${themeCSS}
         ` }} />
       </head>
       <body className="flex flex-col min-h-screen">
@@ -127,14 +140,14 @@ export default async function RootLayout({ children }: { children: React.ReactNo
         <main className="flex-1 pt-16">{children}</main>
         <AffiliateStrip />
         <Footer siteName="ResumeVault" />
-      {flags.chatbot && <ChatBot />}
-      <BackToTop accentColor="#1e3a8a" />
-      <CookieConsent />
-      <StickyFooterCTA />
+      {flags.chatbot && !isWidgetHidden(theme, 'chatbot') && <ChatBot />}
+      {!isWidgetHidden(theme, 'backToTop') && <BackToTop accentColor="#1e3a8a" />}
+      {!isWidgetHidden(theme, 'cookieConsent') && <CookieConsent />}
+      {!isWidgetHidden(theme, 'stickyFooterCTA') && <StickyFooterCTA />}
       <Script defer data-domain="resumevault.app" src="https://plausible.io/js/script.js" strategy="afterInteractive" />
       <Script defer data-site="resumevault.app" src="http://31.97.56.148:3098/t.js" strategy="afterInteractive" />
+      <FeedbackWidget siteName="ResumeVault" accentColor="#0ea5e9" position="left" />
       </body>
     </html>
   )
 }
-// design patch applied below via separate edit

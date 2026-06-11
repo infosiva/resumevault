@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
+import { AI_LIMITER } from '@/lib/rateLimit'
 
 export const runtime = 'nodejs'
 
@@ -12,6 +13,7 @@ Help users write better resumes, understand ATS scoring, improve bullet points, 
 Be specific, encouraging, and give actionable advice. Focus on helping them land their next role.`
 
 export async function POST(req: NextRequest) {
+  const limited = AI_LIMITER.check(req); if (limited) return limited
   try {
     const body = await req.json()
     const messages: Message[] = body.messages
