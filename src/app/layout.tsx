@@ -71,6 +71,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
   return (
     <html lang="en">
       <head>
+        <meta name="google-adsense-account" content="ca-pub-4237294630161176" />
         <meta name="Impact-Site-Verification" content="de64bc17-b024-4bad-9e34-51e479420004" />
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
           "@context": "https://schema.org",
