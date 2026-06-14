@@ -63,9 +63,9 @@ export default async function RootLayout({ children }: { children: React.ReactNo
   ])
 
   const themeCSS = buildThemeStyleTag(theme, {
-    background: '#080712',
-    primary: '#1e3a8a',
-    secondary: '#3b82f6',
+    background: '#fafafa',
+    primary: '#7c3aed',
+    secondary: '#a78bfa',
   })
 
   return (
@@ -114,35 +114,31 @@ export default async function RootLayout({ children }: { children: React.ReactNo
         <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
         <style dangerouslySetInnerHTML={{ __html: `
           :root {
-            --theme-primary: #1e3a8a;
-            --theme-secondary: #3b82f6;
-            --theme-base: #080712;
-            --background: #080712;
-            --surface-1: #0e0c22;
-            --surface-2: #161430;
-            --foreground: #f0eeff;
-            --text-2: #a5b4fc;
-            --border-default: rgba(99,102,241,0.14);
-            --border-strong: rgba(99,102,241,0.25);
+            --theme-primary: #7c3aed;
+            --theme-secondary: #a78bfa;
+            --theme-base: #fafafa;
+            --background: #fafafa;
+            --surface-1: #ffffff;
+            --surface-2: #f4f4f5;
+            --foreground: #18181b;
+            --text-2: #6d28d9;
+            --border-default: rgba(124,58,237,0.14);
+            --border-strong: rgba(124,58,237,0.25);
           }
-          body { font-family: 'Inter', system-ui, sans-serif !important; color: #f0eeff !important; background: #080712 !important; }
+          body { font-family: 'Inter', system-ui, sans-serif !important; color: #18181b !important; background: #fafafa !important; }
           h1, h2, h3 { font-family: 'Playfair Display', serif !important; }
-          .glass { background: rgba(255,255,255,0.03) !important; border-color: rgba(99,102,241,0.12) !important; backdrop-filter: blur(16px) saturate(140%) !important; }
+          .glass { background: rgba(255,255,255,0.6) !important; border-color: rgba(124,58,237,0.12) !important; backdrop-filter: blur(16px) saturate(140%) !important; }
           ${themeCSS}
         ` }} />
       </head>
       <body className="flex flex-col min-h-screen">
-        <div className="aurora aurora-primary" aria-hidden />
-        <div className="aurora aurora-secondary" aria-hidden />
-        <div className="aurora aurora-third" aria-hidden />
-        <div className="grain" aria-hidden />
         <DesignEffects />
         <div id="layout-nav"><SharedNavbar brand={brand} /></div>
         <main className="flex-1 pt-16">{children}</main>
         <AffiliateStrip />
         <Footer siteName="ResumeVault" />
       {flags.chatbot && !isWidgetHidden(theme, 'chatbot') && <ChatBot />}
-      {!isWidgetHidden(theme, 'backToTop') && <BackToTop accentColor="#1e3a8a" />}
+      {!isWidgetHidden(theme, 'backToTop') && <BackToTop accentColor="#7c3aed" />}
       {!isWidgetHidden(theme, 'cookieConsent') && <CookieConsent />}
       {!isWidgetHidden(theme, 'stickyFooterCTA') && <StickyFooterCTA />}
       <Script defer data-domain="resumevault.app" src="https://plausible.io/js/script.js" strategy="afterInteractive" />
