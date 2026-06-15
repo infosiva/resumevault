@@ -8,6 +8,7 @@ import KeywordBar from "@/components/KeywordBar";
 import ResumeVaultAffiliates from "@/components/ResumeVaultAffiliates";
 import JobMatcher from "@/components/JobMatcher";
 import GuidedTour, { type TourStep } from "@/components/GuidedTour";
+import ResumeDemo from "@/components/ResumeDemo";
 import type { ContentOverrides } from "@/lib/content";
 
 const RESUME_TOUR: TourStep[] = [
@@ -274,12 +275,10 @@ export default function ResumeVaultPage({ overrides }: { overrides: ContentOverr
   const [checkoutLoading, setCheckoutLoading] = useState(false);
   const [suggestions, setSuggestions] = useState<{ id: string; text: string }[]>([]);
   const [jdKeywords, setJdKeywords] = useState<{ required: string[]; niceToHave: string[] }>({ required: [], niceToHave: [] });
-  const [heroRole, setHeroRole] = useState("");
   const [tailorPrompt, setTailorPrompt] = useState<string | null>(null);
 
   const headline = overrides.headline ?? 'Your resume, rewritten for every job';
   const subheadline = overrides.subheadline ?? 'Paste a job description and watch AI rewrite your bullets to match — no manual editing.';
-  const ctaLabel = overrides.cta ?? 'Build Free →';
 
   useEffect(() => {
     try {
@@ -315,12 +314,6 @@ export default function ResumeVaultPage({ overrides }: { overrides: ContentOverr
     } finally {
       setCheckoutLoading(false);
     }
-  };
-
-  const handleHeroStart = (e: React.FormEvent) => {
-    e.preventDefault();
-    const el = document.getElementById('how');
-    if (el) el.scrollIntoView({ behavior: 'smooth' });
   };
 
   const typingLines = [
@@ -404,32 +397,8 @@ export default function ResumeVaultPage({ overrides }: { overrides: ContentOverr
               Paste a job description — AI rewrites your bullets with the exact keywords that pass ATS filters and catch recruiter attention.
             </p>
 
-            {/* Role targeting input */}
-            <form onSubmit={handleHeroStart} className="flex gap-2 max-w-md">
-              <div className="relative flex-1">
-                <span className="absolute left-3 top-1/2 -translate-y-1/2 text-sm" style={{ color: 'rgba(255,255,255,0.3)' }}>🎯</span>
-                <input
-                  value={heroRole}
-                  onChange={e => setHeroRole(e.target.value)}
-                  placeholder="What role are you targeting?"
-                  className="w-full pl-9 pr-4 py-3 text-sm rounded-lg outline-none"
-                  style={{
-                    background: 'rgba(255,255,255,0.05)',
-                    border: '1px solid rgba(59,130,246,0.25)',
-                    color: '#fff',
-                    minHeight: 44,
-                  }}
-                />
-              </div>
-              <button
-                type="submit"
-                id="hero-cta"
-                className="px-6 py-3 text-sm font-bold rounded-lg btn-press whitespace-nowrap"
-                style={{ background: 'linear-gradient(135deg, #3b82f6, #6366f1)', color: '#fff', boxShadow: '0 4px 24px rgba(99,102,241,0.45)', minHeight: 44 }}
-              >
-                {ctaLabel}
-              </button>
-            </form>
+            {/* Inline role targeting demo — generates bullets without auth */}
+            <ResumeDemo />
 
             {/* Feature pills — no fake stats */}
             <div className="flex flex-wrap gap-2 pt-1">
