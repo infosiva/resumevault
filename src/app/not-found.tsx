@@ -18,7 +18,7 @@ export default function NotFound() {
         style={{
           fontSize: 64,
           fontWeight: 900,
-          background: 'linear-gradient(135deg, #8b5cf6, #6366f1)',
+          background: 'linear-gradient(135deg, #7c3aed, #a78bfa)',
           WebkitBackgroundClip: 'text',
           WebkitTextFillColor: 'transparent',
           backgroundClip: 'text',
@@ -27,10 +27,10 @@ export default function NotFound() {
       >
         404
       </div>
-      <h1 style={{ fontSize: 22, fontWeight: 800, color: '#f4f4f5', margin: 0 }}>
+      <h1 style={{ fontSize: 22, fontWeight: 800, color: '#18181b', margin: 0 }}>
         Page not found
       </h1>
-      <p style={{ fontSize: 13, color: 'rgba(255,255,255,0.4)', margin: 0, maxWidth: 320 }}>
+      <p style={{ fontSize: 13, color: 'rgba(24,24,27,0.5)', margin: 0, maxWidth: 320 }}>
         This page has moved or doesn&apos;t exist.
       </p>
       <Link
@@ -39,12 +39,12 @@ export default function NotFound() {
           marginTop: 8,
           padding: '12px 28px',
           borderRadius: 12,
-          background: 'rgba(139,92,246,0.2)',
-          color: '#a78bfa',
+          background: 'rgba(124,58,237,0.1)',
+          color: '#7c3aed',
           fontWeight: 800,
           fontSize: 14,
           textDecoration: 'none',
-          border: '1px solid rgba(139,92,246,0.4)',
+          border: '1px solid rgba(124,58,237,0.3)',
         }}
       >
         Go home →
