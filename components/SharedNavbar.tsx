@@ -29,8 +29,20 @@ export default function SharedNavbar({ brand }: { brand: BrandConfig }) {
       <div className="max-w-6xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between gap-4">
         {/* Logo */}
         <Link href="/" className="flex items-center gap-2.5 flex-shrink-0">
-          <span className="text-2xl">{brand.icon}</span>
-          <span className="font-bold text-white text-[15px] tracking-tight">{brand.name}</span>
+          <div style={{
+            width: 30, height: 30, borderRadius: 8, flexShrink: 0,
+            background: 'linear-gradient(135deg, #7c3aed 0%, #a855f7 100%)',
+            display: 'flex', alignItems: 'center', justifyContent: 'center'
+          }}>
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+              <rect x="2" y="1" width="9" height="11" rx="1" stroke="white" strokeWidth="1.5"/>
+              <path d="M4 4h5M4 7h5M4 10h3" stroke="white" strokeWidth="1.2" strokeLinecap="round"/>
+              <path d="M10 8l3 3-3 3" stroke="white" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round"/>
+            </svg>
+          </div>
+          <span className="font-bold text-white text-[15px] tracking-tight">
+            Resume<span style={{ color: '#a855f7' }}>Vault</span>
+          </span>
         </Link>
 
         {/* Desktop nav */}
