@@ -33,6 +33,10 @@
   --theme-primary:   #7c3aed;
   --theme-secondary: #8b5cf6;
   --theme-base:      #0c0f1a;
+  /* Standard design system aliases */
+  --accent:          #7c3aed;
+  --accent-2:        #8b5cf6;
+  --accent-dim:      rgba(124,58,237,0.12);
 }
 
 /* Film grain overlay — disabled (flat dark theme) */
