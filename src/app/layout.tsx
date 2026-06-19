@@ -20,7 +20,7 @@ const brand: BrandConfig = {
   name: 'ResumeVault',
   tagline: siteConfig.tagline,
   icon: '📄',
-  color: '#1e3a5f',
+  color: '#7c3aed',
   url: siteConfig.url,
   navLinks: [
     { label: 'Home', href: '/' },
@@ -63,7 +63,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
   ])
 
   const themeCSS = buildThemeStyleTag(theme, {
-    background: '#fafafa',
+    background: '#0c0f1a',
     primary: '#7c3aed',
     secondary: '#a78bfa',
   })
@@ -116,18 +116,22 @@ export default async function RootLayout({ children }: { children: React.ReactNo
           :root {
             --theme-primary: #7c3aed;
             --theme-secondary: #a78bfa;
-            --theme-base: #fafafa;
-            --background: #fafafa;
-            --surface-1: #ffffff;
-            --surface-2: #f4f4f5;
-            --foreground: #18181b;
-            --text-2: #6d28d9;
-            --border-default: rgba(124,58,237,0.14);
-            --border-strong: rgba(124,58,237,0.25);
+            --theme-base: #0c0f1a;
+            --background: #0c0f1a;
+            --surface-1: rgba(255,255,255,0.04);
+            --surface-2: rgba(255,255,255,0.08);
+            --foreground: #f1f5f9;
+            --text-2: #a78bfa;
+            --text-3: #6b7280;
+            --accent: #7c3aed;
+            --accent-2: #6d28d9;
+            --border-default: rgba(124,58,237,0.25);
+            --border-subtle: rgba(255,255,255,0.08);
+            --border-strong: rgba(124,58,237,0.4);
           }
-          body { font-family: 'Inter', system-ui, sans-serif !important; color: #18181b !important; background: #fafafa !important; }
+          body { font-family: 'Inter', system-ui, sans-serif !important; color: var(--foreground, #f1f5f9) !important; background: var(--background, #0c0f1a) !important; }
           h1, h2, h3 { font-family: 'Playfair Display', serif !important; }
-          .glass { background: rgba(255,255,255,0.6) !important; border-color: rgba(124,58,237,0.12) !important; backdrop-filter: blur(16px) saturate(140%) !important; }
+          .glass { background: rgba(12,15,26,0.85) !important; border-color: rgba(124,58,237,0.2) !important; backdrop-filter: blur(20px) saturate(140%) !important; }
           ${themeCSS}
         ` }} />
       </head>
