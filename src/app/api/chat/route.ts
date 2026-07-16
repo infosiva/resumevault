@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { AI_LIMITER } from '@/lib/rateLimit'
+import { aiChat } from '@/lib/ai'
 
 export const runtime = 'nodejs'
 
@@ -23,50 +24,73 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: 'messages required' }, { status: 400 })
     }
 
+    const encoder = new TextEncoder()
     const groqKey = process.env.GROQ_API_KEY
-    if (!groqKey) return NextResponse.json({ error: 'AI not configured' }, { status: 503 })
 
-    const res = await fetch('https://api.groq.com/openai/v1/chat/completions', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${groqKey}` },
-      body: JSON.stringify({
-        model: 'llama-3.1-8b-instant',
-        messages: [{ role: 'system', content: systemPrompt }, ...messages],
-        max_tokens: 300,
-        temperature: 0.5,
-        stream: true,
-      }),
-    })
+    if (groqKey) {
+      try {
+        const res = await fetch('https://api.groq.com/openai/v1/chat/completions', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${groqKey}` },
+          body: JSON.stringify({
+            model: 'llama-3.1-8b-instant',
+            messages: [{ role: 'system', content: systemPrompt }, ...messages],
+            max_tokens: 300,
+            temperature: 0.5,
+            stream: true,
+          }),
+        })
 
-    if (!res.ok || !res.body) return NextResponse.json({ error: 'AI request failed' }, { status: 502 })
-
-    const readable = new ReadableStream({
-      async start(controller) {
-        const reader = res.body!.getReader()
-        const decoder = new TextDecoder()
-        const encoder = new TextEncoder()
-        let buffer = ''
-        try {
-          while (true) {
-            const { done, value } = await reader.read()
-            if (done) break
-            buffer += decoder.decode(value, { stream: true })
-            const lines = buffer.split('\n')
-            buffer = lines.pop() ?? ''
-            for (const line of lines) {
-              if (!line.startsWith('data: ')) continue
-              const data = line.slice(6).trim()
-              if (data === '[DONE]') return
+        if (res.ok && res.body) {
+          const readable = new ReadableStream({
+            async start(controller) {
+              const reader = res.body!.getReader()
+              const decoder = new TextDecoder()
+              let buffer = ''
               try {
-                const text = JSON.parse(data).choices?.[0]?.delta?.content ?? ''
-                if (text) controller.enqueue(encoder.encode(text))
-              } catch { /* skip */ }
-            }
-          }
-        } finally { controller.close() }
+                while (true) {
+                  const { done, value } = await reader.read()
+                  if (done) break
+                  buffer += decoder.decode(value, { stream: true })
+                  const lines = buffer.split('\n')
+                  buffer = lines.pop() ?? ''
+                  for (const line of lines) {
+                    if (!line.startsWith('data: ')) continue
+                    const data = line.slice(6).trim()
+                    if (data === '[DONE]') return
+                    try {
+                      const text = JSON.parse(data).choices?.[0]?.delta?.content ?? ''
+                      if (text) controller.enqueue(encoder.encode(text))
+                    } catch { /* skip */ }
+                  }
+                }
+              } finally { controller.close() }
+            },
+          })
+
+          return new NextResponse(readable, {
+            headers: { 'Content-Type': 'text/plain; charset=utf-8', 'Cache-Control': 'no-cache' },
+          })
+        }
+      } catch (err) {
+        console.warn('[/api/chat] Groq failed, falling back to cascade', err)
+      }
+    }
+
+    // Groq unavailable — fall back to full Groq→Gemini→Claude cascade (non-streaming)
+    const text = await aiChat(
+      messages
+        .filter((m): m is Message & { role: 'user' | 'assistant' } => m.role !== 'system')
+        .map(m => ({ role: m.role, content: m.content })),
+      systemPrompt,
+      300,
+    )
+    const readable = new ReadableStream({
+      start(controller) {
+        controller.enqueue(encoder.encode(text))
+        controller.close()
       },
     })
-
     return new NextResponse(readable, {
       headers: { 'Content-Type': 'text/plain; charset=utf-8', 'Cache-Control': 'no-cache' },
     })
