@@ -828,7 +828,7 @@ export default function ResumeVaultPage({ overrides }: { overrides: ContentOverr
                 <tr style={{ borderBottom:'1px solid rgba(59,130,246,0.08)', background:'rgba(255,255,255,0.02)' }}>
                   {['Feature','ResumeVault','Resume.io','Zety','Canva'].map((h,i) => (
                     <th key={h} style={{ padding:'12px 14px', textAlign:i===0?'left':'center',
-                      color: i===1 ? '#93c5fd' : 'rgba(255,255,255,0.25)', fontWeight:700, fontSize:11, letterSpacing:'0.05em' }}>{h}</th>
+                      color: i===1 ? '#93c5fd' : 'rgba(255,255,255,0.65)', fontWeight:700, fontSize:11, letterSpacing:'0.05em' }}>{h}</th>
                   ))}
                 </tr>
               </thead>
@@ -861,11 +861,11 @@ export default function ResumeVaultPage({ overrides }: { overrides: ContentOverr
         <div style={{ maxWidth:900, margin:'0 auto', display:'flex', flexWrap:'wrap', justifyContent:'space-between', alignItems:'center', gap:16 }}>
           <div>
             <span style={{ fontWeight:900, fontSize:15, color:'#fff' }}>Resume<span style={{ color:'#3b82f6' }}>Vault</span></span>
-            <p style={{ fontSize:11, color:'rgba(255,255,255,0.2)', marginTop:4 }}>AI-powered resume builder — no login, no hidden fees.</p>
+            <p style={{ fontSize:11, color:'rgba(255,255,255,0.55)', marginTop:4 }}>AI-powered resume builder — no login, no hidden fees.</p>
           </div>
           <div style={{ display:'flex', gap:20, flexWrap:'wrap' }}>
-            {[['About','/about'],['Privacy','/privacy'],['Terms','/terms'],['Cookie Policy','/cookies']].map(([label,href]) => (
-              <a key={label} href={href} style={{ fontSize:11, color:'rgba(255,255,255,0.25)', textDecoration:'none' }}
+            {[['About','/about'],['Privacy','/privacy'],['Terms','/terms']].map(([label,href]) => (
+              <a key={label} href={href} style={{ fontSize:11, color:'rgba(255,255,255,0.60)', textDecoration:'none' }}
                 onMouseOver={e=>(e.currentTarget.style.color='#93c5fd')} onMouseOut={e=>(e.currentTarget.style.color='rgba(255,255,255,0.25)')}>{label}</a>
             ))}
           </div>

@@ -25,7 +25,6 @@ const brand: BrandConfig = {
   navLinks: [
     { label: 'Home', href: '/' },
     { label: 'Build Resume', href: '/#how' },
-    { label: 'Templates', href: '/templates' },
     { label: 'Pricing', href: '#pricing' },
     { label: 'About', href: '/about' },
   ],
