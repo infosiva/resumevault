@@ -11,6 +11,7 @@ import GuidedTour, { type TourStep } from "@/components/GuidedTour";
 import ResumeDemo from "@/components/ResumeDemo";
 import type { ContentOverrides } from "@/lib/content";
 import PromoCodeInput from "@/components/PromoCodeInput";
+import PromoBar from "@/components/PromoBar";
 
 const RESUME_TOUR: TourStep[] = [
   { target: '#hero-cta', title: 'Build your resume free', icon: '📄', body: 'Fill in your details — AI writes polished bullet points, action verbs, and summaries for you.', placement: 'bottom' },
@@ -410,6 +411,8 @@ export default function ResumeVaultPage({ overrides }: { overrides: ContentOverr
                 </span>
               ))}
             </div>
+
+            <PromoBar />
           </div>
 
           {/* Right: Resume card mockup */}
