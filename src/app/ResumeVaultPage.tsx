@@ -269,7 +269,8 @@ export default function ResumeVaultPage({ overrides }: { overrides: ContentOverr
   const [analysis, setAnalysis] = useState<Analysis | null>(null);
   const [coverLetter, setCoverLetter] = useState<string | null>(null);
   const [interviewPrep, setInterviewPrep] = useState<InterviewPrep | null>(null);
-  const [activePreviewTab, setActivePreviewTab] = useState<'resume' | 'cover' | 'prep'>('resume');
+  const [activePreviewTab, setActivePreviewTab] = useState<'resume' | 'cover' | 'prep' | 'apply'>('resume');
+  const [jobUrl, setJobUrl] = useState('');
   const [savedSession, setSavedSession] = useState<{
     jobDesc: string; experience: string; skills: string; name: string; currentTitle: string;
   } | undefined>(undefined);
@@ -634,6 +635,8 @@ export default function ResumeVaultPage({ overrides }: { overrides: ContentOverr
               setSuggestions(prev => prev.filter(x => x.id !== s.id))
             }}
             onSkipSuggestion={(id) => setSuggestions(prev => prev.filter(x => x.id !== id))}
+            jobUrl={jobUrl}
+            onJobUrlChange={setJobUrl}
           />
         </div>
 
@@ -687,6 +690,8 @@ export default function ResumeVaultPage({ overrides }: { overrides: ContentOverr
                     setSuggestions(prev => prev.filter(x => x.id !== s.id))
                   }}
                   onSkipSuggestion={(id) => setSuggestions(prev => prev.filter(x => x.id !== id))}
+                  jobUrl={jobUrl}
+                  onJobUrlChange={setJobUrl}
                 />
               </div>
             </Panel>

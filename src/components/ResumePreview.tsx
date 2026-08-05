@@ -37,11 +37,13 @@ interface Props {
   analysis: Analysis | null;
   coverLetter: string | null;
   interviewPrep: InterviewPrep | null;
-  activeTab: "resume" | "cover" | "prep";
-  onTabChange: (tab: "resume" | "cover" | "prep") => void;
+  activeTab: "resume" | "cover" | "prep" | "apply";
+  onTabChange: (tab: "resume" | "cover" | "prep" | "apply") => void;
   suggestions?: { id: string; text: string }[];
   onApproveSuggestion?: (s: { id: string; text: string }) => void;
   onSkipSuggestion?: (id: string) => void;
+  jobUrl?: string;
+  onJobUrlChange?: (url: string) => void;
 }
 
 function MatchGauge({ score }: { score: number }) {
@@ -88,18 +90,52 @@ function CopyButton({ text }: { text: string }) {
   );
 }
 
+function mdInline(line: string): string {
+  return line.replace(/\*\*(.+?)\*\*/g, "<strong>$1</strong>");
+}
+
 function mdToHtml(md: string): string {
-  return md
-    .replace(/^# (.+)$/gm, '<h1 style="font-size:1.5rem;font-weight:700;margin:1rem 0 0.5rem">$1</h1>')
-    .replace(
-      /^## (.+)$/gm,
-      '<h2 style="font-size:1.1rem;font-weight:600;margin:1rem 0 0.25rem;border-bottom:1px solid #eee;padding-bottom:0.25rem">$1</h2>'
-    )
-    .replace(/^### (.+)$/gm, '<h3 style="font-size:0.95rem;font-weight:600;margin:0.75rem 0 0.25rem">$1</h3>')
-    .replace(/\*\*(.+?)\*\*/g, "<strong>$1</strong>")
-    .replace(/^- (.+)$/gm, '<li style="margin:0.2rem 0 0.2rem 1rem">$1</li>')
-    .replace(/^(.*\S.*)$/gm, (l) => (l.startsWith("<") ? l : `<p style="margin:0.25rem 0">${l}</p>`))
-    .replace(/\n/g, "");
+  const lines = md.split("\n");
+  const out: string[] = [];
+  let inList = false;
+
+  const closeList = () => {
+    if (inList) {
+      out.push("</ul>");
+      inList = false;
+    }
+  };
+
+  for (const raw of lines) {
+    const line = raw.trim();
+    if (!line) {
+      closeList();
+      continue;
+    }
+    if (line.startsWith("# ")) {
+      closeList();
+      out.push(`<h1 style="font-size:1.5rem;font-weight:700;margin:1rem 0 0.5rem">${mdInline(line.slice(2))}</h1>`);
+    } else if (line.startsWith("## ")) {
+      closeList();
+      out.push(
+        `<h2 style="font-size:1.1rem;font-weight:600;margin:1rem 0 0.25rem;border-bottom:1px solid #eee;padding-bottom:0.25rem">${mdInline(line.slice(3))}</h2>`
+      );
+    } else if (line.startsWith("### ")) {
+      closeList();
+      out.push(`<h3 style="font-size:0.95rem;font-weight:600;margin:0.75rem 0 0.25rem">${mdInline(line.slice(4))}</h3>`);
+    } else if (line.startsWith("- ")) {
+      if (!inList) {
+        out.push('<ul style="margin:0.4rem 0;padding-left:1.25rem;list-style:disc">');
+        inList = true;
+      }
+      out.push(`<li style="margin:0.2rem 0;line-height:1.5">${mdInline(line.slice(2))}</li>`);
+    } else {
+      closeList();
+      out.push(`<p style="margin:0.25rem 0">${mdInline(line)}</p>`);
+    }
+  }
+  closeList();
+  return out.join("");
 }
 
 const CATEGORY_COLORS: Record<string, string> = {
@@ -355,6 +391,8 @@ export default function ResumePreview({
   suggestions = [],
   onApproveSuggestion,
   onSkipSuggestion,
+  jobUrl = "",
+  onJobUrlChange,
 }: Props) {
   const [downloadOpen, setDownloadOpen] = useState(false);
 
@@ -429,6 +467,7 @@ h1{color:#111}h2{color:#333;border-bottom:1px solid #ddd}li{margin:0.2rem 0}
     { id: "resume" as const, label: "Resume", dot: !!resume },
     { id: "cover" as const, label: "Cover Letter", dot: !!coverLetter },
     { id: "prep" as const, label: "Interview Prep", dot: !!interviewPrep?.questions?.length },
+    { id: "apply" as const, label: "Apply", dot: !!resume && !!coverLetter },
   ];
 
   return (
@@ -762,8 +801,124 @@ h1{color:#111}h2{color:#333;border-bottom:1px solid #ddd}li{margin:0.2rem 0}
               </div>
             </>
           )}
+
+          {/* Apply tab */}
+          {activeTab === "apply" && (
+            <ApplyBundle
+              resume={resume}
+              coverLetter={coverLetter}
+              jobUrl={jobUrl}
+              onJobUrlChange={onJobUrlChange}
+              jobLinks={jobLinks}
+            />
+          )}
         </div>
       </div>
+    </div>
+  );
+}
+
+function ApplyBundle({
+  resume,
+  coverLetter,
+  jobUrl,
+  onJobUrlChange,
+  jobLinks,
+}: {
+  resume: string | null;
+  coverLetter: string | null;
+  jobUrl: string;
+  onJobUrlChange?: (url: string) => void;
+  jobLinks: { label: string; url: string }[];
+}) {
+  const ready = !!resume && !!coverLetter;
+
+  function downloadBundle() {
+    const parts = [
+      "=== TAILORED RESUME ===",
+      resume ?? "",
+      "\n\n=== COVER LETTER ===",
+      coverLetter ?? "",
+    ].join("\n");
+    const blob = new Blob([parts], { type: "text/plain" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = "application-bundle.txt";
+    a.click();
+    URL.revokeObjectURL(url);
+  }
+
+  return (
+    <div className="space-y-5 overflow-y-auto flex-1 min-h-[350px]">
+      <div>
+        <h2 className="text-lg font-semibold mb-0.5">Apply</h2>
+        <p className="text-xs text-white/40">
+          Download your tailored resume + cover letter, then apply on the real job page — nothing gets
+          submitted on your behalf.
+        </p>
+      </div>
+
+      {!ready && (
+        <div className="text-xs text-amber-300 bg-amber-500/10 border border-amber-500/30 rounded-lg px-3 py-2">
+          Generate both a resume and a cover letter first — the bundle needs both.
+        </div>
+      )}
+
+      <div>
+        <label className="text-xs text-white/50 block mb-1.5">Job posting URL (optional)</label>
+        <input
+          type="url"
+          value={jobUrl}
+          onChange={(e) => onJobUrlChange?.(e.target.value)}
+          placeholder="https://company.com/careers/role-123"
+          className="w-full rounded-lg bg-white/5 border border-white/10 px-3 py-2 text-sm text-white/90 placeholder:text-white/30 focus:outline-none focus:border-white/30"
+        />
+      </div>
+
+      <div className="flex flex-wrap gap-2">
+        <button
+          onClick={downloadBundle}
+          disabled={!ready}
+          className="text-xs px-3 py-2 rounded-lg bg-white/10 hover:bg-white/15 border border-white/10 disabled:opacity-40 disabled:cursor-not-allowed transition-colors"
+        >
+          ⬇ Download resume + cover letter
+        </button>
+        {jobUrl && (
+          <a
+            href={jobUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-xs px-3 py-2 rounded-lg bg-emerald-500/15 hover:bg-emerald-500/25 border border-emerald-500/30 text-emerald-300 transition-colors"
+          >
+            ↗ Open job page to apply
+          </a>
+        )}
+      </div>
+
+      <p className="text-[11px] text-white/30 leading-relaxed">
+        Have both open side by side: paste from your downloaded bundle into the application form on the
+        job page, review everything, then submit it yourself.
+      </p>
+
+      {jobLinks.length > 0 && (
+        <div>
+          <p className="text-xs text-white/50 mb-1.5">Or search for this role</p>
+          <div className="flex flex-wrap gap-2">
+            {jobLinks.map((l) => (
+              <a
+                key={l.label}
+                href={l.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-[11px] px-2.5 py-1.5 rounded-full bg-white/5 hover:bg-white/10 border border-white/10 text-white/60 transition-colors"
+              >
+                {l.label} ↗
+              </a>
+            ))}
+          </div>
+        </div>
+      )}
     </div>
   );
 }
