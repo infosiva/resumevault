@@ -11,9 +11,15 @@ export interface AuthUser {
   site: string
 }
 
-function getApiUrl(): string {
+function getApiUrl(): string | null {
   if (typeof window !== 'undefined' && (window as { __AUTH_API__?: string }).__AUTH_API__) return (window as { __AUTH_API__?: string }).__AUTH_API__!
-  return (process.env.NEXT_PUBLIC_AUTH_API_URL as string) || 'http://31.97.56.148:3110'
+  const url = (process.env.NEXT_PUBLIC_AUTH_API_URL as string) || 'http://31.97.56.148:3110'
+  // Skip insecure http:// origin when page is https — browser blocks it as mixed
+  // content anyway, this just avoids the console error before hitting the catch.
+  if (typeof window !== 'undefined' && window.location.protocol === 'https:' && url.startsWith('http://')) {
+    return null
+  }
+  return url
 }
 
 export function saveAuth(token: string, user: AuthUser) {
@@ -40,7 +46,9 @@ export function isLoggedIn(): boolean {
 
 export async function sendMagicCode(email: string, site: string): Promise<{ ok: boolean; error?: string }> {
   try {
-    const res = await fetch(`${getApiUrl()}/magic/send`, {
+    const apiUrl = getApiUrl()
+    if (!apiUrl) return { ok: false, error: 'Auth service unavailable' }
+    const res = await fetch(`${apiUrl}/magic/send`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ email, site }),
@@ -55,7 +63,9 @@ export async function sendMagicCode(email: string, site: string): Promise<{ ok: 
 
 export async function verifyMagicCode(email: string, code: string, site: string): Promise<{ ok: boolean; user?: AuthUser; error?: string }> {
   try {
-    const res = await fetch(`${getApiUrl()}/magic/verify`, {
+    const apiUrl = getApiUrl()
+    if (!apiUrl) return { ok: false, error: 'Auth service unavailable' }
+    const res = await fetch(`${apiUrl}/magic/verify`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ email, code, site }),

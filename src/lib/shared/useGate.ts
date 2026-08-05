@@ -2,8 +2,14 @@
 import { useState, useEffect, useRef } from 'react'
 import { isLoggedIn } from './useMagicAuth'
 
-function getApiUrl(): string {
-  return (process.env.NEXT_PUBLIC_AUTH_API_URL as string) || 'http://31.97.56.148:3110'
+function getApiUrl(): string | null {
+  const url = (process.env.NEXT_PUBLIC_AUTH_API_URL as string) || 'http://31.97.56.148:3110'
+  // Skip insecure http:// origin when page is https — browser blocks it as mixed
+  // content anyway, this just avoids the console error before hitting the catch.
+  if (typeof window !== 'undefined' && window.location.protocol === 'https:' && url.startsWith('http://')) {
+    return null
+  }
+  return url
 }
 
 function getFingerprint(product: string): string {
@@ -18,8 +24,10 @@ function getFingerprint(product: string): string {
 
 async function serverTrack(product: string, action: string): Promise<number> {
   try {
+    const apiUrl = getApiUrl()
+    if (!apiUrl) throw new Error('mixed-content: skip insecure origin')
     const fp = getFingerprint(product)
-    const res = await fetch(`${getApiUrl()}/guest/track`, {
+    const res = await fetch(`${apiUrl}/guest/track`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ fingerprint: fp, product, action }),
@@ -36,8 +44,10 @@ async function serverTrack(product: string, action: string): Promise<number> {
 
 async function serverGetCount(product: string, action: string): Promise<number> {
   try {
+    const apiUrl = getApiUrl()
+    if (!apiUrl) throw new Error('mixed-content: skip insecure origin')
     const fp = getFingerprint(product)
-    const res = await fetch(`${getApiUrl()}/guest/usage?fingerprint=${fp}&product=${product}&action=${encodeURIComponent(action)}`)
+    const res = await fetch(`${apiUrl}/guest/usage?fingerprint=${fp}&product=${product}&action=${encodeURIComponent(action)}`)
     const data = await res.json()
     return data.count ?? 0
   } catch {
@@ -61,7 +71,9 @@ function guestPrivKey(product: string): string {
 export async function redeemGuestCode(product: string, code: string): Promise<{ ok: boolean; error?: string }> {
   const fp = getFingerprint(product)
   try {
-    const res = await fetch(`${getApiUrl()}/admin-code/redeem`, {
+    const apiUrl = getApiUrl()
+    if (!apiUrl) throw new Error('mixed-content: skip insecure origin')
+    const res = await fetch(`${apiUrl}/admin-code/redeem`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ code: code.trim(), project: product, fingerprint: fp }),
@@ -92,7 +104,9 @@ export function getCachedGuestPrivilege(product: string): GuestPrivilege {
 export async function refreshGuestPrivilege(product: string): Promise<GuestPrivilege> {
   const fp = getFingerprint(product)
   try {
-    const res = await fetch(`${getApiUrl()}/admin-code/status?project=${product}&fingerprint=${fp}`)
+    const apiUrl = getApiUrl()
+    if (!apiUrl) throw new Error('mixed-content: skip insecure origin')
+    const res = await fetch(`${apiUrl}/admin-code/status?project=${product}&fingerprint=${fp}`)
     const data = await res.json()
     const priv: GuestPrivilege = data.active
       ? { active: true, tier: data.tier, aiLimit: data.aiLimit, expiresAt: data.expiresAt }
