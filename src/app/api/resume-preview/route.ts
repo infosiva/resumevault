@@ -1,6 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server'
+import { AI_LIMITER } from '@/lib/rateLimit'
 
 export async function POST(req: NextRequest) {
+  const limited = AI_LIMITER.check(req); if (limited) return limited
   const { role } = await req.json()
   if (!role) return NextResponse.json({ error: 'Missing role' }, { status: 400 })
 

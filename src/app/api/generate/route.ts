@@ -1,7 +1,9 @@
 import { NextRequest, NextResponse } from "next/server";
 import { callAI } from "@/lib/ai";
+import { AI_LIMITER } from "@/lib/rateLimit";
 
 export async function POST(req: NextRequest) {
+  const limited = AI_LIMITER.check(req); if (limited) return limited
   const { jobDesc, experience, skills, name, currentTitle, mode } = await req.json();
 
   if (mode === "analyze") {
