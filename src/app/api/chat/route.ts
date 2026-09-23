@@ -33,9 +33,9 @@ export async function POST(req: NextRequest) {
           method: 'POST',
           headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${groqKey}` },
           body: JSON.stringify({
-            model: 'llama-3.1-8b-instant',
+            model: 'qwen/qwen3.8-27b',
             messages: [{ role: 'system', content: systemPrompt }, ...messages],
-            max_tokens: 300,
+            max_tokens: 400,
             temperature: 0.5,
             stream: true,
           }),
