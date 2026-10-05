@@ -1,6 +1,7 @@
 "use client";
 import { useState, useEffect, useRef } from "react";
 import { motion } from "framer-motion";
+import { MagneticButton } from "@infosiva/shared-ui/modern";
 import { Panel, Group as PanelGroup, Separator as PanelResizeHandle } from "react-resizable-panels";
 import ResumeForm from "@/components/ResumeForm";
 import ResumePreview from "@/components/ResumePreview";
@@ -754,9 +755,11 @@ export default function ResumeVaultPage({ overrides }: { overrides: ContentOverr
                   </li>
                 ))}
               </ul>
-              <a href="#how" className="block w-full py-3 text-center font-semibold text-sm rounded-lg border transition-all btn-press"
-                style={{ borderColor: 'rgba(59,130,246,0.2)', color: 'rgba(255,255,255,0.55)' }}>
-                Get started free
+              <a href="#how" className="block w-full">
+                <MagneticButton tabIndex={-1} className="block w-full py-3 text-center font-semibold text-sm rounded-lg border transition-all btn-press"
+                  style={{ background: 'transparent', borderColor: 'rgba(59,130,246,0.2)', color: 'rgba(255,255,255,0.55)' }}>
+                  Get started free
+                </MagneticButton>
               </a>
             </div>
 

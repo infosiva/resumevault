@@ -16,6 +16,7 @@ import FeedbackWidget from '@/components/FeedbackWidget'
 import { getSiteFlags } from '@/lib/flags'
 import { loadSiteTheme, buildThemeStyleTag, isWidgetHidden } from '@/lib/theme-loader'
 
+import { MotionProvider } from "@infosiva/shared-ui/modern";
 const brand: BrandConfig = {
   name: 'ResumeVault',
   tagline: siteConfig.tagline,
@@ -137,7 +138,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
       <body className="flex flex-col min-h-screen">
         <DesignEffects />
         <div id="layout-nav"><SharedNavbar brand={brand} /></div>
-        <main className="flex-1 pt-16">{children}</main>
+        <main className="flex-1 pt-16"><MotionProvider>{children}</MotionProvider></main>
         <AffiliateStrip />
         <Footer siteName="ResumeVault" />
       {flags.chatbot && !isWidgetHidden(theme, 'chatbot') && <ChatBot />}
