@@ -2,3 +2,5 @@
 .next/
 node_modules/
 .gstack/
+.env*
+!.env.example
