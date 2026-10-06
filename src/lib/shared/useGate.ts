@@ -3,7 +3,7 @@ import { useState, useEffect, useRef } from 'react'
 import { isLoggedIn } from './useMagicAuth'
 
 function getApiUrl(): string | null {
-  const url = (process.env.NEXT_PUBLIC_AUTH_API_URL as string) || 'http://31.97.56.148:3110'
+  const url = (process.env.NEXT_PUBLIC_AUTH_API_URL as string) || '/auth-api'
   // Skip insecure http:// origin when page is https — browser blocks it as mixed
   // content anyway, this just avoids the console error before hitting the catch.
   if (typeof window !== 'undefined' && window.location.protocol === 'https:' && url.startsWith('http://')) {
