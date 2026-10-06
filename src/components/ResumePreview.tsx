@@ -139,7 +139,7 @@ function mdToHtml(md: string): string {
 }
 
 const CATEGORY_COLORS: Record<string, string> = {
-  behavioural: "bg-violet-500/15 border-violet-500/30 text-violet-300",
+  behavioural: "bg-blue-500/15 border-blue-500/30 text-blue-300",
   technical: "bg-cyan-500/15 border-cyan-500/30 text-cyan-300",
   situational: "bg-amber-500/15 border-amber-500/30 text-amber-300",
   culture: "bg-emerald-500/15 border-emerald-500/30 text-emerald-300",
@@ -182,7 +182,7 @@ function InterviewPrepPanel({ prep }: { prep: InterviewPrep }) {
               }}
               className={`text-[10px] px-3 py-1.5 rounded-full border font-medium transition-all ${
                 practiceMode
-                  ? "bg-orange-500/20 border-orange-500/40 text-orange-300"
+                  ? "bg-blue-500/20 border-blue-500/40 text-blue-300"
                   : "bg-white/5 border-white/10 text-white/50 hover:text-white"
               }`}
             >
@@ -314,8 +314,8 @@ function ATSTipsPanel({ analysis }: { analysis: Analysis }) {
   const missing = analysis.missing_keywords || [];
   if (missing.length === 0) return null;
   return (
-    <div className="rounded-xl border border-orange-500/20 bg-orange-500/5 p-4">
-      <div className="text-[10px] text-orange-400/70 uppercase tracking-wider mb-2 font-semibold">
+    <div className="rounded-xl border border-blue-500/20 bg-blue-500/5 p-4">
+      <div className="text-[10px] text-blue-400/70 uppercase tracking-wider mb-2 font-semibold">
         ⚡ ATS Quick Wins — Add these to your resume
       </div>
       <p className="text-xs text-white/50 mb-3">
@@ -325,7 +325,7 @@ function ATSTipsPanel({ analysis }: { analysis: Analysis }) {
         {missing.slice(0, 10).map((kw) => (
           <span
             key={kw}
-            className="text-[11px] px-2 py-0.5 rounded-full bg-orange-500/15 border border-orange-500/30 text-orange-200 font-medium"
+            className="text-[11px] px-2 py-0.5 rounded-full bg-blue-500/15 border border-blue-500/30 text-blue-200 font-medium"
           >
             + {kw}
           </span>
@@ -590,12 +590,12 @@ h1{color:#111}h2{color:#333;border-bottom:1px solid #ddd}li{margin:0.2rem 0}
               onClick={() => onTabChange(tab.id)}
               className={`relative px-4 py-2.5 text-sm font-medium rounded-t-lg transition-all flex items-center gap-1.5 ${
                 activeTab === tab.id
-                  ? "text-white bg-white/[0.06] border-b-2 border-orange-400"
+                  ? "text-white bg-white/[0.06] border-b-2 border-blue-400"
                   : "text-white/40 hover:text-white/70"
               }`}
             >
               {tab.label}
-              {tab.dot && <span className="w-1.5 h-1.5 rounded-full bg-orange-400" />}
+              {tab.dot && <span className="w-1.5 h-1.5 rounded-full bg-blue-400" />}
             </button>
           ))}
         </div>
@@ -621,7 +621,7 @@ h1{color:#111}h2{color:#333;border-bottom:1px solid #ddd}li{margin:0.2rem 0}
                       </button>
                       <button
                         onClick={() => setDownloadOpen((o) => !o)}
-                        className="px-3 py-2 rounded-lg border border-orange-500/30 bg-orange-500/10 hover:bg-orange-500/20 text-orange-300 text-xs font-medium transition-all flex items-center gap-1"
+                        className="px-3 py-2 rounded-lg border border-blue-500/30 bg-blue-500/10 hover:bg-blue-500/20 text-blue-300 text-xs font-medium transition-all flex items-center gap-1"
                       >
                         ↓ Export ▾
                       </button>
@@ -679,7 +679,7 @@ h1{color:#111}h2{color:#333;border-bottom:1px solid #ddd}li{margin:0.2rem 0}
               <div className="rounded-xl border border-white/5 bg-black/30 p-4 min-h-[350px] overflow-y-auto flex-1">
                 {loading ? (
                   <div className="flex flex-col items-center justify-center h-full gap-4">
-                    <div className="w-10 h-10 rounded-full border-2 border-orange-500 border-t-transparent animate-spin" />
+                    <div className="w-10 h-10 rounded-full border-2 border-blue-500 border-t-transparent animate-spin" />
                     <p className="text-sm text-white/40">Tailoring your resume...</p>
                     <p className="text-xs text-white/25">
                       Matching keywords · ATS optimising · Highlighting your best experience
@@ -779,7 +779,7 @@ h1{color:#111}h2{color:#333;border-bottom:1px solid #ddd}li{margin:0.2rem 0}
                   </p>
                 </div>
                 {interviewPrep?.role_title && (
-                  <span className="text-xs px-2.5 py-1 rounded-full bg-orange-500/15 border border-orange-500/30 text-orange-300">
+                  <span className="text-xs px-2.5 py-1 rounded-full bg-blue-500/15 border border-blue-500/30 text-blue-300">
                     {interviewPrep.role_title}
                   </span>
                 )}

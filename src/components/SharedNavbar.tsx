@@ -44,7 +44,7 @@ export default function SharedNavbar({ brand }: { brand: BrandConfig }) {
               className="text-lg leading-none transition-transform duration-200 group-hover:scale-110"
               aria-hidden
             >
-              {brand.icon}
+              {brand.icon.startsWith('/') ? <img src={brand.icon} alt="" className="w-7 h-7" /> : brand.icon}
             </span>
             <span className="font-semibold text-white/90 text-sm tracking-tight">
               {brand.name}
@@ -111,7 +111,7 @@ export default function SharedNavbar({ brand }: { brand: BrandConfig }) {
         >
           <div className="px-5 pt-5 pb-4 flex items-center justify-between border-b border-white/[0.05]">
             <Link href="/" onClick={() => setOpen(false)} className="flex items-center gap-2">
-              <span className="text-lg">{brand.icon}</span>
+              <span className="text-lg">{brand.icon.startsWith("/") ? <img src={brand.icon} alt="" className="w-6 h-6" /> : brand.icon}</span>
               <span className="font-semibold text-white/90 text-sm">{brand.name}</span>
             </Link>
             <button onClick={() => setOpen(false)} className="p-1.5 text-white/40 hover:text-white/80 transition-colors">

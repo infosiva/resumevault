@@ -9,7 +9,7 @@
 import { useState } from 'react'
 import { usePromo } from '@/lib/usePromo'
 
-const ACCENT = '#7c3aed'
+const ACCENT = '#1d4ed8'
 
 export default function PromoBar() {
   const { isUnlocked, daysLeft } = usePromo()
@@ -21,7 +21,7 @@ export default function PromoBar() {
     return (
       <div
         className="text-sm font-medium rounded-full px-4 py-2 w-fit"
-        style={{ background: 'rgba(124,58,237,0.14)', color: '#a78bfa', border: '1px solid rgba(124,58,237,0.25)' }}
+        style={{ background: 'rgba(29,78,216,0.14)', color: '#60a5fa', border: '1px solid rgba(29,78,216,0.25)' }}
       >
         🎉 Pro access active — {daysLeft} day{daysLeft === 1 ? '' : 's'} remaining
       </div>
@@ -54,7 +54,7 @@ export default function PromoBar() {
         <button
           onClick={() => setOpen(true)}
           className="underline underline-offset-2 opacity-70 hover:opacity-100 transition-opacity"
-          style={{ color: '#a78bfa' }}
+          style={{ color: '#60a5fa' }}
         >
           Have a promo code?
         </button>
@@ -66,7 +66,7 @@ export default function PromoBar() {
             onKeyDown={(e) => e.key === 'Enter' && submit()}
             placeholder="Enter code"
             className="rounded-md px-3 py-1.5 text-sm text-white"
-            style={{ background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(124,58,237,0.3)' }}
+            style={{ background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(29,78,216,0.3)' }}
           />
           <button
             onClick={submit}

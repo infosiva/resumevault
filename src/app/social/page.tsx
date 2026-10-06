@@ -32,7 +32,7 @@ const POSTS = [
   {
     platform: 'Reddit',
     icon: '🔺',
-    color: 'bg-orange-600',
+    color: 'bg-blue-600',
     handle: 'r/cscareerquestions',
     time: '4h',
     text: `Built a free ATS resume checker + AI rewriter — because I was frustrated with every paid tool\n\nEvery ATS checker either gave vague feedback or charged $30/month before showing anything useful.\n\nResumeVault:\n• Compares your resume vs job description\n• Shows exactly which keywords are missing\n• Rewrites weak bullets with action verbs + metrics\n• Generates a tailored cover letter\n\nFree: 3 resumes/month. resumevault.app`,

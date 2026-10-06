@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react'
 
 interface Props { accentColor?: string }
 
-export default function BackToTop({ accentColor = '#7c3aed' }: Props) {
+export default function BackToTop({ accentColor = '#1d4ed8' }: Props) {
   const [visible, setVisible] = useState(false)
 
   useEffect(() => {

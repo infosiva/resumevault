@@ -226,9 +226,9 @@ export default function ResumeForm({
   }
 
   const fieldClass =
-    "w-full bg-white border border-gray-200 rounded-xl px-4 py-3 text-sm text-gray-900 placeholder-gray-400 focus:outline-none focus:border-orange-400 focus:ring-1 focus:ring-orange-200 transition-all resize-none";
+    "w-full bg-white border border-gray-200 rounded-xl px-4 py-3 text-sm text-gray-900 placeholder-gray-400 focus:outline-none focus:border-blue-400 focus:ring-1 focus:ring-blue-200 transition-all resize-none";
   const inputClass =
-    "w-full bg-white border border-gray-200 rounded-xl px-4 py-3 text-sm text-gray-900 placeholder-gray-400 focus:outline-none focus:border-orange-400 focus:ring-1 focus:ring-orange-200 transition-all";
+    "w-full bg-white border border-gray-200 rounded-xl px-4 py-3 text-sm text-gray-900 placeholder-gray-400 focus:outline-none focus:border-blue-400 focus:ring-1 focus:ring-blue-200 transition-all";
 
   const hasInput = !!jobDesc && !!experience;
   const isAnyLoading = analyzing || generatingCL || generatingPrep || generatingAll;
@@ -323,7 +323,7 @@ export default function ResumeForm({
             type="button"
             onClick={handleGenerateAll}
             disabled={!hasInput || isAnyLoading}
-            className="w-full py-4 rounded-xl bg-gradient-to-r from-orange-600 to-rose-600 hover:from-orange-500 hover:to-rose-500 font-bold text-base transition-all shadow-lg shadow-orange-500/20 flex items-center justify-center gap-2 disabled:opacity-40"
+            className="w-full py-4 rounded-xl bg-gradient-to-r from-blue-600 to-rose-600 hover:from-blue-500 hover:to-rose-500 font-bold text-base transition-all shadow-lg shadow-blue-500/20 flex items-center justify-center gap-2 disabled:opacity-40"
           >
             {generatingAll ? (
               <>
@@ -348,10 +348,10 @@ export default function ResumeForm({
               type="button"
               onClick={handleAnalyze}
               disabled={!hasInput || analyzing}
-              className="py-2.5 rounded-xl border border-violet-500/40 bg-violet-500/10 hover:bg-violet-500/20 text-violet-300 font-medium text-xs transition-all disabled:opacity-40 flex items-center justify-center gap-1.5"
+              className="py-2.5 rounded-xl border border-blue-500/40 bg-blue-500/10 hover:bg-blue-500/20 text-blue-300 font-medium text-xs transition-all disabled:opacity-40 flex items-center justify-center gap-1.5"
             >
               {analyzing ? (
-                <div className="w-3 h-3 border-2 border-violet-400/30 border-t-violet-400 rounded-full animate-spin" />
+                <div className="w-3 h-3 border-2 border-blue-400/30 border-t-blue-400 rounded-full animate-spin" />
               ) : (
                 <span>⚡</span>
               )}
@@ -409,7 +409,7 @@ export default function ResumeForm({
           freeLimit={3}
           freeFeature="resumes"
           lockedFeature="unlimited resume generations"
-          accentColor="#f97316"
+          accentColor="#2563eb"
           site="resumevault"
           onSuccess={(user) => {
             onRegistered()

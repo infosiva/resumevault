@@ -23,16 +23,16 @@ export const theme = {
   border:      'rgba(255,255,255,0.08)',
   borderHover: 'rgba(255,255,255,0.16)',
 
-  accent1:     '#f97316',           // orange — energy, career drive
-  accent2:     '#fb923c',
+  accent1:     '#2563eb',           // cobalt — trust, career drive
+  accent2:     '#60a5fa',
   accentText:  '#fdba74',
-  accentGlow:  'rgba(249,115,22,0.15)',
+  accentGlow:  'rgba(37,99,235,0.15)',
 
   // Aurora blobs (fixed position, pointer-events none)
   blobs: [
-    { x: '-10%', y: '-20%', w: '600px', h: '500px', color: 'rgba(249,115,22,0.12)', blur: '140px' },
-    { x: '60%',  y: '40%',  w: '400px', h: '400px', color: 'rgba(234,88,12,0.08)',  blur: '120px' },
-    { x: '20%',  y: '80%',  w: '300px', h: '300px', color: 'rgba(251,146,60,0.06)', blur: '100px' },
+    { x: '-10%', y: '-20%', w: '600px', h: '500px', color: 'rgba(37,99,235,0.12)', blur: '140px' },
+    { x: '60%',  y: '40%',  w: '400px', h: '400px', color: 'rgba(29,78,216,0.08)',  blur: '120px' },
+    { x: '20%',  y: '80%',  w: '300px', h: '300px', color: 'rgba(96,165,250,0.06)', blur: '100px' },
   ],
 
   // ── Typography ────────────────────────────────────────────

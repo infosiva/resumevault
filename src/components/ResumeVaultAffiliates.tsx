@@ -20,7 +20,7 @@ const AFFILIATE_LINKS = [
     tagline: 'Design stunning resume layouts with 1000+ templates',
     cta: 'Get Canva Free →',
     url: 'https://canva.com/?affiliate=siva', // TODO: replace with real affiliate link
-    color: '#7c3aed',
+    color: '#1d4ed8',
     icon: '🎨',
   },
   {

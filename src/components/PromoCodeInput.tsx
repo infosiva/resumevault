@@ -39,13 +39,13 @@ export default function PromoCodeInput() {
           onKeyDown={e => e.key === 'Enter' && apply()}
           placeholder="Enter code"
           className="rounded-lg border px-3 py-1.5 text-[13px] outline-none bg-transparent"
-          style={{ borderColor: 'rgba(124,58,237,0.3)', color: '#f1f5f9', width: 140 }}
+          style={{ borderColor: 'rgba(29,78,216,0.3)', color: '#f1f5f9', width: 140 }}
         />
         <button
           onClick={apply}
           disabled={state === 'loading'}
           className="rounded-lg px-3 py-1.5 text-[13px] font-bold text-white"
-          style={{ background: '#7c3aed' }}
+          style={{ background: '#1d4ed8' }}
         >
           {state === 'loading' ? '…' : 'Apply'}
         </button>

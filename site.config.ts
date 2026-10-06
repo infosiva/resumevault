@@ -11,11 +11,6 @@ export const siteConfig = {
   primaryColor: '#0f172a',
   email: 'info.siva@gmail.com',
 
-  stats: {
-    resumesBuilt: '28,000+',
-    interviewRate: '3.2×',
-    templates: '25+',
-  },
 
   chatbot: {
     openingMessage: 'Tell me the job title you\'re targeting and I\'ll tailor your resume to beat the ATS and get the interview.',

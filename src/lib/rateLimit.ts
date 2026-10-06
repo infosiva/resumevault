@@ -38,3 +38,5 @@ export function rateLimit(opts: { windowMs?: number; max?: number; message?: str
 
 export const AI_LIMITER  = rateLimit({ windowMs: 60_000, max: 10, message: 'AI rate limit — max 10/min. Sign in for unlimited access.' })
 export const API_LIMITER = rateLimit({ windowMs: 60_000, max: 30 })
+
+export const CHAT_LIMITER = rateLimit({ windowMs: 3_600_000, max: 60, message: 'Chat limit reached (60/hour). Please try again later.' })

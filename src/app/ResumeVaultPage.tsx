@@ -71,7 +71,7 @@ function HeroATSMeter() {
 
   const circumference = 2 * Math.PI * 40;
   const strokeDashoffset = circumference - (score / 100) * circumference;
-  const color = score < 65 ? '#ef4444' : score < 80 ? '#f59e0b' : '#22c55e';
+  const color = score < 65 ? '#ef4444' : score < 80 ? '#60a5fa' : '#22c55e';
   const label = score < 65 ? 'Needs work' : score < 80 ? 'Getting there' : 'Top 8%';
 
   return (
@@ -141,7 +141,7 @@ function ATSMeter() {
           <circle cx="48" cy="48" r="40" fill="none" stroke="rgba(255,255,255,0.06)" strokeWidth="8" />
           <circle
             cx="48" cy="48" r="40" fill="none"
-            stroke="#f59e0b" strokeWidth="8"
+            stroke="#60a5fa" strokeWidth="8"
             strokeLinecap="round"
             strokeDasharray={circumference}
             strokeDashoffset={strokeDashoffset}
@@ -149,7 +149,7 @@ function ATSMeter() {
           />
         </svg>
         <div className="absolute inset-0 flex flex-col items-center justify-center">
-          <span className="text-xl font-black" style={{ color: '#f59e0b' }}>{score}%</span>
+          <span className="text-xl font-black" style={{ color: '#60a5fa' }}>{score}%</span>
         </div>
       </div>
       <div className="text-center">
@@ -190,7 +190,7 @@ function TypingEffect({ lines }: { lines: string[] }) {
   return (
     <pre className="text-xs leading-relaxed whitespace-pre-wrap font-mono" style={{ color: 'rgba(255,255,255,0.65)' }}>
       {displayed}
-      {!done && <span className="inline-block w-0.5 h-3 ml-0.5 animate-pulse" style={{ background: '#f59e0b', verticalAlign: 'text-bottom' }} />}
+      {!done && <span className="inline-block w-0.5 h-3 ml-0.5 animate-pulse" style={{ background: '#60a5fa', verticalAlign: 'text-bottom' }} />}
     </pre>
   );
 }
@@ -329,10 +329,10 @@ export default function ResumeVaultPage({ overrides }: { overrides: ContentOverr
     "  improving velocity by 34%",
   ];
 
-  // BG: dark violet professional
-  const BG = '#0c0f1a';
-  const BG2 = '#0f0d1f';
-  const NAVY = '#150d2a';
+  // BG: deep cobalt professional
+  const BG = '#0a1226';
+  const BG2 = '#0d1733';
+  const NAVY = '#0b1a3d';
 
   return (
     <>
@@ -342,21 +342,21 @@ export default function ResumeVaultPage({ overrides }: { overrides: ContentOverr
       <div className="fixed inset-0 overflow-hidden pointer-events-none" aria-hidden="true" style={{ zIndex: 0 }}>
         <motion.div
           style={{ position: 'absolute', top: '-10%', left: '-5%', width: 700, height: 700, borderRadius: '50%',
-            background: 'radial-gradient(circle, rgba(124,58,237,0.18) 0%, rgba(109,40,217,0.06) 50%, transparent 70%)',
+            background: 'radial-gradient(circle, rgba(29,78,216,0.18) 0%, rgba(30,64,175,0.06) 50%, transparent 70%)',
             filter: 'blur(90px)' }}
           animate={{ x: [0, 30, 0], y: [0, -18, 0], scale: [1, 1.06, 1] }}
           transition={{ duration: 12, ease: 'easeInOut', repeat: Infinity }}
         />
         <motion.div
           style={{ position: 'absolute', bottom: '-10%', right: '-8%', width: 600, height: 600, borderRadius: '50%',
-            background: 'radial-gradient(circle, rgba(139,92,246,0.12) 0%, rgba(124,58,237,0.04) 50%, transparent 70%)',
+            background: 'radial-gradient(circle, rgba(59,130,246,0.12) 0%, rgba(29,78,216,0.04) 50%, transparent 70%)',
             filter: 'blur(100px)' }}
           animate={{ x: [0, -22, 0], y: [0, 18, 0], scale: [1, 1.05, 1] }}
           transition={{ duration: 14, ease: 'easeInOut', repeat: Infinity, delay: 2 }}
         />
         <motion.div
           style={{ position: 'absolute', top: '45%', right: '30%', width: 400, height: 400, borderRadius: '50%',
-            background: 'radial-gradient(circle, rgba(167,139,250,0.06) 0%, transparent 65%)',
+            background: 'radial-gradient(circle, rgba(96,165,250,0.06) 0%, transparent 65%)',
             filter: 'blur(80px)' }}
           animate={{ x: [0, 15, 0], y: [0, -12, 0] }}
           transition={{ duration: 10, ease: 'easeInOut', repeat: Infinity, delay: 1 }}
@@ -378,10 +378,10 @@ export default function ResumeVaultPage({ overrides }: { overrides: ContentOverr
                 WebkitBackdropFilter: 'blur(12px)',
                 border: '1px solid rgba(255,255,255,0.09)',
                 boxShadow: 'inset 0 1px 0 rgba(255,255,255,0.07)',
-                color: 'rgba(167,139,250,0.82)',
+                color: 'rgba(96,165,250,0.82)',
               }}
             >
-              <span style={{ color: '#a78bfa' }}>✦</span> AI Resume Builder · ATS-Optimized · Free to start
+              <span style={{ color: '#60a5fa' }}>✦</span> AI Resume Builder · ATS-Optimized · Free to start
             </span>
 
             <h1
@@ -390,10 +390,10 @@ export default function ResumeVaultPage({ overrides }: { overrides: ContentOverr
             >
               Your resume, rewritten<br />
               <span style={{
-                background: 'linear-gradient(135deg, #a78bfa 0%, #7c3aed 55%, #6d28d9 100%)',
+                background: 'linear-gradient(135deg, #60a5fa 0%, #1d4ed8 55%, #1e40af 100%)',
                 WebkitBackgroundClip: 'text',
                 WebkitTextFillColor: 'transparent',
-                filter: 'drop-shadow(0 0 32px rgba(124,58,237,0.5))',
+                filter: 'drop-shadow(0 0 32px rgba(29,78,216,0.5))',
               }}>for every job you apply to.</span>
             </h1>
 
@@ -422,24 +422,24 @@ export default function ResumeVaultPage({ overrides }: { overrides: ContentOverr
             {/* Stacked paper effect */}
             <div className="absolute" style={{ width: 290, height: 370, background: NAVY, borderRadius: 16,
               boxShadow: '0 8px 40px rgba(0,0,0,0.4)', transform: 'rotate(-2.5deg) translateX(-10px) translateY(10px)',
-              zIndex: 0, border: '1px solid rgba(124,58,237,0.12)' }} />
+              zIndex: 0, border: '1px solid rgba(29,78,216,0.12)' }} />
             <div className="absolute" style={{ width: 290, height: 370, background: NAVY, borderRadius: 16,
               transform: 'rotate(1.2deg) translateX(8px) translateY(-5px)',
-              zIndex: 1, border: '1px solid rgba(124,58,237,0.12)' }} />
+              zIndex: 1, border: '1px solid rgba(29,78,216,0.12)' }} />
 
             {/* Main resume card */}
             <div className="relative rounded-2xl p-6 w-full max-w-sm z-10" style={{
               background: BG2, border: '1px solid rgba(59,130,246,0.15)',
-              boxShadow: '0 20px 60px rgba(0,0,0,0.5), 0 0 0 1px rgba(124,58,237,0.12)' }}>
+              boxShadow: '0 20px 60px rgba(0,0,0,0.5), 0 0 0 1px rgba(29,78,216,0.12)' }}>
 
               {/* ATS Score — animated 54→91 on load */}
               <div className="absolute -top-6 -right-6 rounded-2xl p-3 z-20"
-                style={{ background: BG, border: '1px solid rgba(124,58,237,0.25)', boxShadow: '0 8px 30px rgba(0,0,0,0.5)' }}>
+                style={{ background: BG, border: '1px solid rgba(29,78,216,0.25)', boxShadow: '0 8px 30px rgba(0,0,0,0.5)' }}>
                 <HeroATSMeter />
               </div>
 
               {/* Resume header */}
-              <div className="mb-4 pb-4 border-b" style={{ borderColor: 'rgba(124,58,237,0.15)' }}>
+              <div className="mb-4 pb-4 border-b" style={{ borderColor: 'rgba(29,78,216,0.15)' }}>
                 <div className="font-black text-lg leading-tight text-white">Alexandra Chen</div>
                 <div className="text-sm font-semibold mb-2" style={{ color: '#93c5fd' }}>Senior Product Manager</div>
                 <div className="flex flex-wrap gap-1.5">
@@ -454,26 +454,26 @@ export default function ResumeVaultPage({ overrides }: { overrides: ContentOverr
               <div className="mb-3">
                 <div className="text-[10px] font-black uppercase tracking-widest mb-2 flex items-center gap-1.5"
                   style={{ color: 'rgba(255,255,255,0.4)' }}>
-                  <span className="w-1.5 h-1.5 rounded-full animate-pulse" style={{ background: '#f59e0b' }} />
+                  <span className="w-1.5 h-1.5 rounded-full animate-pulse" style={{ background: '#60a5fa' }} />
                   AI Writing experience…
                 </div>
                 <TypingEffect lines={typingLines} />
               </div>
 
               {/* Keywords */}
-              <div className="pt-3 border-t" style={{ borderColor: 'rgba(124,58,237,0.15)' }}>
+              <div className="pt-3 border-t" style={{ borderColor: 'rgba(29,78,216,0.15)' }}>
                 <div className="text-[9px] font-bold uppercase tracking-widest mb-1.5" style={{ color: 'rgba(255,255,255,0.25)' }}>ATS Keywords Matched</div>
                 <div className="flex flex-wrap gap-1">
                   {['Python','AWS','Agile','Product Strategy','SQL','Stakeholder Mgmt'].map((kw) => (
                     <span key={kw} className="text-[9px] px-1.5 py-0.5 rounded font-semibold"
-                      style={{ background: 'rgba(245,158,11,0.12)', color: '#f59e0b' }}>{kw}</span>
+                      style={{ background: 'rgba(96,165,250,0.12)', color: '#60a5fa' }}>{kw}</span>
                   ))}
                 </div>
               </div>
 
               <div className="pt-3 mt-2 border-t flex items-center gap-1.5" style={{ borderColor: 'rgba(59,130,246,0.08)' }}>
                 <span className="w-1.5 h-1.5 rounded-full animate-pulse" style={{ background: '#22c55e' }} />
-                <span className="text-[9px]" style={{ color: 'rgba(255,255,255,0.25)' }}>AI-generated · tailored to job description</span>
+                <span className="text-[9px]" style={{ color: 'rgba(255,255,255,0.25)' }}>Illustrative sample · not a real person</span>
               </div>
             </div>
 
@@ -497,8 +497,6 @@ export default function ResumeVaultPage({ overrides }: { overrides: ContentOverr
           <span>Free PDF download</span>
           <span style={{ color: 'rgba(255,255,255,0.12)' }}>·</span>
           <span>AI cover letter included</span>
-          <span style={{ color: 'rgba(255,255,255,0.12)' }}>·</span>
-          <span>No fake stats</span>
         </div>
       </div>
 
@@ -507,12 +505,12 @@ export default function ResumeVaultPage({ overrides }: { overrides: ContentOverr
         <div className="flex gap-3 w-max">
           {[
             { icon: '🎯', title: 'Target any role', desc: 'AI tailors your bullets to each job description' },
-            { icon: '📊', title: 'ATS score 94%', desc: 'Beat automated filters before human review' },
+            { icon: '📊', title: 'Live ATS score', desc: 'See your keyword match before you apply' },
             { icon: '⚡', title: '60-second resume', desc: 'Paste experience, AI writes the rest' },
             { icon: '📄', title: 'PDF in one click', desc: 'Recruiter-ready format, instant download' },
           ].map((card) => (
             <div key={card.title} className="rounded-xl p-4 flex-shrink-0 w-52"
-              style={{ background: BG2, border: '1px solid rgba(124,58,237,0.15)' }}>
+              style={{ background: BG2, border: '1px solid rgba(29,78,216,0.15)' }}>
               <div className="text-2xl mb-2">{card.icon}</div>
               <div className="text-sm font-bold text-white mb-1">{card.title}</div>
               <div className="text-xs leading-relaxed" style={{ color: 'rgba(255,255,255,0.4)' }}>{card.desc}</div>
@@ -535,7 +533,7 @@ export default function ResumeVaultPage({ overrides }: { overrides: ContentOverr
               { step: '03', title: 'Download & apply', desc: 'Export a polished, ATS-optimised PDF that passes filters and impresses recruiters.' },
             ].map((s, i) => (
               <div key={s.step} className={`rounded-xl p-5 border reveal stagger-${i + 1}`}
-                style={{ background: BG, borderColor: 'rgba(124,58,237,0.15)' }}>
+                style={{ background: BG, borderColor: 'rgba(29,78,216,0.15)' }}>
                 <div className="text-3xl font-black mb-3" style={{ color: 'rgba(30,58,138,0.6)', fontVariantNumeric: 'tabular-nums' }}>{s.step}</div>
                 <div className="font-bold text-sm mb-1 text-white">{s.title}</div>
                 <div className="text-xs leading-relaxed" style={{ color: 'rgba(255,255,255,0.4)' }}>{s.desc}</div>
@@ -549,7 +547,7 @@ export default function ResumeVaultPage({ overrides }: { overrides: ContentOverr
       <section className="py-12 border-b" style={{ borderColor: 'rgba(255,255,255,0.05)', background: BG }}>
         <div className="max-w-5xl mx-auto px-6">
           <div className="text-center mb-8 reveal">
-            <div className="text-xs font-bold uppercase tracking-widest mb-2" style={{ color: '#93c5fd' }}>Before vs After</div>
+            <div className="text-xs font-bold uppercase tracking-widest mb-2" style={{ color: '#93c5fd' }}>Before vs After (illustrative example)</div>
             <h2 className="text-2xl font-black tracking-tight text-white">See the AI difference</h2>
           </div>
           <div className="grid md:grid-cols-2 gap-5">
@@ -558,7 +556,7 @@ export default function ResumeVaultPage({ overrides }: { overrides: ContentOverr
               <div className="flex items-center gap-2 mb-3">
                 <span className="w-5 h-5 rounded-full flex items-center justify-center text-xs font-black text-white" style={{ background: '#ef4444' }}>✕</span>
                 <span className="text-sm font-bold" style={{ color: '#ef4444' }}>Without ResumeVault</span>
-                <span className="ml-auto text-xs px-2 py-0.5 rounded-full font-semibold" style={{ background: 'rgba(220,38,38,0.12)', color: '#ef4444' }}>ATS: 31%</span>
+                <span className="ml-auto text-xs px-2 py-0.5 rounded-full font-semibold" style={{ background: 'rgba(220,38,38,0.12)', color: '#ef4444' }}>Example: weak</span>
               </div>
               <div className="space-y-1.5 text-xs leading-relaxed" style={{ color: 'rgba(255,255,255,0.3)' }}>
                 <p>• Responsible for managing projects</p>
@@ -573,7 +571,7 @@ export default function ResumeVaultPage({ overrides }: { overrides: ContentOverr
               <div className="flex items-center gap-2 mb-3">
                 <span className="w-5 h-5 rounded-full flex items-center justify-center text-xs font-black text-white" style={{ background: '#22c55e' }}>✓</span>
                 <span className="text-sm font-bold" style={{ color: '#22c55e' }}>With ResumeVault</span>
-                <span className="ml-auto text-xs px-2 py-0.5 rounded-full font-semibold" style={{ background: 'rgba(34,197,94,0.12)', color: '#22c55e' }}>ATS: 94%</span>
+                <span className="ml-auto text-xs px-2 py-0.5 rounded-full font-semibold" style={{ background: 'rgba(34,197,94,0.12)', color: '#22c55e' }}>Example: strong</span>
               </div>
               <div className="space-y-1.5 text-xs leading-relaxed" style={{ color: 'rgba(255,255,255,0.6)' }}>
                 <p>• <strong className="text-white">Led product roadmap</strong> for B2B SaaS, driving <strong className="text-white">$1.2M ARR</strong> growth in 6 months</p>
@@ -590,10 +588,10 @@ export default function ResumeVaultPage({ overrides }: { overrides: ContentOverr
       <section id="how" className="max-w-7xl mx-auto px-4 sm:px-6 py-10 sm:py-12" style={{ background: BG }}>
         {tailorPrompt && (
           <div className="mb-4 rounded-xl flex items-start gap-3 px-4 py-3 border"
-            style={{ background: 'rgba(245,158,11,0.08)', borderColor: 'rgba(245,158,11,0.25)' }}>
-            <span className="text-sm mt-0.5" style={{ color: '#f59e0b' }}>🎯</span>
+            style={{ background: 'rgba(96,165,250,0.08)', borderColor: 'rgba(96,165,250,0.25)' }}>
+            <span className="text-sm mt-0.5" style={{ color: '#60a5fa' }}>🎯</span>
             <div className="flex-1 min-w-0">
-              <p className="text-xs font-semibold mb-0.5" style={{ color: '#f59e0b' }}>Job tailor ready</p>
+              <p className="text-xs font-semibold mb-0.5" style={{ color: '#60a5fa' }}>Job tailor ready</p>
               <p className="text-xs truncate" style={{ color: 'rgba(255,255,255,0.5)' }}>{tailorPrompt}</p>
             </div>
             <button onClick={() => setTailorPrompt(null)} className="text-xs flex-shrink-0" style={{ color: 'rgba(255,255,255,0.25)' }}>✕</button>
@@ -602,7 +600,7 @@ export default function ResumeVaultPage({ overrides }: { overrides: ContentOverr
         {/* Mobile: stacked */}
         <div className="lg:hidden space-y-6">
           <div className="space-y-4">
-            <div className="rounded-2xl p-6 border" style={{ background: BG2, borderColor: 'rgba(124,58,237,0.15)' }}>
+            <div className="rounded-2xl p-6 border" style={{ background: BG2, borderColor: 'rgba(29,78,216,0.15)' }}>
               <ResumeForm
                 onGenerate={(r, s) => { setResume(r); setSuggestions(s ?? []); setActivePreviewTab('resume'); }}
                 setLoading={setLoading}
@@ -646,7 +644,7 @@ export default function ResumeVaultPage({ overrides }: { overrides: ContentOverr
           <PanelGroup orientation="horizontal" className="h-full">
             <Panel defaultSize={45} minSize={30} maxSize={65}>
               <div className="h-full overflow-y-auto pr-2 space-y-4">
-                <div className="rounded-2xl p-8 border" style={{ background: BG2, borderColor: 'rgba(124,58,237,0.15)' }}>
+                <div className="rounded-2xl p-8 border" style={{ background: BG2, borderColor: 'rgba(29,78,216,0.15)' }}>
                   <ResumeForm
                     onGenerate={(r, s) => { setResume(r); setSuggestions(s ?? []); setActivePreviewTab('resume'); }}
                     setLoading={setLoading}
@@ -717,7 +715,7 @@ export default function ResumeVaultPage({ overrides }: { overrides: ContentOverr
               { icon: '💬', title: 'Interview Prep', desc: 'AI-generated interview questions tailored to the exact role you are targeting.' },
             ].map((feat, i) => (
               <div key={feat.title} className={`rounded-lg p-4 border card-hover reveal stagger-${(i % 6) + 1}`}
-                style={{ background: BG, borderColor: 'rgba(124,58,237,0.15)' }}>
+                style={{ background: BG, borderColor: 'rgba(29,78,216,0.15)' }}>
                 <div className="text-xl mb-2">{feat.icon}</div>
                 <div className="font-bold text-sm mb-1 text-white">{feat.title}</div>
                 <div className="text-xs leading-relaxed" style={{ color: 'rgba(255,255,255,0.4)' }}>{feat.desc}</div>
@@ -737,7 +735,7 @@ export default function ResumeVaultPage({ overrides }: { overrides: ContentOverr
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
             {/* Free */}
-            <div className="rounded-2xl p-7 border reveal" style={{ background: BG2, borderColor: 'rgba(124,58,237,0.15)' }}>
+            <div className="rounded-2xl p-7 border reveal" style={{ background: BG2, borderColor: 'rgba(29,78,216,0.15)' }}>
               <div className="text-xs font-bold uppercase tracking-widest mb-1" style={{ color: 'rgba(255,255,255,0.25)' }}>Free</div>
               <div className="text-5xl font-black mb-0.5 text-white">$0</div>
               <div className="text-sm mb-5" style={{ color: 'rgba(255,255,255,0.25)' }}>Always free</div>
@@ -782,14 +780,13 @@ export default function ResumeVaultPage({ overrides }: { overrides: ContentOverr
                 {[
                   "Unlimited resumes & cover letters",
                   "Full ATS optimisation engine",
-                  "LinkedIn import",
                   "PDF export (all templates)",
                   "Full interview prep (8 questions)",
                   "Salary range insights",
                   "Priority support",
                 ].map((f) => (
                   <li key={f} className="flex items-start gap-2 text-sm" style={{ color: 'rgba(255,255,255,0.7)' }}>
-                    <span style={{ color: '#f59e0b' }}>✓</span> {f}
+                    <span style={{ color: '#60a5fa' }}>✓</span> {f}
                   </li>
                 ))}
               </ul>
@@ -802,7 +799,7 @@ export default function ResumeVaultPage({ overrides }: { overrides: ContentOverr
                   onClick={handleUpgrade}
                   disabled={checkoutLoading}
                   className="w-full py-3 font-bold text-sm rounded-lg transition-all btn-press"
-                  style={{ background: '#f59e0b', color: '#0d1425', boxShadow: '0 4px 20px rgba(245,158,11,0.3)' }}
+                  style={{ background: '#60a5fa', color: '#0d1425', boxShadow: '0 4px 20px rgba(96,165,250,0.3)' }}
                 >
                   {checkoutLoading ? 'Loading…' : 'Start Pro — $9/mo'}
                 </button>
@@ -826,46 +823,7 @@ export default function ResumeVaultPage({ overrides }: { overrides: ContentOverr
         <ResumeVaultAffiliates />
       </div>
 
-      {/* Competitor comparison */}
-      <section style={{ borderTop:'1px solid rgba(255,255,255,0.05)', padding:'40px 24px', background: BG2 }}>
-        <div style={{ maxWidth:800, margin:'0 auto' }}>
-          <div style={{ textAlign:'center', marginBottom:28 }}>
-            <p style={{ fontSize:10, color:'rgba(255,255,255,0.2)', letterSpacing:'0.15em', textTransform:'uppercase', marginBottom:8 }}>How we compare</p>
-            <h2 style={{ fontSize:20, fontWeight:800, color:'#fff' }}>ResumeVault vs alternatives</h2>
-          </div>
-          <div style={{ overflowX:'auto' }}>
-            <table style={{ width:'100%', borderCollapse:'collapse', fontSize:12, background: BG, borderRadius:12, overflow:'hidden', border:'1px solid rgba(59,130,246,0.08)' }}>
-              <thead>
-                <tr style={{ borderBottom:'1px solid rgba(59,130,246,0.08)', background:'rgba(255,255,255,0.02)' }}>
-                  {['Feature','ResumeVault','Resume.io','Zety','Canva'].map((h,i) => (
-                    <th key={h} style={{ padding:'12px 14px', textAlign:i===0?'left':'center',
-                      color: i===1 ? '#93c5fd' : 'rgba(255,255,255,0.65)', fontWeight:700, fontSize:11, letterSpacing:'0.05em' }}>{h}</th>
-                  ))}
-                </tr>
-              </thead>
-              <tbody>
-                {[
-                  ['AI resume writer','✅ Claude AI','⚠️ Templates','⚠️ Templates','❌'],
-                  ['ATS optimization','✅ Built-in','✅','✅','❌'],
-                  ['No login required','✅','❌','❌','❌'],
-                  ['LinkedIn import','✅','❌','❌','❌'],
-                  ['Cover letter AI','✅','✅ Pro','✅ Pro','❌'],
-                  ['PDF download free','✅','❌ Paid','❌ Paid','✅'],
-                  ['Cost','Free / $9 mo','$9.95/mo','$8.25/mo','Free / $15 mo'],
-                ].map(row => (
-                  <tr key={row[0]} style={{ borderBottom:'1px solid rgba(59,130,246,0.05)' }}>
-                    {row.map((cell,i) => (
-                      <td key={i} style={{ padding:'10px 14px', textAlign:i===0?'left':'center',
-                        color: i===1 ? '#93c5fd' : i===0 ? 'rgba(255,255,255,0.55)' : 'rgba(255,255,255,0.25)',
-                        background: i===1 ? 'rgba(30,58,138,0.06)' : 'transparent', fontSize:11, fontWeight: i===1 ? 600 : 400 }}>{cell}</td>
-                    ))}
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-        </div>
-      </section>
+
 
       {/* Footer */}
       <footer style={{ borderTop:'1px solid rgba(255,255,255,0.05)', padding:'24px', background: BG }}>
@@ -883,7 +841,7 @@ export default function ResumeVaultPage({ overrides }: { overrides: ContentOverr
           <p style={{ fontSize:10, color:'rgba(255,255,255,0.12)' }}>© 2026 ResumeVault</p>
         </div>
       </footer>
-      <GuidedTour steps={RESUME_TOUR} storageKey="resumevault_tour_v1" accentColor="#f59e0b" />
+      <GuidedTour steps={RESUME_TOUR} storageKey="resumevault_tour_v1" accentColor="#60a5fa" />
       <FloatingChat />
     </main>
     <ResumeVaultCookieBanner />

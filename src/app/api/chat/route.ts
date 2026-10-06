@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { AI_LIMITER } from '@/lib/rateLimit'
+import { CHAT_LIMITER } from '@/lib/rateLimit'
 import { aiChat } from '@/lib/ai'
 
 export const runtime = 'nodejs'
@@ -11,10 +11,11 @@ interface Message {
 
 const DEFAULT_SYSTEM = `You are ResumeBot, the AI career assistant for ResumeVault — an AI-powered ATS resume builder.
 Help users write better resumes, understand ATS scoring, improve bullet points, prep for interviews, and navigate job searches.
-Be specific, encouraging, and give actionable advice. Focus on helping them land their next role.`
+Be specific, encouraging, and give actionable advice. Focus on helping them land their next role.
+If asked anything outside resumes, ATS, interviews or job search, reply: "I'm trained for ResumeVault. For that, try Google or ChatGPT!"`
 
 export async function POST(req: NextRequest) {
-  const limited = AI_LIMITER.check(req); if (limited) return limited
+  const limited = CHAT_LIMITER.check(req); if (limited) return limited
   try {
     const body = await req.json()
     const messages: Message[] = body.messages
@@ -96,6 +97,6 @@ export async function POST(req: NextRequest) {
     })
   } catch (err) {
     console.error('[/api/chat]', err)
-    return NextResponse.json({ error: 'Chat failed' }, { status: 500 })
+    return new NextResponse("Sorry, the assistant is busy right now. Please try again in a minute.", { headers: { 'Content-Type': 'text/plain; charset=utf-8' } })
   }
 }

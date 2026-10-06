@@ -5,7 +5,7 @@
  *
  * Usage:
  *   import FeedbackWidget from '@/components/FeedbackWidget'
- *   <FeedbackWidget siteName="Kwizzo" accentColor="#7c3aed" />
+ *   <FeedbackWidget siteName="Kwizzo" accentColor="#1d4ed8" />
  *
  * Requires:
  *   POST /api/feedback  — receives { type, rating, message, email?, page, site }
@@ -19,7 +19,7 @@ const FEEDBACK_TYPES = ['General', 'Bug Report', 'Feature Request', 'Content Iss
 
 interface Props {
   siteName: string
-  /** Main accent gradient start colour, e.g. '#7c3aed'. Defaults to amber. */
+  /** Main accent gradient start colour, e.g. '#1d4ed8'. Defaults to amber. */
   accentColor?: string
   /** Secondary accent colour. Defaults to rose/red. */
   accentColor2?: string

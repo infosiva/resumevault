@@ -40,7 +40,7 @@ export default function Error({
           style={{
             padding: '10px 20px',
             borderRadius: 10,
-            background: 'rgba(139,92,246,0.8)',
+            background: 'rgba(59,130,246,0.8)',
             color: '#fff',
             fontWeight: 700,
             fontSize: 13,

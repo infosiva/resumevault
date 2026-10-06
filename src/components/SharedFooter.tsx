@@ -12,7 +12,7 @@ export default function SharedFooter({ brand }: { brand: BrandConfig }) {
           {/* Brand */}
           <Link href="/" className="flex items-center gap-2 group select-none">
             <span className="text-base transition-transform duration-200 group-hover:scale-110" aria-hidden>
-              {brand.icon}
+              {brand.icon.startsWith('/') ? <img src={brand.icon} alt="" className="w-5 h-5" /> : brand.icon}
             </span>
             <span className="text-sm font-medium text-white/50 group-hover:text-white/70 transition-colors">
               {brand.name}
