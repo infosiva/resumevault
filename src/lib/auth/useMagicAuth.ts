@@ -13,7 +13,7 @@ export interface AuthUser {
 
 function getApiUrl(): string | null {
   if (typeof window !== 'undefined' && (window as { __AUTH_API__?: string }).__AUTH_API__) return (window as { __AUTH_API__?: string }).__AUTH_API__!
-  const url = (process.env.NEXT_PUBLIC_AUTH_API_URL as string) || '/auth-api'
+  const url = (process.env.NEXT_PUBLIC_AUTH_API_URL || '').replace(/^http:\/\/31\.97\.56\.148.*/, '') || '/auth-api'
   // Skip insecure http:// origin when page is https — browser blocks it as mixed
   // content anyway, this just avoids the console error before hitting the catch.
   if (typeof window !== 'undefined' && window.location.protocol === 'https:' && url.startsWith('http://')) {
