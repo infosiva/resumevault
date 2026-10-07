@@ -14,7 +14,8 @@ import AffiliateStrip from '@/components/AffiliateStrip'
 import ChatBot from '@/components/ChatBot'
 import FeedbackWidget from '@/components/FeedbackWidget'
 import { getSiteFlags } from '@/lib/flags'
-import { loadSiteTheme, buildThemeStyleTag, isWidgetHidden } from '@/lib/theme-loader'
+import { loadSiteTheme, buildThemeStyleTag, buildGa4Snippet, isWidgetHidden } from '@/lib/theme-loader'
+import { AnimatedBg } from '@/components/AnimatedBg'
 
 import { MotionProvider } from "@infosiva/shared-ui/modern";
 const brand: BrandConfig = {
@@ -68,9 +69,12 @@ export default async function RootLayout({ children }: { children: React.ReactNo
     secondary: '#60a5fa',
   })
 
+  const ga4 = buildGa4Snippet(theme) // GA4 consent-denied by default; off until hub sets ga4Id
+
   return (
     <html lang="en">
       <head>
+        {ga4 && <script dangerouslySetInnerHTML={{ __html: ga4 }} />}
         <meta name="google-adsense-account" content="ca-pub-4237294630161176" />
         <meta name="Impact-Site-Verification" content="de64bc17-b024-4bad-9e34-51e479420004" />
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
@@ -136,6 +140,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
         ` }} />
       </head>
       <body className="flex flex-col min-h-screen">
+        <AnimatedBg theme={theme} fallback="mesh" />
         <DesignEffects />
         <div id="layout-nav"><SharedNavbar brand={brand} /></div>
         <main className="flex-1 pt-16"><MotionProvider>{children}</MotionProvider></main>

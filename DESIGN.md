@@ -149,3 +149,11 @@ Resume preview = styled div with realistic resume layout. ATS gauge = SVG circle
 ---
 
 *Generated: 2026-05-07 by design-pipeline.ts*
+
+---
+
+## Production gate notes (2026-10-07)
+Source of truth for tokens: `agents/design-system`. Hub (Edge Config `theme_resumevault`) overrides palette, bg animation and GA4 with no code change; hub values win. Accent `#1d4ed8`. Logo: `src/components/Logo.tsx` (favicon `src/app/icon.svg`). Background: `src/components/AnimatedBg.tsx`. GA4 via `buildGa4Snippet`, consent-denied default, off until hub sets an ID.
+
+### ai-core
+NOT integrated yet. Needs an ai-core tenant key, which is owner-blocked and queued in `design-system/OWNER-TODO.md`. Resume upload and JD matching currently use `src/lib/ai.ts` directly (free-first chain); move to ai-core RAG once the key exists.
