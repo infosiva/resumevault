@@ -408,7 +408,7 @@ export default function ResumeVaultPage({ overrides }: { overrides: ContentOverr
             <div className="flex flex-wrap gap-2 pt-1">
               {['No account required','PDF download','ATS keyword scan','Cover letter AI','Interview prep'].map((pill) => (
                 <span key={pill} className="text-xs px-2.5 py-1 rounded-full font-medium"
-                  style={{ background: 'rgba(255,255,255,0.05)', color: 'rgba(255,255,255,0.4)', border: '1px solid rgba(255,255,255,0.08)' }}>
+                  style={{ background: 'rgba(255,255,255,0.05)', color: 'rgba(255,255,255,0.72)', border: '1px solid rgba(255,255,255,0.08)' }}>
                   {pill}
                 </span>
               ))}
@@ -489,7 +489,7 @@ export default function ResumeVaultPage({ overrides }: { overrides: ContentOverr
 
       {/* Trust bar */}
       <div className="border-b" style={{ borderColor: 'rgba(255,255,255,0.05)', background: BG2 }}>
-        <div className="max-w-5xl mx-auto px-6 py-3 flex flex-wrap items-center justify-center gap-x-5 gap-y-1 text-xs" style={{ color: 'rgba(255,255,255,0.3)' }}>
+        <div className="max-w-5xl mx-auto px-6 py-3 flex flex-wrap items-center justify-center gap-x-5 gap-y-1 text-xs" style={{ color: 'rgba(255,255,255,0.65)' }}>
           <span>ATS-optimised output</span>
           <span style={{ color: 'rgba(255,255,255,0.12)' }}>·</span>
           <span>No account required</span>
