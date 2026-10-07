@@ -17,6 +17,7 @@
  * delay       — ms before tour starts (default 1200, lets page settle).
  */
 
+import { createPortal } from 'react-dom'
 import { useEffect, useLayoutEffect, useRef, useState } from 'react'
 
 export interface TourStep {
@@ -51,6 +52,7 @@ export default function GuidedTour({
   const [tooltipPos, setTooltipPos] = useState({ top: 0, left: 0 })
   const [placement, setPlacement]   = useState<'top'|'bottom'|'left'|'right'>('bottom')
   const rafRef = useRef<number | null>(null)
+  const tipRef = useRef<HTMLDivElement>(null)
 
   // Start tour if not already done
   useEffect(() => {
@@ -97,6 +99,14 @@ export default function GuidedTour({
       window.removeEventListener('scroll', measure, true)
     }
   }, [active, idx, steps])
+
+  // Keep the measured tooltip fully inside the viewport
+  useLayoutEffect(() => {
+    const el = tipRef.current
+    if (!active || !el) return
+    const maxTop = Math.max(8, window.innerHeight - el.offsetHeight - 8)
+    if (tooltipPos.top > maxTop) setTooltipPos(p => ({ ...p, top: maxTop }))
+  }, [active, idx, tooltipPos])
 
   function computeTooltip(r: DOMRect, preferred?: string) {
     const vw = window.innerWidth
@@ -176,7 +186,7 @@ export default function GuidedTour({
     }),
   }
 
-  return (
+  return createPortal(
     <>
       <style>{`
         @keyframes tour-in  { from { opacity:0; transform:scale(0.93) translateY(8px); } to { opacity:1; transform:scale(1) translateY(0); } }
@@ -197,9 +207,7 @@ export default function GuidedTour({
         onClick={dismiss}
         style={{
           position: 'fixed', inset: 0, zIndex: 9998,
-          background: 'rgba(0,0,0,0.72)',
-          backdropFilter: 'blur(2px)',
-          WebkitBackdropFilter: 'blur(2px)',
+          background: spot ? 'transparent' : 'rgba(0,0,0,0.72)',
         }}
       />
 
@@ -223,6 +231,7 @@ export default function GuidedTour({
 
       {/* Tooltip bubble */}
       <div
+        ref={tipRef}
         className="tour-tooltip"
         style={{
           position: 'fixed',
@@ -300,5 +309,5 @@ export default function GuidedTour({
         </div>{/* end padding div */}
       </div>
     </>
-  )
+  , document.body)
 }
