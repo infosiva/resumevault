@@ -4,16 +4,24 @@ import Link from "next/link";
 
 const COOKIE_KEY = "cookie_consent_v1";
 
+// GA4 ships consent-denied (see buildGa4Snippet); grant only after Accept.
+function grantAnalytics() {
+  const w = window as unknown as { gtag?: (...a: unknown[]) => void };
+  w.gtag?.("consent", "update", { analytics_storage: "granted" });
+}
+
 export default function CookieConsent() {
   const [visible, setVisible] = useState(false);
 
   useEffect(() => {
     const consent = localStorage.getItem(COOKIE_KEY);
     if (!consent) setVisible(true);
+    else if (consent === "accepted") grantAnalytics();
   }, []);
 
   function accept() {
     localStorage.setItem(COOKIE_KEY, "accepted");
+    grantAnalytics();
     setVisible(false);
   }
 
@@ -28,12 +36,12 @@ export default function CookieConsent() {
     <div
       role="dialog"
       aria-label="Cookie consent"
-      className="fixed bottom-0 left-0 right-0 z-[9999] p-4 md:p-6 bg-zinc-950/95 border-t border-white/10 backdrop-blur-sm"
+      className="fixed bottom-0 left-0 right-0 z-[10001] p-4 md:p-6 bg-zinc-950/95 border-t border-white/10 backdrop-blur-sm"
     >
       <div className="max-w-4xl mx-auto flex flex-col sm:flex-row items-start sm:items-center gap-4">
         <div className="flex-1 text-sm text-white/70">
           <p>
-            We use cookies to improve your experience and show relevant ads via{" "}
+            We use cookies to improve your experience, measure usage with Google Analytics and show relevant ads via{" "}
             <strong className="text-white">Google AdSense</strong>. By clicking
             &ldquo;Accept&rdquo; you consent to our use of cookies.{" "}
             <Link href="/privacy" className="underline text-white/90">
