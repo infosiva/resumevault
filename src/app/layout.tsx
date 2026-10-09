@@ -14,7 +14,7 @@ import AffiliateStrip from '@/components/AffiliateStrip'
 import ChatBot from '@/components/ChatBot'
 import FeedbackWidget from '@/components/FeedbackWidget'
 import { getSiteFlags } from '@/lib/flags'
-import { loadSiteTheme, buildThemeStyleTag, buildGa4Snippet, isWidgetHidden } from '@/lib/theme-loader'
+import { loadSiteTheme, buildThemeStyleTag, buildGa4Snippet, resolveGa4Id, isWidgetHidden } from '@/lib/theme-loader'
 import { AnimatedBg } from '@/components/AnimatedBg'
 
 import { MotionProvider } from "@infosiva/shared-ui/modern";
@@ -74,6 +74,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
   return (
     <html lang="en">
       <head>
+        {buildGa4Snippet(theme) ? <script async src={`https://www.googletagmanager.com/gtag/js?id=${resolveGa4Id(theme)}`} /> : null}
         {ga4 && <script dangerouslySetInnerHTML={{ __html: ga4 }} />}
         <meta name="google-adsense-account" content="ca-pub-4237294630161176" />
         <meta name="Impact-Site-Verification" content="de64bc17-b024-4bad-9e34-51e479420004" />
