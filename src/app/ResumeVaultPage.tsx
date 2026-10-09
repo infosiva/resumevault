@@ -642,7 +642,7 @@ export default function ResumeVaultPage({ overrides }: { overrides: ContentOverr
         {/* Desktop: resizable split pane */}
         <div className="hidden lg:block" style={{ height: 'calc(100vh - 80px)' }}>
           <PanelGroup orientation="horizontal" className="h-full">
-            <Panel defaultSize={45} minSize={30} maxSize={65}>
+            <Panel defaultSize="45%" minSize="30%" maxSize="65%">
               <div className="h-full overflow-y-auto pr-2 space-y-4">
                 <div className="rounded-2xl p-8 border" style={{ background: BG2, borderColor: 'rgba(29,78,216,0.15)' }}>
                   <ResumeForm
@@ -673,7 +673,7 @@ export default function ResumeVaultPage({ overrides }: { overrides: ContentOverr
               />
             </PanelResizeHandle>
 
-            <Panel defaultSize={55} minSize={35}>
+            <Panel defaultSize="55%" minSize="35%">
               <div className="h-full overflow-y-auto pl-2">
                 <ResumePreview
                   resume={resume}
